@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "Pakosti.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Pakosti.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Pakosti.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Pakosti.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Pakosti.Domain/Pakosti.Domain.csproj",
+      "msbuildProject": "../Pakosti.Domain/Pakosti.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "Pakosti.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\maxay\\.nuget\\packages\\": {}
@@ -32,7 +51,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj": {
+              "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
