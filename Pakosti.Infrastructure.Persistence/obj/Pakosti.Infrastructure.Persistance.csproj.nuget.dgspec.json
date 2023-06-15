@@ -1,73 +1,9 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Api\\Pakosti.Api.csproj": {}
+    "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistance\\Pakosti.Infrastructure.Persistance.csproj": {}
   },
   "projects": {
-    "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Api\\Pakosti.Api.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Api\\Pakosti.Api.csproj",
-        "projectName": "Pakosti.Api",
-        "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Api\\Pakosti.Api.csproj",
-        "packagesPath": "C:\\Users\\maxay\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Api\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\maxay\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net8.0"
-        ],
-        "sources": {
-          "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.4.23260.5\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
-            "projectReferences": {
-              "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj": {
-                "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj"
-              },
-              "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistence\\Pakosti.Infrastructure.Persistence.csproj": {
-                "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistence\\Pakosti.Infrastructure.Persistence.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.4.23260.5\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
     "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -184,14 +120,14 @@
         }
       }
     },
-    "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistence\\Pakosti.Infrastructure.Persistence.csproj": {
+    "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistance\\Pakosti.Infrastructure.Persistance.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistence\\Pakosti.Infrastructure.Persistence.csproj",
-        "projectName": "Pakosti.Infrastructure.Persistence",
-        "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistence\\Pakosti.Infrastructure.Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistance\\Pakosti.Infrastructure.Persistance.csproj",
+        "projectName": "Pakosti.Infrastructure.Persistance",
+        "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistance\\Pakosti.Infrastructure.Persistance.csproj",
         "packagesPath": "C:\\Users\\maxay\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistence\\obj\\",
+        "outputPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistance\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\maxay\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -225,18 +161,6 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.0-preview.5.23280.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[8.0.0-preview.5.23280.1, )"
-            },
-            "Microsoft.Extensions.Configuration": {
-              "target": "Package",
-              "version": "[8.0.0-preview.5.23280.8, )"
-            },
-            "Microsoft.Extensions.Hosting": {
-              "target": "Package",
-              "version": "[8.0.0-preview.5.23280.8, )"
             }
           },
           "imports": [

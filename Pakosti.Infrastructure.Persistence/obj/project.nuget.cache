@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xC6qfYG/sZMfnlODG2fhu/PylWEZubg5HQ0T/0WrlB3HDOTWRg0ja1y/fYK+0L5kgrv9w3Rf7GmrkxYbtJL8Og==",
+  "dgSpecHash": "9CaU4gDz3AH8znrl1lcBKHcZM5nOrxRqMgkRBCRGODtpn4si/ASxXWHucZ05DQGjBaTGN3UuPAa2/qoWIMia1Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Api\\Pakosti.Api.csproj",
+  "projectFilePath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Infrastructure.Persistence\\Pakosti.Infrastructure.Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maxay\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

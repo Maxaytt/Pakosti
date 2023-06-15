@@ -7,21 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Categories\Commands\CreateCategory\" />
-      <Folder Include="Categories\Commands\DeleteCategory\" />
-      <Folder Include="Categories\Commands\UpdateCategory\" />
-      <Folder Include="Categories\Queries\GetCategoryDetails\" />
-      <Folder Include="Categories\Queries\GetCategoryList\" />
-      <Folder Include="Products\Commands\CreateProduct\" />
-      <Folder Include="Products\Commands\DeleteProduct\" />
-      <Folder Include="Products\Commands\UpdateProduct\" />
-      <Folder Include="Products\Queries\GetProductDetails\" />
-      <Folder Include="Products\Queries\GetProductList\" />
-      <Folder Include="Reviews\Commands\CreateReview\" />
-      <Folder Include="Reviews\Commands\DeleteReview\" />
-      <Folder Include="Reviews\Commands\UpdateReview\" />
-      <Folder Include="Reviews\Queries\GetReviewDetails\" />
-      <Folder Include="Reviews\Queries\GetReviewList\" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.5.23280.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Pakosti.Domain\Pakosti.Domain.csproj" />
     </ItemGroup>
 
 </Project>
