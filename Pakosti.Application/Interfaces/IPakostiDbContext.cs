@@ -3,7 +3,7 @@ using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Interfaces;
 
-public interface IPakostiDbContext 
+public interface IPakostiDbContext : ICategoryNullSetter
 {
     DbSet<Category> Categories { get; set; }
     DbSet<Product> Products { get; set; }

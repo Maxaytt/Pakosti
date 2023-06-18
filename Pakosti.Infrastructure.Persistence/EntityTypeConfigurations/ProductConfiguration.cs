@@ -11,12 +11,13 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasKey(product => product.Id);
         builder.HasIndex(product => product.Id);
 
-        builder.HasOne(product => product.Category)
-            .WithMany(category => category.Products)
-            .HasForeignKey(product => product.CategoryId);
+        builder.HasOne<Category>()
+            .WithMany()
+            .HasForeignKey(product => product.CategoryId)
+            .OnDelete(DeleteBehavior.SetNull);
 
-        builder.HasMany(product => product.Reviews)
-            .WithOne(review => review.Product)
+        builder.HasMany<Review>()
+            .WithOne()
             .HasForeignKey(review => review.ProductId);
 
         builder.Property(product => product.Name).HasMaxLength(50);

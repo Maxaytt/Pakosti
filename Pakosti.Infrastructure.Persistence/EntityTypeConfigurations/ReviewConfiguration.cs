@@ -11,11 +11,10 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
         builder.HasKey(review => review.Id);
         builder.HasIndex(review => review.Id);
 
-        builder.HasOne(review => review.Product)
-            .WithMany(review => review.Reviews)
-            .HasForeignKey(review => review.ProductId);
-
-        builder.Property(review => review.Name).HasMaxLength(50);
+        builder.HasOne<Product>()
+            .WithMany()
+            .HasForeignKey(review => review.ProductId);//TODO: OnDelete Cascade
+        
         builder.Property(review => review.Header).HasMaxLength(100);
         builder.Property(review => review.Body).HasMaxLength(2000);
     }

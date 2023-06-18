@@ -10,14 +10,15 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         builder.HasKey(category => category.Id);
         builder.HasIndex(category => category.Id);
-        builder.HasMany(category => category.Products)
-            .WithOne(product => product.Category)
-            .HasForeignKey(product => product.CategoryId);
-        
-        builder.HasMany(category => category.SubCategories)
-            .WithOne(category => category.ParentCategory)
+        builder.HasMany<Product>()
+            .WithOne()
+            .HasForeignKey(product => product.CategoryId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne<Category>()
+            .WithMany()
             .HasForeignKey(category => category.ParentCategoryId);
-        
+
         builder.Property(category => category.Name).HasMaxLength(50);
     }
 }

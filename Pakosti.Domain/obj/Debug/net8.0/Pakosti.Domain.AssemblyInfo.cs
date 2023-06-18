@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pakosti.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+68f67286dffc267153fac7ec91271c3ec29249e8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pakosti.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pakosti.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

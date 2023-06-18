@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Ec3SfoKIi6+Vfj0XKAxsp7cIqNEzcVv6Gd+P0Ng/Le8UDoKyRMsgtfrfRb0W+lHhW3lQ6VUdaLus5EL0t7exZA==",
+  "dgSpecHash": "QmnvPpZq7yKnPfyM5rMY4ML9Ye02pUH9pTO//YeDl46svocgK8bDOwEkCTNf1F1em5VEqf1jTu8nqUxiZYGn2A==",
   "success": true,
   "projectFilePath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\maxay\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\maxay\\.nuget\\packages\\mediatr\\12.0.1\\mediatr.12.0.1.nupkg.sha512",
+    "C:\\Users\\maxay\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\maxay\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.0-preview.5.23280.1\\microsoft.entityframeworkcore.8.0.0-preview.5.23280.1.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.0-preview.5.23280.1\\microsoft.entityframeworkcore.abstractions.8.0.0-preview.5.23280.1.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.0-preview.5.23280.1\\microsoft.entityframeworkcore.analyzers.8.0.0-preview.5.23280.1.nupkg.sha512",

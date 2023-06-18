@@ -23,4 +23,13 @@ public class PakostiDbContext : DbContext, IPakostiDbContext
         modelBuilder.ApplyConfiguration(new ReviewConfiguration());
         base.OnModelCreating(modelBuilder);
     }
+    
+    public async Task SetNullCategoryChildes(Category entity)
+    {
+        var categories = Categories.Where(c => c.ParentCategoryId == entity.Id);
+        await categories.ForEachAsync(c => c.ParentCategoryId = null);
+        await SaveChangesAsync();
+    }
+
+    
 }
