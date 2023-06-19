@@ -25,12 +25,19 @@ public class GetProductQueryHandler :
         var entity = await _context.Products
             .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken: cancellationToken);
         
-
         if (entity == null)
         {
             throw new NotFoundException(nameof(Product), request.Id);
         }
-
-        return _mapper.Map<ProductVm>(entity);
+        var category = await _context.Categories
+            .FirstOrDefaultAsync(c => c.Id == entity.CategoryId, cancellationToken);
+        
+        var vm = _mapper.Map<ProductVm>(entity);
+        if (category != null)
+        {
+            vm.CategoryName = category.Name;
+        }
+        
+        return vm;
     }
 }

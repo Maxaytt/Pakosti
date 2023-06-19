@@ -18,7 +18,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.HasMany<Review>()
             .WithOne()
-            .HasForeignKey(review => review.ProductId);
+            .HasForeignKey(review => review.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(product => product.Name).HasMaxLength(50);
         builder.Property(product => product.Description).HasMaxLength(2000);

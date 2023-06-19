@@ -24,7 +24,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
         
         if (product == null || product.UserId != request.UserId) 
             throw new NotFoundException(nameof(Product), request.Id);
-        if (category == null) throw new NotFoundException(nameof(Category), request.Id);
+        if (category == null) throw new NotFoundException(nameof(Category), request.CategoryId);
         
         product.CategoryId = request.CategoryId;
         product.EditionDate = DateTime.Now;

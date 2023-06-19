@@ -7,7 +7,8 @@ namespace Pakosti.Application.Cqrs.Products.Queries.GetProduct;
 public class ProductVm : IMapWith<Product>
 {
     public Guid Id { get; set; }
-    public Guid CategoryId { get; set; }
+    public Guid? CategoryId { get; set; }
+    public string? CategoryName { get; set; } 
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
     public DateTime CreationDate { get; set; }

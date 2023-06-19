@@ -17,9 +17,12 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
     public async Task<Guid> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var category = await _context.Categories
-            .FirstOrDefaultAsync(c => c.Id == request.CategoryId, cancellationToken);
-        if (category == null) throw new NotFoundException(nameof(Category), request.CategoryId);
+        if (request.CategoryId != null)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(c => c.Id == request.CategoryId, cancellationToken);
+            if (category == null) throw new NotFoundException(nameof(Category), request.CategoryId);
+        }
         
         var product = new Product
         {

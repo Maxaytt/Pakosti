@@ -1,3 +1,16 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7c0104fa_002D9a59_002D4d7d_002Daec4_002D43c53a88a3e2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CreateProductCommandHandlerTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Commands.CreateProductCommandHandlerTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Commands.UpdateProductCommandHandlerTests.Update_ValidCommand_ProductUpdated&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Commands.UpdateProductCommandHandlerTests.Update_ProductNotFound_ThrowsNotFoundException&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Commands.UpdateProductCommandHandlerTests.Update_CategoryNotFound_ThrowsNotFoundException&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Commands.DeleteProductCommandHandlerTests.Delete_ValidCommand_ProductDeleted&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Commands.DeleteProductCommandHandlerTests.Delete_ProductNotFound_ThrowsNotFoundException&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Pakosti/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Persistance/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
