@@ -20,9 +20,9 @@ public class GetProductListQueryHandler
 
     public async Task<ProductListVm> Handle(GetProductListQuery request, CancellationToken cancellationToken)
     {
-        var entities = await _context.Products
-            .ProjectTo<ProductLookupDto>(_mapper.ConfigurationProvider)
-            .ToListAsync(cancellationToken);
+        var products = _context.Products;
+        var projected = products.ProjectTo<ProductLookupDto>(_mapper.ConfigurationProvider);
+        var entities = await projected.ToListAsync(cancellationToken);
 
         return new ProductListVm { Products = entities };
     }

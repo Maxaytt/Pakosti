@@ -23,7 +23,7 @@ public class UpdateProductCommandHandlerTests : TestCommandBase
         var command = new UpdateProductCommand
         {
             Id = _contextFactory.ProductIdForUpdate,
-            UserId = _contextFactory.UserAId,
+            UserId = ContextFactory.UserAId,
             CategoryId = _contextFactory.CategoryId,
             Name = "Updated Product",
             Description = "Updated Description"
@@ -55,7 +55,7 @@ public class UpdateProductCommandHandlerTests : TestCommandBase
         var command = new UpdateProductCommand
         {
             Id = Guid.NewGuid(),
-            UserId = _contextFactory.UserAId,
+            UserId = ContextFactory.UserAId,
             CategoryId = _contextFactory.CategoryId,
             Name = "Updated product",
             Description = "Update description"
@@ -79,7 +79,7 @@ public class UpdateProductCommandHandlerTests : TestCommandBase
         var command = new UpdateProductCommand
         {
             Id = _contextFactory.ProductIdForUpdate,
-            UserId = _contextFactory.UserAId,
+            UserId = ContextFactory.UserAId,
             CategoryId = Guid.NewGuid(),
             Name = "Updated product",
             Description = "Update description"

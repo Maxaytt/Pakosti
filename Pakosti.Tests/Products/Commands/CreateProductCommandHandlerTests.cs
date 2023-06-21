@@ -18,7 +18,7 @@ public class CreateProductCommandHandlerTests : TestCommandBase
         var handler = new CreateProductCommandHandler(Context);
         var query = new CreateProductCommand
         {
-            UserId = _contextFactory.UserAId,
+            UserId = ContextFactory.UserAId,
             CategoryId = null,
             Name = "Test product",
             Description = "bal bal bal"
@@ -45,7 +45,7 @@ public class CreateProductCommandHandlerTests : TestCommandBase
         var handler = new CreateProductCommandHandler(Context);
         var query = new CreateProductCommand
         {
-            UserId = _contextFactory.UserAId,
+            UserId = ContextFactory.UserAId,
             CategoryId = _contextFactory.CategoryId,
             Name = "Test product",
             Description = "bal bal bal"

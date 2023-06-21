@@ -4,7 +4,7 @@ namespace Pakosti.Tests.Common;
 
 public class TestCommandBase : IDisposable
 {
-    protected readonly PakostiDbContext Context;
+    protected PakostiDbContext Context;
 
     public TestCommandBase()
     {

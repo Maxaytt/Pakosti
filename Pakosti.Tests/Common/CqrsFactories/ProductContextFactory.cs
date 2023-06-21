@@ -7,6 +7,49 @@ public class ProductContextFactory : ContextFactory
 {
     public Guid ProductIdForDelete = Guid.NewGuid();
     public Guid ProductIdForUpdate = Guid.NewGuid();
+    public readonly Product ProductForGetting = new()
+    {
+        Id = Guid.NewGuid(),
+        CategoryId = null,
+        CreationDate = DateTime.Now,
+        EditionDate = null,
+        Name = "Test product1",
+        Description = "asdffa",
+    };
+
+    public readonly List<Product> Products = new()
+    {
+        new()
+        {
+            Id = Guid.NewGuid(),
+            CategoryId = null,
+            CreationDate = DateTime.Now,
+            EditionDate = null,
+            Name = "Test product1",
+            Description = "asdffa",
+            UserId = UserAId
+        },
+        new()
+        {
+            Id = Guid.NewGuid(),
+            CategoryId = null,
+            CreationDate = DateTime.Now,
+            EditionDate = null,
+            Name = "Test product2",
+            Description = "asdffa",
+            UserId = UserAId
+        },
+        new()
+        {
+            Id = Guid.NewGuid(),
+            CategoryId = null,
+            CreationDate = DateTime.Now,
+            EditionDate = null,
+            Name = "Test product",
+            Description = "asdffa",
+            UserId = UserAId
+        }
+    };
     public Guid CategoryId = Guid.NewGuid();
 
     public async Task SetUpForCreation(PakostiDbContext context)
@@ -70,6 +113,18 @@ public class ProductContextFactory : ContextFactory
             CreationDate = DateTime.Today,
             EditionDate = null
         });
+        await context.SaveChangesAsync(CancellationToken.None);
+    }
+    
+    public async Task SetUpForGetting(PakostiDbContext context)
+    {
+        await context.Products.AddAsync(ProductForGetting);
+        await context.SaveChangesAsync(CancellationToken.None);
+    }
+
+    public async Task SetUpForGettingList(PakostiDbContext context)
+    {
+        await context.Products.AddRangeAsync(Products);
         await context.SaveChangesAsync(CancellationToken.None);
     }
 }

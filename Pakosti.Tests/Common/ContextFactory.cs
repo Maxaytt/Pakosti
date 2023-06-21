@@ -5,8 +5,8 @@ namespace Pakosti.Tests.Common;
 
 public abstract class ContextFactory
 {
-    public Guid UserAId = Guid.NewGuid();
-    public Guid UserBId = Guid.NewGuid();
+    public static Guid UserAId = Guid.NewGuid();
+    public static Guid UserBId = Guid.NewGuid();
     
     public static PakostiDbContext Create()
     {
@@ -21,7 +21,15 @@ public abstract class ContextFactory
 
     public static void Destroy(PakostiDbContext context)
     {
-        context.Database.EnsureDeleted();
+        if (context is not { IsDisposed: false }) return;
+        if (context.Database.ProviderName != null)
+        {
+            if (!context.Database.ProviderName.Contains("InMemory"))
+            {
+                context.Database.EnsureDeleted();
+            }
+        }
         context.Dispose();
+        context.IsDisposed = true;
     }
 }

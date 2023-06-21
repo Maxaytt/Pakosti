@@ -22,7 +22,7 @@ public class DeleteProductCommandHandlerTests : TestCommandBase
         var command = new DeleteProductCommand
         {
             Id = _contextFactory.ProductIdForDelete,
-            UserId = _contextFactory.UserAId
+            UserId = ContextFactory.UserAId
         };
         
         // Act
@@ -47,7 +47,7 @@ public class DeleteProductCommandHandlerTests : TestCommandBase
         var command = new DeleteProductCommand
         {
             Id = Guid.NewGuid(),
-            UserId = _contextFactory.UserAId
+            UserId = ContextFactory.UserAId
         };
         
         // Act & Assert
