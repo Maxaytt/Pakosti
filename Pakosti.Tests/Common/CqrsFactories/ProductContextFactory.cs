@@ -16,7 +16,6 @@ public class ProductContextFactory : ContextFactory
         Name = "Test product1",
         Description = "asdffa",
     };
-
     public readonly List<Product> Products = new()
     {
         new()

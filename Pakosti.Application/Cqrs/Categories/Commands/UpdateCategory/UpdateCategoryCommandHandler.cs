@@ -28,10 +28,11 @@ public class UpdateCategoryCommandHandler
         {
             var parentCategory = await _context.Categories
                 .FirstOrDefaultAsync(c => c.Id == request.ParentCategoryId, cancellationToken);
-            if (parentCategory == null) throw new NotFoundException(nameof(Category), request.ParentCategoryId);
             
-            category.ParentCategoryId = request.ParentCategoryId;
+            if (parentCategory == null) throw new NotFoundException(nameof(Category), request.ParentCategoryId);
         }
+        
+        category.ParentCategoryId = request.ParentCategoryId;
 
         if (request.Name != null)
         {

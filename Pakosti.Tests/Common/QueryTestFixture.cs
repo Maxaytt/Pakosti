@@ -1,5 +1,7 @@
 using Pakosti.Application.Common.Mappings;
+using Pakosti.Application.Cqrs.Categories.Queries.GetCategoryList;
 using Pakosti.Application.Cqrs.Products.Queries.GetProductList;
+using Pakosti.Application.Cqrs.Reviews.Queries.GetReviewList;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 using Pakosti.Infrastructure.Persistence;
@@ -12,8 +14,8 @@ using Xunit;
 
 public class QueryTestFixture : IDisposable
 {
-    public PakostiDbContext Context;
-    public IMapper Mapper;
+    public readonly PakostiDbContext Context;
+    public readonly IMapper Mapper;
 
     public QueryTestFixture()
     {
@@ -24,6 +26,12 @@ public class QueryTestFixture : IDisposable
                 typeof(IPakostiDbContext).Assembly));
             config.CreateMap<List<Product>, ProductListVm>()
                 .ForMember(p => p.Products,
+                    opt => opt.MapFrom(l => l));
+            config.CreateMap<List<Category>, CategoryListVm>()
+                .ForMember(c => c.Categories,
+                    opt => opt.MapFrom(l => l));
+            config.CreateMap<List<Review>, ReviewListVm>()
+                .ForMember(r => r.Reviews,
                     opt => opt.MapFrom(l => l));
         });
         Mapper = configurationProvider.CreateMapper();

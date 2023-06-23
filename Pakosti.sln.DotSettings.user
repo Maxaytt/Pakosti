@@ -1,37 +1,14 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=18b7f01e_002D62c7_002D41ba_002Db7b5_002D9d676174e775/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=18b7f01e_002D62c7_002D41ba_002Db7b5_002D9d676174e775/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=262336fd_002D070e_002D4ff7_002Dabda_002Dd0f52616d5ce/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductList_Success #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Queries.GetProductListQueryHandlerTests.GetProductList_Success&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3c8c381c_002D1831_002D4ab9_002Dbe22_002D93873a72b566/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductList_Success #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Queries.GetProductListQueryHandlerTests.GetProductList_Success&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=68de1479_002D423f_002D40c0_002Dae51_002D3c779323bf6a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetProductList_Success #6" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Queries.GetProductListQueryHandlerTests.GetProductList_Success&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b22795d1_002Df086_002D424e_002D9c67_002D04d71f711a87/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductList_Success #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Queries.GetProductListQueryHandlerTests.GetProductList_Success&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c03e9da7_002Dbdd6_002D4127_002Da9de_002D034d54789951/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductList_Success" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Queries.GetProductListQueryHandlerTests.GetProductList_Success&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c18748b0_002De263_002D48fe_002Da068_002D35b39ad9de57/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetProductList_Success #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::AEFA79E0-5B73-4700-9061-345A97DDD47F::net7.0::Pakosti.Tests.Products.Queries.GetProductListQueryHandlerTests.GetProductList_Success&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=asdffa/@EntryIndexedValue">True</s:Boolean>
 	
 	

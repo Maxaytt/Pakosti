@@ -24,6 +24,6 @@ public class GetReviewListQueryHandler
             .ProjectTo<ReviewLookupDto>(_mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        return _mapper.Map<ReviewListVm>(reviews);
+        return new ReviewListVm { Reviews = reviews };
     }
 }

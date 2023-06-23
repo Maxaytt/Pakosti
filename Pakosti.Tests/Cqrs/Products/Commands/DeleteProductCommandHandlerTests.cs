@@ -6,7 +6,7 @@ using Pakosti.Tests.Common.CqrsFactories;
 using Shouldly;
 using Xunit;
 
-namespace Pakosti.Tests.Products.Commands;
+namespace Pakosti.Tests.Cqrs.Products.Commands;
 
 public class DeleteProductCommandHandlerTests : TestCommandBase
 {

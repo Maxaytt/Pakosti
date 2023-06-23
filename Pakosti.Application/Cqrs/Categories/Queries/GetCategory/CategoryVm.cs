@@ -7,7 +7,7 @@ namespace Pakosti.Application.Cqrs.Categories.Queries.GetCategory;
 public class CategoryVm : IMapWith<Category>
 {
     public Guid Id { get; set; }
-    public Guid ParentCategoryId { get; set; }
+    public Guid? ParentCategoryId { get; set; }
     public string Name { get; set; } = null!;
 
     public void Mapping(Profile profile)

@@ -6,7 +6,7 @@ using Pakosti.Tests.Common.CqrsFactories;
 using Shouldly;
 using Xunit;
 
-namespace Pakosti.Tests.Products.Commands;
+namespace Pakosti.Tests.Cqrs.Products.Commands;
 
 public class UpdateProductCommandHandlerTests : TestCommandBase
 {
@@ -88,7 +88,7 @@ public class UpdateProductCommandHandlerTests : TestCommandBase
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(() => 
             handler.Handle(command, CancellationToken.None));
-        exception.EntityName.ShouldBe(nameof(Category));
+        exception.EntityName.ShouldBe(nameof(Categories));
         exception.EntityId.ShouldBe(command.CategoryId);
     }
 }

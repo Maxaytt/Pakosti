@@ -2,14 +2,13 @@ using AutoMapper;
 using Moq;
 using Pakosti.Application.Common.Exceptions;
 using Pakosti.Application.Cqrs.Products.Queries.GetProduct;
-using Pakosti.Application.Cqrs.Products.Queries.GetProductList;
 using Pakosti.Domain.Entities;
 using Pakosti.Tests.Common;
 using Pakosti.Tests.Common.CqrsFactories;
 using Shouldly;
 using Xunit;
 
-namespace Pakosti.Tests.Products.Queries;
+namespace Pakosti.Tests.Cqrs.Products.Queries;
 
 public class GetProductQueryHandlerTests : TestCommandBase
 {
@@ -58,7 +57,7 @@ public class GetProductQueryHandlerTests : TestCommandBase
 
         var vm = new ProductVm
         {
-            Id = Guid.NewGuid(),
+            Id = _contextFactory.ProductForGetting.Id,
             CategoryId = _contextFactory.ProductForGetting.CategoryId,
             CategoryName = null,
             Name = _contextFactory.ProductForGetting.Name,
@@ -73,12 +72,12 @@ public class GetProductQueryHandlerTests : TestCommandBase
         var handler = new GetProductQueryHandler(Context, _mapper.Object);
         var query = new GetProductQuery
         {
-            Id = _contextFactory.ProductForGetting.Id
+            Id = Guid.NewGuid()
         };
         
         // Act & Assert
-        var exception = await Should.ThrowAsync<NotFoundException>(() =>
-            handler.Handle(query, CancellationToken.None));
+        var exception = await Should.ThrowAsync<NotFoundException>(async () =>
+            await handler.Handle(query, CancellationToken.None));
         exception.EntityName.ShouldBe(nameof(Product));
         exception.EntityId.ShouldBe(query.Id);
     }

@@ -5,7 +5,7 @@ using Pakosti.Tests.Common.CqrsFactories;
 using Shouldly;
 using Xunit;
 
-namespace Pakosti.Tests.Products.Queries;
+namespace Pakosti.Tests.Cqrs.Products.Queries;
 
 [Collection("QueryCollection")]
 public class GetProductListQueryHandlerTests : TestCommandBase
