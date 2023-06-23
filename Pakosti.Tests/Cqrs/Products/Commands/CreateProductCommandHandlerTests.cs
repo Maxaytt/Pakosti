@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
 using Pakosti.Application.Cqrs.Products.Commands.CreateProduct;
 using Pakosti.Tests.Common;
@@ -29,7 +30,8 @@ public class CreateProductCommandHandlerTests : TestCommandBase
         
         // Assert
         resultId.ShouldNotBe(Guid.Empty);
-        var createdProduct = await Context.Products.FindAsync(resultId);
+        var createdProduct = await Context.Products
+            .FirstOrDefaultAsync(p => p.Id == resultId, CancellationToken.None);
         createdProduct.ShouldNotBeNull();
         createdProduct.UserId.ShouldBe(query.UserId);
         createdProduct.CategoryId.ShouldBe(query.CategoryId);

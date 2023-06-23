@@ -1,4 +1,6 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Pakosti.Application.Common.Exceptions;
 using Pakosti.Domain.Entities;
 using Pakosti.Application.Interfaces;
 
@@ -16,6 +18,11 @@ public class CreateReviewCommandHandler
 
     public async Task<Guid> Handle(CreateReviewCommand request, CancellationToken cancellationToken)
     {
+        var product = await _context.Products
+            .FirstOrDefaultAsync(p => p.Id == request.ProductId, CancellationToken.None);
+
+        if (product == null) throw new NotFoundException(nameof(Product), request.ProductId);
+        
         var review = new Review
         {
             Id = Guid.NewGuid(),
@@ -26,7 +33,7 @@ public class CreateReviewCommandHandler
             CreationDate = DateTime.Now,
             EditionDate = null
         };
-
+        
         await _context.Reviews.AddAsync(review, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 

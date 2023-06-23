@@ -16,7 +16,7 @@ public class GetProductQueryHandlerTests : TestCommandBase
     private readonly Mock<IMapper> _mapper = new();
 
     [Fact]
-    public async Task GetProduct_Success()
+    public async Task Get_ValidQuery_ReturnsProduct()
     {
         // Arrange
         await _contextFactory.SetUpForGetting(Context);
@@ -50,7 +50,7 @@ public class GetProductQueryHandlerTests : TestCommandBase
     }
 
     [Fact]
-    public async Task GetProduct_ProductNotFound_ThrowsNotFoundException()
+    public async Task Get_ProductNotFound_ThrowsNotFoundException()
     {
         // Arrange
         await _contextFactory.SetUpForGetting(Context);

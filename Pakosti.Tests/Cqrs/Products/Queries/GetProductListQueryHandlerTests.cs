@@ -20,7 +20,7 @@ public class GetProductListQueryHandlerTests : TestCommandBase
     }
     
     [Fact]
-    public async Task GetProductList_Success()
+    public async Task GetList_ValidQuery_ReturnsList()
     {
         await _contextFactory.SetUpForGettingList(Context);
 

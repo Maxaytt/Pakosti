@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pakosti.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27bd482ebd169014bee04cc94edbf3a8ac2c4db0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+efd68b8662a85023395677012a00c650c9c42ab8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pakosti.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pakosti.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

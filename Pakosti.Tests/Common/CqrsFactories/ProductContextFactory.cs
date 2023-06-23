@@ -5,8 +5,9 @@ namespace Pakosti.Tests.Common.CqrsFactories;
 
 public class ProductContextFactory : ContextFactory
 {
-    public Guid ProductIdForDelete = Guid.NewGuid();
-    public Guid ProductIdForUpdate = Guid.NewGuid();
+    public readonly Guid ProductIdForDelete = Guid.NewGuid();
+    public readonly Guid ProductIdForUpdate = Guid.NewGuid();
+    public readonly Guid CategoryId = Guid.NewGuid();
     public readonly Product ProductForGetting = new()
     {
         Id = Guid.NewGuid(),
@@ -49,7 +50,6 @@ public class ProductContextFactory : ContextFactory
             UserId = UserAId
         }
     };
-    public Guid CategoryId = Guid.NewGuid();
 
     public async Task SetUpForCreation(PakostiDbContext context)
     {

@@ -5,10 +5,10 @@ namespace Pakosti.Tests.Common.CqrsFactories;
 
 public class CategoryContextFactory : ContextFactory
 {
-    public Guid CategoryIdForDelete = Guid.NewGuid();
-    public Guid CategoryIdForUpdate = Guid.NewGuid();
-    public Guid ParentCategoryId = Guid.NewGuid();
-    public Guid ChildCategoryId = Guid.NewGuid();
+    public readonly Guid CategoryIdForDelete = Guid.NewGuid();
+    public readonly Guid CategoryIdForUpdate = Guid.NewGuid();
+    public readonly Guid ParentCategoryId = Guid.NewGuid();
+    public readonly Guid ChildCategoryId = Guid.NewGuid();
 
     public readonly Category CategoryForGet = new()
     {
