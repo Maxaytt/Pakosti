@@ -7,20 +7,20 @@ using Xunit;
 
 namespace Pakosti.Tests.Cqrs.Categories.Queries;
 
-[Collection("QueryCollection")]
 public class GetCategoryListQueryHandlerTests : TestCommandBase
 {
     private readonly CategoryContextFactory _contextFactory = new();
     private readonly IMapper _mapper;
 
-    public GetCategoryListQueryHandlerTests(QueryTestFixture fixture)
+    public GetCategoryListQueryHandlerTests()
     {
+        var fixture = new QueryTestFixture();
         _mapper = fixture.Mapper;
         Context = fixture.Context;
     }
 
     [Fact]
-    public async Task GetCategoryList_Success()
+    public async Task GetList_ValidQuery_ReturnsList()
     {
         // Arrange
         await _contextFactory.SetUpForGettingList(Context);

@@ -11,7 +11,7 @@ public class ReviewVm : IMapWith<Review>
     public string Header { get; set; } = null!;
     public string Body { get; set; } = null!;
     public DateTime CreationDate { get; set; }
-    public DateTime EditionDate { get; set; }
+    public DateTime? EditionDate { get; set; }
 
     public void Mapping(Profile profile)
     {

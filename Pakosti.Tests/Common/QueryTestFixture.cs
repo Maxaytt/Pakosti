@@ -5,7 +5,6 @@ using Pakosti.Application.Cqrs.Reviews.Queries.GetReviewList;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 using Pakosti.Infrastructure.Persistence;
-using Pakosti.Tests.Common.CqrsFactories;
 
 namespace Pakosti.Tests.Common;
 
@@ -41,10 +40,4 @@ public class QueryTestFixture : IDisposable
     {
         ContextFactory.Destroy(Context);
     }
-}
-
-[CollectionDefinition("QueryCollection")]
-public class QueryCollection : ICollectionFixture<QueryTestFixture>
-{
-    
 }

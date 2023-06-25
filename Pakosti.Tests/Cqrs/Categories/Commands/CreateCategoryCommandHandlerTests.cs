@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
 using Pakosti.Application.Cqrs.Categories.Commands.CreateCategory;
+using Pakosti.Domain.Entities;
 using Pakosti.Tests.Common;
 using Pakosti.Tests.Common.CqrsFactories;
 using Shouldly;
@@ -78,6 +79,6 @@ public class CreateCategoryCommandHandlerTests : TestCommandBase
             await handler.Handle(query, CancellationToken.None));
         exception.ShouldNotBeNull();
         exception.EntityId.ShouldBe(query.ParentCategoryId);
-        exception.EntityName.ShouldBe(nameof(Categories));
+        exception.EntityName.ShouldBe(nameof(Category));
     }
 }

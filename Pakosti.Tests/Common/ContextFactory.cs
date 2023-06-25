@@ -16,6 +16,7 @@ public abstract class ContextFactory
         var context = new PakostiDbContext(options);
         context.Database.EnsureCreated();
         context.SaveChanges();
+        context.IsDisposed = false;
         return context;
     }
 

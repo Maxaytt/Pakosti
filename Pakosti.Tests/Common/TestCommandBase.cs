@@ -9,11 +9,13 @@ public class TestCommandBase : IDisposable
     public TestCommandBase()
     {
         Context = ContextFactory.Create();
+        Context.IsDisposed = false;
     }
 
 
     public void Dispose()
     {
         ContextFactory.Destroy(Context);
+        Context.IsDisposed = true;
     }
 }

@@ -7,14 +7,14 @@ using Xunit;
 
 namespace Pakosti.Tests.Cqrs.Products.Queries;
 
-[Collection("QueryCollection")]
 public class GetProductListQueryHandlerTests : TestCommandBase
 {
     private readonly ProductContextFactory _contextFactory = new();
     private readonly IMapper _mapper;
     
-    public GetProductListQueryHandlerTests(QueryTestFixture fixture)
+    public GetProductListQueryHandlerTests()
     {
+        var fixture = new QueryTestFixture();
         Context = fixture.Context;
         _mapper = fixture.Mapper;
     }

@@ -88,7 +88,7 @@ public class UpdateProductCommandHandlerTests : TestCommandBase
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(() => 
             handler.Handle(command, CancellationToken.None));
-        exception.EntityName.ShouldBe(nameof(Categories));
+        exception.EntityName.ShouldBe(nameof(Category));
         exception.EntityId.ShouldBe(command.CategoryId);
     }
 }

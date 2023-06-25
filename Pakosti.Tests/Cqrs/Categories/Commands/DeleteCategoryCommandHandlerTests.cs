@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
 using Pakosti.Application.Cqrs.Categories.Commands.DeleteCategory;
+using Pakosti.Domain.Entities;
 using Pakosti.Tests.Common;
 using Pakosti.Tests.Common.CqrsFactories;
 using Shouldly;
@@ -53,6 +54,6 @@ public class DeleteCategoryCommandHandlerTests : TestCommandBase
         var exception = await Should.ThrowAsync<NotFoundException>(async () =>
             await handler.Handle(query, CancellationToken.None));
         exception.EntityId.ShouldBe(query.Id);
-        exception.EntityName.ShouldBe(nameof(Categories));
+        exception.EntityName.ShouldBe(nameof(Category));
     }
 }

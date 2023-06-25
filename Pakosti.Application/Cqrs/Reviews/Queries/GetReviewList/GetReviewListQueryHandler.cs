@@ -12,10 +12,10 @@ public class GetReviewListQueryHandler
     private readonly IPakostiDbContext _context;
     private readonly IMapper _mapper;
 
-    public GetReviewListQueryHandler(IMapper mapper, IPakostiDbContext context)
+    public GetReviewListQueryHandler(IPakostiDbContext context, IMapper mapper)
     {
-        _mapper = mapper;
         _context = context;
+        _mapper = mapper;
     }
 
     public async Task<ReviewListVm> Handle(GetReviewListQuery request, CancellationToken cancellationToken)

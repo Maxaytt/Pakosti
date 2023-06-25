@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
 using Pakosti.Application.Cqrs.Categories.Commands.UpdateCategory;
 using Pakosti.Application.Interfaces;
+using Pakosti.Domain.Entities;
 using Pakosti.Tests.Common.CqrsFactories;
 using Pakosti.Tests.Common;
 using Shouldly;
@@ -88,7 +89,7 @@ public class UpdateCategoryCommandHandlerTests : TestCommandBase
             await handler.Handle(query, CancellationToken.None));
 
         exception.EntityId.ShouldBe(query.ParentCategoryId);
-        exception.EntityName.ShouldBe(nameof(Categories));
+        exception.EntityName.ShouldBe(nameof(Category));
     }
     
     [Fact]
@@ -110,6 +111,6 @@ public class UpdateCategoryCommandHandlerTests : TestCommandBase
             await handler.Handle(query, CancellationToken.None));
 
         exception.EntityId.ShouldBe(query.Id);
-        exception.EntityName.ShouldBe(nameof(Categories));
+        exception.EntityName.ShouldBe(nameof(Category));
     }
 }
