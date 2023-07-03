@@ -5,15 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace Pakosti.Controllers;
 
 [ApiController]
-[Route("[controller]/")]
+[Route("[controller]")]
 public class BaseController : Controller
 {
     private IMediator? _mediator;
 
-    protected IMediator Mediator =>
-        _mediator ??= HttpContext.RequestServices.GetService<IMediator>(); 
+    protected IMediator Mediator => _mediator 
+        ??= HttpContext.RequestServices.GetService<IMediator>(); 
 
-    internal Guid UserId => !User.Identity!.IsAuthenticated
+    internal Guid UserId => !User.Identity?.IsAuthenticated ?? false
         ? Guid.Empty
-        : Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+        : Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value 
+                     ?? Guid.Empty.ToString());
 }

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pakosti.Application.Cqrs.Products.Commands.CreateProduct;
 using Pakosti.Application.Cqrs.Products.Commands.DeleteProduct;
@@ -41,6 +42,7 @@ public class ProductController : BaseController
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateProductDto createProductDto)
     {
         var command = _mapper.Map<CreateProductCommand>(createProductDto);
@@ -50,6 +52,7 @@ public class ProductController : BaseController
     }
 
     [HttpPut]
+    [Authorize]
     public async Task<ActionResult> Update([FromBody] UpdateProductDto updateProductDto)
     {
         var command = _mapper.Map<UpdateProductCommand>(updateProductDto);
@@ -59,6 +62,7 @@ public class ProductController : BaseController
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize]
     public async Task<ActionResult> Delete(Guid id)
     {
         var command = new DeleteProductCommand

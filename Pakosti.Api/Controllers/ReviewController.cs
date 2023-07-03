@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pakosti.Application.Cqrs.Categories.Queries.GetCategory;
 using Pakosti.Application.Cqrs.Reviews.Commands.CreateReview;
@@ -41,6 +42,7 @@ public class ReviewController : BaseController
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Guid>> Crete([FromBody] CreateReviewDto createReviewDto)
     {
         var query = _mapper.Map<CreateReviewCommand>(createReviewDto);
@@ -50,6 +52,7 @@ public class ReviewController : BaseController
     }
 
     [HttpPut]
+    [Authorize]
     public async Task<ActionResult> Update([FromBody] UpdateReviewDto updateReviewDto)
     {
         var query = _mapper.Map<UpdateReviewCommand>(updateReviewDto);
@@ -59,6 +62,7 @@ public class ReviewController : BaseController
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize]
     public async Task<ActionResult> Delete(Guid id)
     {
         var query = new DeleteReviewCommand

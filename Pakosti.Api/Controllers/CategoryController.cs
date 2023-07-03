@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pakosti.Application.Cqrs.Categories.Commands.CreateCategory;
 using Pakosti.Application.Cqrs.Categories.Commands.DeleteCategory;
@@ -32,6 +33,7 @@ public class CategoryController : BaseController
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateCategoryDto createCategoryDto)
     {
         var query = new CreateCategoryCommand
@@ -45,6 +47,7 @@ public class CategoryController : BaseController
     }
 
     [HttpPut]
+    [Authorize]
     public async Task<ActionResult> Update([FromBody] UpdateCategoryDto updateCategoryDto)
     {
         var query = new UpdateCategoryCommand
@@ -59,6 +62,7 @@ public class CategoryController : BaseController
     }
     
     [HttpDelete("{id:guid}")]
+    [Authorize]
     public async Task<ActionResult> Delete(Guid id)
     {
         var query = new DeleteCategoryCommand

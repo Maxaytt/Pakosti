@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +20,7 @@ public static class DependencyInjection
 
         services.AddScoped<IPakostiDbContext>(provider => 
             provider.GetService<PakostiDbContext>()!);
-        
+
         return services;
     }
 }
