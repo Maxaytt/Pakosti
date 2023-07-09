@@ -1,5 +1,5 @@
 using Pakosti.Api.Extensions;
-using Pakosti.Application;
+using Pakosti.Application.Extensions;
 using Pakosti.Infrastructure.Persistence;
 
 namespace Pakosti.Api;
@@ -46,7 +46,7 @@ public class Startup
     {
         services
             .AddPersistence(_configuration)
-            .AddApplication()
+            .ConfigureApplicationServices()
             .ConfigureApiServices(_configuration);
     }
 }

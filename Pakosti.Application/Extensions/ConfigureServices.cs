@@ -1,11 +1,11 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Pakosti.Application;
+namespace Pakosti.Application.Extensions;
 
-public static class DependencyInjection
+public static class ConfigureServices
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static IServiceCollection ConfigureApplicationServices(this IServiceCollection services)
     {
         return services.AddMediatR(cfg => cfg
             .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
