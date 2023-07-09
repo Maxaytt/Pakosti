@@ -4,11 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Pakosti.Application.Interfaces;
 using Pakosti.Infrastructure.Persistence.Services;
 
-namespace Pakosti.Infrastructure.Persistence;
+namespace Pakosti.Infrastructure.Persistence.Extensions;
 
-public static class DependencyInjection
+public static class ConfigureServices
 {
-    public static IServiceCollection AddPersistence(this IServiceCollection services,
+    public static IServiceCollection ConfigurePersistenceServices(this IServiceCollection services,
         IConfiguration configuration)
     {
         var connectionString = configuration["DbConnection"];
