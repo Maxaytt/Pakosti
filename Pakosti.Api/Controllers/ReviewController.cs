@@ -7,9 +7,9 @@ using Pakosti.Application.Cqrs.Reviews.Commands.DeleteReview;
 using Pakosti.Application.Cqrs.Reviews.Commands.UpdateReview;
 using Pakosti.Application.Cqrs.Reviews.Queries.GetReview;
 using Pakosti.Application.Cqrs.Reviews.Queries.GetReviewList;
-using Pakosti.Models.Review;
+using Pakosti.Api.Models.Review;
 
-namespace Pakosti.Controllers;
+namespace Pakosti.Api.Controllers;
 
 public class ReviewController : BaseController
 {

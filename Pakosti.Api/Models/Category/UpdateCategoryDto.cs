@@ -2,7 +2,7 @@ using AutoMapper;
 using Pakosti.Application.Common.Mappings;
 using Pakosti.Application.Cqrs.Categories.Commands.UpdateCategory;
 
-namespace Pakosti.Models.Category;
+namespace Pakosti.Api.Models.Category;
 
 public class UpdateCategoryDto : IMapWith<UpdateCategoryCommand>
 {

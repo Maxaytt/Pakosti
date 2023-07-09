@@ -6,9 +6,9 @@ using Pakosti.Application.Cqrs.Products.Commands.DeleteProduct;
 using Pakosti.Application.Cqrs.Products.Commands.UpdateProduct;
 using Pakosti.Application.Cqrs.Products.Queries.GetProduct;
 using Pakosti.Application.Cqrs.Products.Queries.GetProductList;
-using Pakosti.Models.Product;
+using Pakosti.Api.Models.Product;
 
-namespace Pakosti.Controllers;
+namespace Pakosti.Api.Controllers;
 
 
 public class ProductController : BaseController

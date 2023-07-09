@@ -10,107 +10,132 @@ using Pakosti.Application;
 using Pakosti.Application.Common.Mappings;
 using Pakosti.Domain.Entities;
 using Pakosti.Infrastructure.Persistence;
-using Pakosti.Services.Identity;
+using Pakosti.Api.Services.Identity;
 
+namespace Pakosti.Api;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers();
-builder.Services.AddPersistence(builder.Configuration);
-builder.Services.AddApplication();
-builder.Services.AddAutoMapper(config =>
+public static class Program
 {
-    config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-    config.AddProfile(new AssemblyMappingProfile(typeof(PakostiDbContext).Assembly));
-});
-builder.Services.AddSwaggerGen(opt =>
+    public static void Main(string[] args) => CreateHostBuilder(args).Build().Run();
+
+    private static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(builder => builder.UseStartup<Startup>());
+}
+
+public class Startup
 {
-    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Pakosti", Version = "v1" });
-    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    private readonly IConfiguration _configuration;
+
+    public Startup(IConfiguration configuration, IWebHostEnvironment environment)
     {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        In = ParameterLocation.Header,
-        Description = "Please enter a valid Token.",
-        BearerFormat = "JWT"
-    });
-    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+        _configuration = configuration;
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
     {
+        app.UseCors(builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+
+
+        if (environment.IsDevelopment())
         {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
-    });
-});
 
-builder.Services.AddCors(options =>
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
-        policy.AllowAnyOrigin();
-    }));
+        
+        app.UseAuthentication();
 
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddAuthentication(cfg =>
+        app.UseRouting();
+        
+        app.UseAuthorization();
+        app.UseEndpoints(builder => builder.MapControllers());
+    }
+
+    public void ConfigureServices(IServiceCollection services)
     {
-        cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
+        services.AddControllers();
+
+        services
+            .AddPersistence(_configuration)
+            .AddApplication();
+
+        services.AddAutoMapper(config =>
         {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"]!,
-            ValidAudience = builder.Configuration["Jwt:Audience"]!,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]!))
-        };
-    });
+            config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+            config.AddProfile(new AssemblyMappingProfile(typeof(PakostiDbContext).Assembly));
+        });
+        services.AddSwaggerGen(opt =>
+        {
+            opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Pakosti", Version = "v1" });
+            opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                Scheme = "Bearer",
+                In = ParameterLocation.Header,
+                Description = "Please enter a valid Token.",
+                BearerFormat = "JWT"
+            });
+            opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+            });
+        });
 
-builder.Services.AddAuthorization(cfg =>
-{
-    cfg.DefaultPolicy =
-        new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
-            .RequireAuthenticatedUser()
-            .Build();
-    cfg.AddPolicy("AdministratorOnly", policy =>
-        policy.RequireRole("Administrator"));
-});
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddAuthentication(cfg =>
+            {
+                cfg.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                cfg.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = _configuration["Jwt:Issuer"]!,
+                    ValidAudience = _configuration["Jwt:Audience"]!,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]!))
+                };
+            });
 
-builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
-    {
-        options.Password.RequireNonAlphanumeric = false;
-    })
-    .AddEntityFrameworkStores<PakostiDbContext>()
-    .AddUserStore<UserStore<AppUser, IdentityRole<Guid>, PakostiDbContext, Guid>>()
-    .AddRoleStore<RoleStore<IdentityRole<Guid>, PakostiDbContext, Guid>>()
-    .AddUserManager<UserManager<AppUser>>()
-    .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
-    .AddSignInManager<SignInManager<AppUser>>()
-    .AddDefaultTokenProviders()
-    .AddRoles<IdentityRole<Guid>>();
+        services.AddAuthorization(cfg =>
+        {
+            cfg.DefaultPolicy =
+                new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .Build();
+            cfg.AddPolicy("AdministratorOnly", policy =>
+                policy.RequireRole("Administrator"));
+        });
 
-var app = builder.Build();
-
-app.UseSwagger();
-app.UseSwaggerUI();
-app.UseCors("AllowAll");
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+        services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+            })
+            .AddEntityFrameworkStores<PakostiDbContext>()
+            .AddUserStore<UserStore<AppUser, IdentityRole<Guid>, PakostiDbContext, Guid>>()
+            .AddRoleStore<RoleStore<IdentityRole<Guid>, PakostiDbContext, Guid>>()
+            .AddUserManager<UserManager<AppUser>>()
+            .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
+            .AddSignInManager<SignInManager<AppUser>>()
+            .AddDefaultTokenProviders()
+            .AddRoles<IdentityRole<Guid>>();
+    }
+}

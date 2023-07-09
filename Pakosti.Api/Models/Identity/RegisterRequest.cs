@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Pakosti.Models.Identity;
+namespace Pakosti.Api.Models.Identity;
 
 public class RegisterRequest
 {

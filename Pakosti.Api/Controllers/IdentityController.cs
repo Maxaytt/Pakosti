@@ -7,10 +7,10 @@ using Pakosti.Application.Common.Exceptions;
 using Pakosti.Domain.Entities;
 using Pakosti.Application.Extensions;
 using Pakosti.Infrastructure.Persistence;
-using Pakosti.Models.Identity;
-using Pakosti.Services.Identity;
+using Pakosti.Api.Models.Identity;
+using Pakosti.Api.Services.Identity;
 
-namespace Pakosti.Controllers;
+namespace Pakosti.Api.Controllers;
 
 public class IdentityController : BaseController
 {

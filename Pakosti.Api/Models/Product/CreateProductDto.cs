@@ -2,7 +2,7 @@ using AutoMapper;
 using Pakosti.Application.Common.Mappings;
 using Pakosti.Application.Cqrs.Products.Commands.CreateProduct;
 
-namespace Pakosti.Models.Product;
+namespace Pakosti.Api.Models.Product;
 
 public class CreateProductDto : IMapWith<CreateProductCommand>
 {

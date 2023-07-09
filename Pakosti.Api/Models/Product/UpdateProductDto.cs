@@ -3,7 +3,7 @@ using Pakosti.Application.Common.Mappings;
 using Pakosti.Application.Cqrs.Products.Commands.UpdateProduct;
 using Pakosti.Domain.Entities;
 
-namespace Pakosti.Models.Product;
+namespace Pakosti.Api.Models.Product;
 
 public class UpdateProductDto : IMapWith<UpdateProductCommand>
 {

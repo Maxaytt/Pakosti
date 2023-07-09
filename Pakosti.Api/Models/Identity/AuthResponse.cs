@@ -1,4 +1,4 @@
-namespace Pakosti.Models.Identity;
+namespace Pakosti.Api.Models.Identity;
 
 public class AuthResponse
 {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Pakosti.Domain.Entities;
 
-namespace Pakosti.Services.Identity;
+namespace Pakosti.Api.Services.Identity;
 
 public interface ITokenService
 {

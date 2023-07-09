@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Pakosti.Domain.Entities;
 using Pakosti.Application.Extensions;
 
-namespace Pakosti.Services.Identity;
+namespace Pakosti.Api.Services.Identity;
 
 public class TokenService : ITokenService
 {

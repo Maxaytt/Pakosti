@@ -2,7 +2,7 @@ using AutoMapper;
 using Pakosti.Application.Common.Mappings;
 using Pakosti.Application.Cqrs.Reviews.Commands.CreateReview;
 
-namespace Pakosti.Models.Review;
+namespace Pakosti.Api.Models.Review;
 
 public class CreateReviewDto : IMapWith<CreateReviewCommand>
 {

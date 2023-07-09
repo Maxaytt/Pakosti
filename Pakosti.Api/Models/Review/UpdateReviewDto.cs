@@ -2,7 +2,7 @@ using AutoMapper;
 using Pakosti.Application.Common.Mappings;
 using Pakosti.Application.Cqrs.Reviews.Commands.UpdateReview;
 
-namespace Pakosti.Models.Review;
+namespace Pakosti.Api.Models.Review;
 
 public class UpdateReviewDto : IMapWith<UpdateReviewCommand>
 {

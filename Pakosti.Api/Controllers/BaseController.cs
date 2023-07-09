@@ -2,7 +2,7 @@ using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Pakosti.Controllers;
+namespace Pakosti.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]

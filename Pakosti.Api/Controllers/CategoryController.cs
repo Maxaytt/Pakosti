@@ -5,9 +5,9 @@ using Pakosti.Application.Cqrs.Categories.Commands.DeleteCategory;
 using Pakosti.Application.Cqrs.Categories.Commands.UpdateCategory;
 using Pakosti.Application.Cqrs.Categories.Queries.GetCategory;
 using Pakosti.Application.Cqrs.Categories.Queries.GetCategoryList;
-using Pakosti.Models.Category;
+using Pakosti.Api.Models.Category;
 
-namespace Pakosti.Controllers;
+namespace Pakosti.Api.Controllers;
 
 public class CategoryController : BaseController
 {
