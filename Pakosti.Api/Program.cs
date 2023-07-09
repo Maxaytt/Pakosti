@@ -3,7 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Pakosti.Application;
@@ -94,14 +94,15 @@ builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
         options.Password.RequireNonAlphanumeric = false;
     })
     .AddEntityFrameworkStores<PakostiDbContext>()
+    .AddUserStore<UserStore<AppUser, IdentityRole<Guid>, PakostiDbContext, Guid>>()
+    .AddRoleStore<RoleStore<IdentityRole<Guid>, PakostiDbContext, Guid>>()
     .AddUserManager<UserManager<AppUser>>()
-    .AddSignInManager<SignInManager<AppUser>>();
+    .AddRoleManager<RoleManager<IdentityRole<Guid>>>()
+    .AddSignInManager<SignInManager<AppUser>>()
+    .AddDefaultTokenProviders()
+    .AddRoles<IdentityRole<Guid>>();
 
 var app = builder.Build();
-
-using var scope = app.Services.CreateScope();
-var context = scope.ServiceProvider.GetRequiredService<PakostiDbContext>();
-await context.Database.MigrateAsync();
 
 app.UseSwagger();
 app.UseSwaggerUI();
