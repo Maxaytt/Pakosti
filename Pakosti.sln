@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pakosti.Domain", "Pakosti.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pakosti.Infrastructure.Persistence", "Pakosti.Infrastructure.Persistence\Pakosti.Infrastructure.Persistence.csproj", "{E3874BD5-64D0-4411-9F77-7CF2F09D6B23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pakosti.Tests", "Pakosti.Tests\Pakosti.Tests.csproj", "{AEFA79E0-5B73-4700-9061-345A97DDD47F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pakosti.IntegrationTests", "Pakosti.IntegrationTests\Pakosti.IntegrationTests.csproj", "{AEFA79E0-5B73-4700-9061-345A97DDD47F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
