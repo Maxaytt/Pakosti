@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 using Pakosti.Infrastructure.Persistence.EntityTypeConfigurations;
-using Pakosti.Models.Identity;
 
 namespace Pakosti.Infrastructure.Persistence;
 

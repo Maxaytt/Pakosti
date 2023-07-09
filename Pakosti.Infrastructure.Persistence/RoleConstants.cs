@@ -1,4 +1,4 @@
-namespace Pakosti.Models.Identity;
+namespace Pakosti.Infrastructure.Persistence;
 
 public static class RoleConstants
 {
