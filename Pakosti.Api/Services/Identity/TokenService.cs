@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Identity;
 using Pakosti.Domain.Entities;
 using Pakosti.Application.Extensions;
+using Pakosti.Application.Interfaces;
 
 namespace Pakosti.Api.Services.Identity;
 

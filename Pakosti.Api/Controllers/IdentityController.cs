@@ -9,6 +9,7 @@ using Pakosti.Application.Extensions;
 using Pakosti.Infrastructure.Persistence;
 using Pakosti.Api.Models.Identity;
 using Pakosti.Api.Services.Identity;
+using Pakosti.Application.Interfaces;
 
 namespace Pakosti.Api.Controllers;
 
