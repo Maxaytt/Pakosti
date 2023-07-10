@@ -1,8 +1,8 @@
 using AutoMapper;
 using Moq;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Cqrs.Categories.Queries.GetCategory;
-using Pakosti.Application.Cqrs.Reviews.Queries.GetReview;
+using Pakosti.Application.Features.Categories.Queries.GetCategory;
+using Pakosti.Application.Features.Reviews.Queries.GetReview;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;

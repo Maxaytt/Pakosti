@@ -1,5 +1,5 @@
 using AutoMapper;
-using Pakosti.Application.Cqrs.Reviews.Queries.GetReviewList;
+using Pakosti.Application.Features.Reviews.Queries.GetReviewList;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
 using Shouldly;

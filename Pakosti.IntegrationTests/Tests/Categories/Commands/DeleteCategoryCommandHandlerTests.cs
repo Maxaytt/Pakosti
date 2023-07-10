@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Cqrs.Categories.Commands.DeleteCategory;
+using Pakosti.Application.Features.Categories.Commands.DeleteCategory;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;

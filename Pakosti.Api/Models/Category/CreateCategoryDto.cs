@@ -1,6 +1,6 @@
 using AutoMapper;
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Cqrs.Categories.Commands.CreateCategory;
+using Pakosti.Application.Features.Categories.Commands.CreateCategory;
 
 namespace Pakosti.Api.Models.Category;
 

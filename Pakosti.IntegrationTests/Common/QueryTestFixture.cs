@@ -1,7 +1,7 @@
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Cqrs.Categories.Queries.GetCategoryList;
-using Pakosti.Application.Cqrs.Products.Queries.GetProductList;
-using Pakosti.Application.Cqrs.Reviews.Queries.GetReviewList;
+using Pakosti.Application.Features.Categories.Queries.GetCategoryList;
+using Pakosti.Application.Features.Products.Queries.GetProductList;
+using Pakosti.Application.Features.Reviews.Queries.GetReviewList;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 using Pakosti.Infrastructure.Persistence;

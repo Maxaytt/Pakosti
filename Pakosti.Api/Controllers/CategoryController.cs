@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Cqrs.Categories.Commands.CreateCategory;
-using Pakosti.Application.Cqrs.Categories.Commands.DeleteCategory;
-using Pakosti.Application.Cqrs.Categories.Commands.UpdateCategory;
-using Pakosti.Application.Cqrs.Categories.Queries.GetCategory;
-using Pakosti.Application.Cqrs.Categories.Queries.GetCategoryList;
+using Pakosti.Application.Features.Categories.Commands.CreateCategory;
+using Pakosti.Application.Features.Categories.Commands.DeleteCategory;
+using Pakosti.Application.Features.Categories.Commands.UpdateCategory;
+using Pakosti.Application.Features.Categories.Queries.GetCategory;
+using Pakosti.Application.Features.Categories.Queries.GetCategoryList;
 using Pakosti.Api.Models.Category;
 
 namespace Pakosti.Api.Controllers;

@@ -1,6 +1,6 @@
 using AutoMapper;
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Cqrs.Products.Commands.CreateProduct;
+using Pakosti.Application.Features.Products.Commands.CreateProduct;
 
 namespace Pakosti.Api.Models.Product;
 

@@ -1,5 +1,5 @@
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Cqrs.Products.Commands.DeleteProduct;
+using Pakosti.Application.Features.Products.Commands.DeleteProduct;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;

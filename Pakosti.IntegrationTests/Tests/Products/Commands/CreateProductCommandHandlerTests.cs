@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Cqrs.Products.Commands.CreateProduct;
+using Pakosti.Application.Features.Products.Commands.CreateProduct;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
 using Shouldly;

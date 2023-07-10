@@ -1,7 +1,7 @@
 using AutoMapper;
 using Moq;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Cqrs.Products.Queries.GetProduct;
+using Pakosti.Application.Features.Products.Queries.GetProduct;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;

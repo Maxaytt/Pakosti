@@ -1,11 +1,11 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Cqrs.Products.Commands.CreateProduct;
-using Pakosti.Application.Cqrs.Products.Commands.DeleteProduct;
-using Pakosti.Application.Cqrs.Products.Commands.UpdateProduct;
-using Pakosti.Application.Cqrs.Products.Queries.GetProduct;
-using Pakosti.Application.Cqrs.Products.Queries.GetProductList;
+using Pakosti.Application.Features.Products.Commands.CreateProduct;
+using Pakosti.Application.Features.Products.Commands.DeleteProduct;
+using Pakosti.Application.Features.Products.Commands.UpdateProduct;
+using Pakosti.Application.Features.Products.Queries.GetProduct;
+using Pakosti.Application.Features.Products.Queries.GetProductList;
 using Pakosti.Api.Models.Product;
 
 namespace Pakosti.Api.Controllers;

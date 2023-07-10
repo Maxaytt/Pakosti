@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Cqrs.Categories.Commands.CreateCategory;
+using Pakosti.Application.Features.Categories.Commands.CreateCategory;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;

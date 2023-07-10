@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Cqrs.Reviews.Commands.CreateReview;
+using Pakosti.Application.Features.Reviews.Commands.CreateReview;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;

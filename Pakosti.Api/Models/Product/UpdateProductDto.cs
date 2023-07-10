@@ -1,6 +1,6 @@
 using AutoMapper;
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Cqrs.Products.Commands.UpdateProduct;
+using Pakosti.Application.Features.Products.Commands.UpdateProduct;
 using Pakosti.Domain.Entities;
 
 namespace Pakosti.Api.Models.Product;

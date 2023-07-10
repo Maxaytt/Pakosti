@@ -1,12 +1,12 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Cqrs.Categories.Queries.GetCategory;
-using Pakosti.Application.Cqrs.Reviews.Commands.CreateReview;
-using Pakosti.Application.Cqrs.Reviews.Commands.DeleteReview;
-using Pakosti.Application.Cqrs.Reviews.Commands.UpdateReview;
-using Pakosti.Application.Cqrs.Reviews.Queries.GetReview;
-using Pakosti.Application.Cqrs.Reviews.Queries.GetReviewList;
+using Pakosti.Application.Features.Categories.Queries.GetCategory;
+using Pakosti.Application.Features.Reviews.Commands.CreateReview;
+using Pakosti.Application.Features.Reviews.Commands.DeleteReview;
+using Pakosti.Application.Features.Reviews.Commands.UpdateReview;
+using Pakosti.Application.Features.Reviews.Queries.GetReview;
+using Pakosti.Application.Features.Reviews.Queries.GetReviewList;
 using Pakosti.Api.Models.Review;
 
 namespace Pakosti.Api.Controllers;

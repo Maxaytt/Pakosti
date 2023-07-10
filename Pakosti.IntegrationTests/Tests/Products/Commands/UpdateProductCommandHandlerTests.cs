@@ -1,5 +1,5 @@
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Cqrs.Products.Commands.UpdateProduct;
+using Pakosti.Application.Features.Products.Commands.UpdateProduct;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;

@@ -1,5 +1,5 @@
 using AutoMapper;
-using Pakosti.Application.Cqrs.Products.Queries.GetProductList;
+using Pakosti.Application.Features.Products.Queries.GetProductList;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
 using Shouldly;

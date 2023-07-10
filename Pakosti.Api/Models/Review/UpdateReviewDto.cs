@@ -1,6 +1,6 @@
 using AutoMapper;
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Cqrs.Reviews.Commands.UpdateReview;
+using Pakosti.Application.Features.Reviews.Commands.UpdateReview;
 
 namespace Pakosti.Api.Models.Review;
 

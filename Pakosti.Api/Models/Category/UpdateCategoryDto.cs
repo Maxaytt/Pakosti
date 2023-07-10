@@ -1,6 +1,6 @@
 using AutoMapper;
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Cqrs.Categories.Commands.UpdateCategory;
+using Pakosti.Application.Features.Categories.Commands.UpdateCategory;
 
 namespace Pakosti.Api.Models.Category;
 
