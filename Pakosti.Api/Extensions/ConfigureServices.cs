@@ -1,7 +1,7 @@
 using System.Reflection;
-using Pakosti.Api.Services.Identity;
 using Pakosti.Application.Common.Mappings;
 using Pakosti.Application.Interfaces;
+using Pakosti.Application.Services;
 using Pakosti.Infrastructure.Persistence;
 
 namespace Pakosti.Api.Extensions;

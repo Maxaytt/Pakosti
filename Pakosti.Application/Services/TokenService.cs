@@ -1,10 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Identity;
-using Pakosti.Domain.Entities;
+using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Extensions;
 using Pakosti.Application.Interfaces;
+using Pakosti.Domain.Entities;
 
-namespace Pakosti.Api.Services.Identity;
+namespace Pakosti.Application.Services;
 
 public class TokenService : ITokenService
 {
