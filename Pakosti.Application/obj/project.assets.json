@@ -1264,32 +1264,40 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\maxay\\.nuget\\packages\\": {}
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\OneDrive\\Рабочий стол\\PO\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
       "projectName": "Pakosti.Application",
-      "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
-      "packagesPath": "C:\\Users\\maxay\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Application\\obj\\",
+      "projectPath": "C:\\Users\\Lenovo\\OneDrive\\Рабочий стол\\PO\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lenovo\\OneDrive\\Рабочий стол\\PO\\Pakosti\\Pakosti.Application\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\maxay\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj": {
-              "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj"
+            "C:\\Users\\Lenovo\\OneDrive\\Рабочий стол\\PO\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj": {
+              "projectPath": "C:\\Users\\Lenovo\\OneDrive\\Рабочий стол\\PO\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj"
             }
           }
         }
@@ -1345,7 +1353,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.4.23260.5\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
