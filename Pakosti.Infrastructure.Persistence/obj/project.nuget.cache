@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "vtRUW3YIkQXePYlrqvY87lSlQvCBK+sZcG2nHp6Xcxz/FldwrsPlG0yx7mx001aF/TF6fJIB3aqda/EXr4SXfA==",
+  "dgSpecHash": "F3AVpg5g0CX2/PEbnrzm5VLvB3DZs6q4RnLG25fdQK5btZNgzY2q3aqhPm0dgHLee/eoAAEJjeEqEOvBid9l6Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Infrastructure.Persistence\\Pakosti.Infrastructure.Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maxay\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\maxay\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",
+    "C:\\Users\\maxay\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.6.0\\fluentvalidation.dependencyinjectionextensions.11.6.0.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\mediatr\\12.0.1\\mediatr.12.0.1.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",

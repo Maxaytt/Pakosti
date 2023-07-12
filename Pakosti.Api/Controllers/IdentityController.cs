@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Pakosti.Domain.Entities;
 using Pakosti.Application.Extensions;
 using Pakosti.Infrastructure.Persistence;
 using Pakosti.Api.Models.Identity;
+using Pakosti.Application.Features.Identities.Commands;
 using Pakosti.Application.Interfaces;
 
 namespace Pakosti.Api.Controllers;
@@ -29,42 +31,10 @@ public class IdentityController : BaseController
     }
     
     [HttpPost("login")]
-    public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
+    public async Task<ActionResult> Authenticate([FromBody] Authenticate.Command request)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
-
-        var managedUser = await _userManager.FindByEmailAsync(request.Email);
-
-        if (managedUser == null) return BadRequest("Bad credentials");
-
-            var isPasswordValid = await _userManager.CheckPasswordAsync(managedUser, request.Password);
-
-        if (!isPasswordValid) return BadRequest("Bad credentials"); 
-        
-        var user = _context.Users.FirstOrDefault(u => u.Email == request.Email);
-
-        if (user is null) return Unauthorized();
-        
-        var roleIds = await _context.UserRoles
-            .Where(r => r.UserId == user.Id)
-            .Select(r => r.RoleId).ToListAsync();
-        var roles = _context.Roles
-            .Where(x => roleIds.Contains(x.Id)).ToList();
-
-        var accessToken = _tokenService.CreateToken(user, roles);
-        user.RefreshToken = _configuration.GenerateRefreshToken();
-        user.RefreshTokenExpiryTime = DateTime.UtcNow
-            .AddDays(_configuration.GetSection("Jwt:RefreshTokenValidityInDays").Get<int>());
-
-        await _context.SaveChangesAsync();
-
-        return Ok(new AuthResponse
-        {
-            Username = user.UserName!,
-            Email = user.Email!,
-            Token = accessToken,
-            RefreshToken = user.RefreshToken
-        });
+        var response = await Mediator.Send(request);
+        return Ok(response);
     }
 
     [HttpPost("register")]
@@ -94,11 +64,8 @@ public class IdentityController : BaseController
 
         await _userManager.AddToRoleAsync(findUser, RoleConstants.Consumer);
 
-        return await Authenticate(new AuthRequest
-        {
-            Email = request.Email,
-            Password = request.Password
-        });
+        return await Authenticate(new Authenticate.Command(
+            request.Email, request.Password));
     }
 
     

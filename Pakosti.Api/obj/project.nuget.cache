@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "C9JHxJRs1I6Keh4F+h3jY6Ga/j+sZIcSO/JYQlBAr1bs6V1DuSxZ9Hz/hW8Ez7rzEBOBtsRUjYWtQKSPBTsfoQ==",
+  "dgSpecHash": "lhq6CVxnNXkJ3oV/NiPrRCtrIM3YW/bvBEhh3wrl3UIGQ3Ng5Gyzn1EqJyAj6tzq/UqRTZcvzwojbb7gBmseWw==",
   "success": true,
   "projectFilePath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Api\\Pakosti.Api.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,8 @@
     "C:\\Users\\maxay\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\maxay\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",
+    "C:\\Users\\maxay\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.6.0\\fluentvalidation.dependencyinjectionextensions.11.6.0.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\mediatr\\12.0.1\\mediatr.12.0.1.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",

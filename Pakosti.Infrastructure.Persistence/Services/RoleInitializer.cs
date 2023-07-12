@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pakosti.Domain.Entities;
 
 namespace Pakosti.Infrastructure.Persistence.Services;
 
