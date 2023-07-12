@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Pakosti.Infrastructure.Persistence;
+using Pakosti.Domain.Entities;
 
 namespace Pakosti.Api.Extensions;
 
