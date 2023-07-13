@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Pakosti.Application.Common.Exceptions;
 using Pakosti.Domain.Entities;
 
-namespace Pakosti.Api.Models.Identity;
+namespace Pakosti.Application.Features.Identities.Commands;
 
 public class Revoke
 {

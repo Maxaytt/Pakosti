@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Api.Models.Identity;
 using Pakosti.Application.Features.Identities.Commands;
 
 namespace Pakosti.Api.Controllers;

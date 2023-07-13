@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Pakosti.Domain.Entities;
 
-namespace Pakosti.Api.Models.Identity;
+namespace Pakosti.Application.Features.Identities.Commands;
 
 public class RevokeAll
 {
