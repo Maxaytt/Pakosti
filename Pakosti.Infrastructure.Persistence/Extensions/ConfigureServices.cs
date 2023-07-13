@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pakosti.Application.Interfaces;
+using Pakosti.Infrastructure.Persistence.Repositories;
 using Pakosti.Infrastructure.Persistence.Services;
 
 namespace Pakosti.Infrastructure.Persistence.Extensions;
@@ -25,6 +26,6 @@ public static class ConfigureServices
             .AddHostedService<RoleInitializer>()
             .AddHostedService<DatabaseInitializer>();
 
-        return services;
+        return services.AddScoped<IIdentityRepository, IdentityRepository>();
     }
 }
