@@ -1,6 +1,8 @@
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Pakosti.Api.Extensions;
 using Pakosti.Application.Extensions;
 using Pakosti.Infrastructure.Persistence.Extensions;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 namespace Pakosti.Api;
 
@@ -39,7 +41,46 @@ public class Startup
         app.UseRouting();
 
         app.UseAuthorization();
-        app.UseEndpoints(builder => builder.MapControllers());
+        app.UseEndpoints(builder =>
+        {
+            builder.MapControllers();
+            builder.MapHealthChecks("/healthz");
+            builder.MapHealthChecks("/healthz")
+                .RequireHost("*:5001")
+                .RequireAuthorization();
+            builder.MapHealthChecks("/healthz")
+                .RequireAuthorization();
+            builder.MapHealthChecks("/healthz", new HealthCheckOptions
+            {
+                Predicate = healthCheck => healthCheck.Tags.Contains("health check")
+            });
+            builder.MapHealthChecks("/healthz", new HealthCheckOptions
+            {
+                ResultStatusCodes =
+                {
+                    [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                    [HealthStatus.Degraded] = StatusCodes.Status200OK,
+                    [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+                }
+            });
+            builder.MapHealthChecks("/healthz", new HealthCheckOptions
+            {
+                AllowCachingResponses = true
+            });
+            
+            //check data base
+            /*builder.Services.AddHealthChecks()
+                .AddSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection"));
+            //check DbContext
+            builder.Services.AddDbContext<SampleDbContext>(options =>
+            options.UseSqlServer(
+                builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddHealthChecks()
+                .AddDbContextCheck<SampleDbContext>();*/
+        });
+        
     }
 
     public void ConfigureServices(IServiceCollection services)
@@ -48,5 +89,12 @@ public class Startup
             .ConfigurePersistenceServices(_configuration)
             .ConfigureApplicationServices()
             .ConfigureApiServices(_configuration);
+        services.AddHealthChecks();
+        services.AddHealthChecks()
+            .AddTypeActivatedCheck<MyHealthCheck>(
+                "Health Check",
+                failureStatus: HealthStatus.Degraded,
+                tags: new[] { "health check" },
+                args: new object[] { 1, "Arg" });
     }
 }
