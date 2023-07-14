@@ -1,7 +1,6 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Common.Exceptions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
@@ -45,16 +44,13 @@ public class Register
     {
         private readonly IIdentityRepository _repository;
         private readonly UserManager<AppUser> _userManager;
-        private readonly ITokenService _tokenService;
-        private readonly IConfiguration _configuration;
+        private readonly ISender _sender;
 
-        public Handler(UserManager<AppUser> userManager,
-            ITokenService tokenService, IConfiguration configuration, IIdentityRepository repository)
+        public Handler(UserManager<AppUser> userManager, IIdentityRepository repository, ISender sender)
         {
             _userManager = userManager;
-            _tokenService = tokenService;
-            _configuration = configuration;
             _repository = repository;
+            _sender = sender;
         }
         
         public async Task<Authenticate.Response> Handle(Command request, CancellationToken cancellationToken)
@@ -77,11 +73,10 @@ public class Register
             if (findUser is null) throw new NotFoundException(nameof(user), request.Email);
 
             await _userManager.AddToRoleAsync(findUser, RoleConstants.Consumer);
-
-            var handler = new Authenticate.Handler(_userManager, _tokenService, _configuration, _repository);
+            
             var command = new Authenticate.Command(
                 request.Email, request.Password);
-            return await handler.Handle(command, cancellationToken);
+            return await _sender.Send(command, cancellationToken);
         }
     }
 }

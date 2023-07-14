@@ -3,7 +3,6 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Pakosti.Application.Behaviours;
-using Pakosti.Application.Interfaces;
 
 namespace Pakosti.Application.Extensions;
 
@@ -15,7 +14,6 @@ public static class ConfigureServices
             .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
         services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-        return services.AddScoped<IIdentityRepository, IIdentityRepository>();
+        return services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
     }
 }
