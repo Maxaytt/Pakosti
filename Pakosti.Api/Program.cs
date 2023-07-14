@@ -1,5 +1,6 @@
 using Pakosti.Api.Extensions;
 using Pakosti.Application.Extensions;
+using Pakosti.Application.Middlewares;
 using Pakosti.Infrastructure.Persistence.Extensions;
 
 namespace Pakosti.Api;
@@ -31,9 +32,14 @@ public class Startup
         if (environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Pakosti v1");
+                options.RoutePrefix = string.Empty;
+            });
         }
 
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
         app.UseAuthentication();
 
         app.UseRouting();
