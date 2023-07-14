@@ -26,6 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Pakosti.Api\Pakosti.Api.csproj" />
       <ProjectReference Include="..\Pakosti.Infrastructure.Persistence\Pakosti.Infrastructure.Persistence.csproj" />
     </ItemGroup>
 
