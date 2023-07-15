@@ -4,9 +4,9 @@ using Pakosti.IntegrationTests.Setups;
 
 namespace Pakosti.IntegrationTests.Attributes;
 
-public class ApiSetupAttribute : AutoDataAttribute
+public class TestSetupAttribute : AutoDataAttribute
 {
-    public ApiSetupAttribute() : base(() => new Fixture()
+    public TestSetupAttribute() : base(() => new Fixture()
         .Customize(new SqlServerSetup())
         .Customize(new TestWebApplicationSetup())) { }
 }
