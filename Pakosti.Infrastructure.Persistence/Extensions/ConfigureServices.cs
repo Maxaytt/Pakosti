@@ -5,6 +5,7 @@ using Pakosti.Application.Interfaces;
 using Pakosti.Infrastructure.Persistence.Repositories;
 using Pakosti.Infrastructure.Persistence.Services;
 
+
 namespace Pakosti.Infrastructure.Persistence.Extensions;
 
 public static class ConfigureServices
@@ -25,7 +26,10 @@ public static class ConfigureServices
         services
             .AddHostedService<RoleInitializer>()
             .AddHostedService<DatabaseInitializer>();
-
+            
+        services.AddHealthChecks().AddSqlServer(connectionString!);
+        
         return services.AddScoped<IIdentityRepository, IdentityRepository>();
+        
     }
 }
