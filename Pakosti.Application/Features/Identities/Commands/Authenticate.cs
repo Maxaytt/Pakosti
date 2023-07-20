@@ -5,6 +5,7 @@ using Pakosti.Application.Common.Exceptions;
 using Pakosti.Application.Extensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
+using FluentValidation;
 
 
 namespace Pakosti.Application.Features.Identities.Commands;
@@ -19,6 +20,7 @@ public static class Authenticate
         private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _configuration;
+        private readonly IValidator<Response> _responseValidator;
 
         public Handler(UserManager<AppUser> userManager,
             ITokenService tokenService, IConfiguration configuration, IIdentityRepository repository)
@@ -27,6 +29,7 @@ public static class Authenticate
             _tokenService = tokenService;
             _configuration = configuration;
             _repository = repository;
+            _responseValidator = new ResponseValidator();
         }
 
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
@@ -59,7 +62,14 @@ public static class Authenticate
                 .AddDays(_configuration.GetSection("Jwt:RefreshTokenValidityInDays").Get<int>());
 
             await _repository.SaveChangesAsync(cancellationToken);
-
+            
+            var response = new Response(user.UserName!, user.Email!, accessToken, user.RefreshToken);
+            
+            var validationResult = await _responseValidator.ValidateAsync(response);
+            if (!validationResult.IsValid)
+            {
+                throw new BadRequestException(string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage)));
+            }
             return new Response(user.UserName!, user.Email!, accessToken, user.RefreshToken);
         }
     }
