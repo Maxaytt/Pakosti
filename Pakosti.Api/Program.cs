@@ -2,6 +2,9 @@ using Pakosti.Api.Extensions;
 using Pakosti.Application.Extensions;
 using Pakosti.Application.Middlewares;
 using Pakosti.Infrastructure.Persistence.Extensions;
+using FluentValidation;
+using Pakosti.Application.Features.Identities.Commands;
+
 
 namespace Pakosti.Api;
 
@@ -39,6 +42,7 @@ public class Startup
             });
         }
 
+        app.UseHealthChecks("/health");
         app.UseMiddleware<ExceptionHandlingMiddleware>();
         app.UseAuthentication();
 
@@ -54,5 +58,6 @@ public class Startup
             .ConfigurePersistenceServices(_configuration)
             .ConfigureApplicationServices()
             .ConfigureApiServices(_configuration);
+        services.AddScoped<IValidator<Authenticate.Response>, ResponseValidator>();
     }
 }
