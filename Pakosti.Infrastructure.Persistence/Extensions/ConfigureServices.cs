@@ -5,7 +5,6 @@ using Pakosti.Application.Interfaces;
 using Pakosti.Infrastructure.Persistence.Repositories;
 using Pakosti.Infrastructure.Persistence.Services;
 
-
 namespace Pakosti.Infrastructure.Persistence.Extensions;
 
 public static class ConfigureServices
