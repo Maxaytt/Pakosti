@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Pakosti.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class BaseController : Controller
 {
     private IMediator? _mediator;
