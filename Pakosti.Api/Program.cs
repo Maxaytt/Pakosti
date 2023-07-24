@@ -39,6 +39,7 @@ public class Startup
             });
         }
 
+        app.UseHealthChecks("/health");
         app.UseMiddleware<ExceptionHandlingMiddleware>();
         app.UseAuthentication();
 
