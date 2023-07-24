@@ -23,8 +23,9 @@ public static class ConfigureServices
             provider.GetService<PakostiDbContext>()!);
 
         services
-            .AddHostedService<RoleInitializer>()
-            .AddHostedService<DatabaseInitializer>();
+            .AddHostedService<DatabaseInitializer>()
+            .AddHostedService<RoleInitializer>();
+            
 
         return services.AddScoped<IIdentityRepository, IdentityRepository>();
     }
