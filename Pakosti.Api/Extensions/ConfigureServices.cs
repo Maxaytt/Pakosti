@@ -1,5 +1,6 @@
 using System.Reflection;
 using Pakosti.Application.Common.Mappings;
+using Pakosti.Application.Features.Categories.Queries.GetCategoryList;
 using Pakosti.Application.Interfaces;
 using Pakosti.Application.Services;
 using Pakosti.Infrastructure.Persistence;
@@ -24,6 +25,7 @@ public static class ConfigureServices
         {
             config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
             config.AddProfile(new AssemblyMappingProfile(typeof(PakostiDbContext).Assembly));
+            config.AddProfile(new AssemblyMappingProfile(typeof(CategoryLookupDto).Assembly));
         });
 
         services.AddScoped<ITokenService, TokenService>();
