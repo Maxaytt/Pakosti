@@ -15,8 +15,8 @@ public class HealthChecksTests
         
         // Assert
         var content = await response.Content.ReadAsStringAsync();
-        response.ShouldBeEquivalentTo(HttpStatusCode.OK);
-        content.ShouldBeEquivalentTo("healthy");
+        response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.OK);
+        content.ShouldBeEquivalentTo("Healthy");
     }
 
     [Theory(Timeout = 5000), TestSetup]
@@ -24,13 +24,13 @@ public class HealthChecksTests
     {
         // Arrange 
         await container.StopAsync();
-        
+
         // Act
         var response = await client.GetAsync("/health");
         
         // Assert
-        response.ShouldBeEquivalentTo(HttpStatusCode.ServiceUnavailable);
+        response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.ServiceUnavailable);
         var content = await response.Content.ReadAsStringAsync();
-        content.ShouldBeEquivalentTo("unhealthy");
+        content.ShouldBeEquivalentTo("Unhealthy");
     }
 }
