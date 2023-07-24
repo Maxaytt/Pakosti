@@ -11,7 +11,7 @@ public class Register
 {
     public sealed record Command(
         string Email, DateTime BirthDate, string Password,
-        string PasswordConfirm, string FirstName, string LastName) : IRequest<Authenticate.Response>;
+        string PasswordConfirm, string FirstName, string LastName, string Username) : IRequest<Authenticate.Response>;
     
     public class Validator : AbstractValidator<Command>
     {
@@ -19,24 +19,36 @@ public class Register
         {
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Email is required")
-                .EmailAddress().WithMessage("Invalid email address");
+                .EmailAddress().WithMessage("Invalid email address")
+                .MaximumLength(50).WithMessage("Email must not exceed 50 characters");;
 
             RuleFor(x => x.BirthDate)
                 .NotEmpty().WithMessage("Birth date is required");
 
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("Password is required")
-                .MinimumLength(6).WithMessage("Password must be at least 6 characters long");
+                .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
+                .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")
+                .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
+                .Matches("[0-9]").WithMessage("Password must contain at least one digit")
+                .Matches("[!@#$%\\^&*()\\[\\]{};':\",.<>\\/\\-=_+]").WithMessage("Password must contain at least one special character");
 
             RuleFor(x => x.PasswordConfirm)
                 .NotEmpty().WithMessage("Confirm password is required")
                 .Equal(x => x.Password).WithMessage("Passwords do not match");
 
             RuleFor(x => x.FirstName)
-                .NotEmpty().WithMessage("First name is required");
+                .NotEmpty().WithMessage("First name is required")
+                .MaximumLength(64).WithMessage("Firstname must not exceed 64 characters");
 
             RuleFor(x => x.LastName)
-                .NotEmpty().WithMessage("Last name is required");
+                .NotEmpty().WithMessage("Last name is required")
+                .MaximumLength(64).WithMessage("Username must not exceed 64 characters");
+            
+            RuleFor(x => x.Username)
+                .NotEmpty().WithMessage("Username is required")
+                .MinimumLength(5).WithMessage("Username must contain at least 5 characters")
+                .MaximumLength(25).WithMessage("Username must not exceed 25 characters");
         }
     }
     
@@ -62,7 +74,7 @@ public class Register
                 Firstname = request.FirstName,
                 Lastname = request.LastName,
                 Email = request.Email,
-                UserName = request.Email
+                UserName = request.Username
             };
             var result = await _userManager.CreateAsync(user, request.Password);
 
