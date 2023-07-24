@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
@@ -30,6 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Pakosti.Api\Pakosti.Api.csproj" />
       <ProjectReference Include="..\Pakosti.Infrastructure.Persistence\Pakosti.Infrastructure.Persistence.csproj" />
     </ItemGroup>
 

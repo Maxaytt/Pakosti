@@ -1,5 +1,5 @@
 using AutoFixture;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Pakosti.Api;
 using Pakosti.IntegrationTests.Services;
 
 namespace Pakosti.IntegrationTests.Setups;
@@ -8,7 +8,7 @@ public class TestWebApplicationSetup : ICustomization
 {
     public void Customize(IFixture fixture)
     {
-        var client = new TestWebApplicationFactory<Program>(fixture).CreateClient();
+        var client = new TestWebApplicationFactory<Startup>(fixture).CreateClient();
         fixture.Inject(client);
     }
 }
