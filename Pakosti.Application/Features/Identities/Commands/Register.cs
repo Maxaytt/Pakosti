@@ -27,25 +27,27 @@ public class Register
 
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("Password is required")
-                .MinimumLength(6).WithMessage("Password must be at least 6 characters long")
-                .MaximumLength(50).WithMessage("Email must not exceed 50 characters")
+                .MinimumLength(8).WithMessage("Password must be at least 6 characters long")
                 .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")
                 .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
                 .Matches("[0-9]").WithMessage("Password must contain at least one digit")
-                .Matches("[!@#$%^&*]").WithMessage("Password must contain at least one special character (!@#$%^&*)");;
+                .Matches("[!@#$%\\^&*()\\[\\]{};':\",.<>\\/\\-=_+]").WithMessage("Password must contain at least one special character");
 
             RuleFor(x => x.PasswordConfirm)
                 .NotEmpty().WithMessage("Confirm password is required")
                 .Equal(x => x.Password).WithMessage("Passwords do not match");
 
             RuleFor(x => x.FirstName)
-                .NotEmpty().WithMessage("First name is required");
+                .NotEmpty().WithMessage("First name is required")
+                .MaximumLength(64).WithMessage("Firstname must not exceed 64 characters");
 
             RuleFor(x => x.LastName)
-                .NotEmpty().WithMessage("Last name is required");
+                .NotEmpty().WithMessage("Last name is required")
+                .MaximumLength(64).WithMessage("Username must not exceed 64 characters");
             
             RuleFor(x => x.Username)
                 .NotEmpty().WithMessage("Username is required")
+                .MinimumLength(5).WithMessage("Username must contain at least 5 characters")
                 .MaximumLength(25).WithMessage("Username must not exceed 25 characters");
         }
     }
