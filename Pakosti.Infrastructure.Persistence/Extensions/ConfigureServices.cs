@@ -16,7 +16,7 @@ public static class ConfigureServices
 
         services.AddDbContext<PakostiDbContext>(options =>
         {
-            options.UseSqlServer(connectionString);
+            options.UseNpgsql(connectionString);
         });
 
         services.AddScoped<IPakostiDbContext>(provider => 
