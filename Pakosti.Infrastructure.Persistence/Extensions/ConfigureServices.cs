@@ -12,7 +12,7 @@ public static class ConfigureServices
     public static IServiceCollection ConfigurePersistenceServices(this IServiceCollection services,
         IConfiguration configuration)
     {
-        var connectionString = configuration["DbConnection"];
+        var connectionString = configuration["POSTGRES_CONNECTION_STRING"];
 
         services.AddDbContext<PakostiDbContext>(options =>
         {
