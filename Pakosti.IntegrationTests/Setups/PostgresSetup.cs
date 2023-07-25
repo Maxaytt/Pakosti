@@ -1,6 +1,6 @@
 using AutoFixture;
 using Nito.AsyncEx;
-using Testcontainers.MsSql;
+using Testcontainers.PostgreSql;
 
 namespace Pakosti.IntegrationTests.Setups;
 
@@ -8,9 +8,9 @@ public class PostgresSetup : ICustomization
 {
     public void Customize(IFixture fixture)
     {
-        var container = new MsSqlBuilder()
-            .WithExposedPort(1433)
-            .WithPortBinding(1433, true)
+        var container = new PostgreSqlBuilder()
+            .WithExposedPort(5432)
+            .WithPortBinding(5432, true)
             .Build();
 
         AsyncContext.Run(async () => await container.StartAsync());

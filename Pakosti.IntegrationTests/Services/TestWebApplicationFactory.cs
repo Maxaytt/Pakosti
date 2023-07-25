@@ -2,7 +2,7 @@ using AutoFixture;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using Testcontainers.MsSql;
+using Testcontainers.PostgreSql;
 
 namespace Pakosti.IntegrationTests.Services;
 
@@ -14,7 +14,7 @@ internal class TestWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        var sqlServerContainer = _fixture.Create<MsSqlContainer>();
+        var postgresContainer = _fixture.Create<PostgreSqlContainer>();
 
         builder.ConfigureAppConfiguration(configuration => configuration.AddInMemoryCollection(new Dictionary<string, string?>
         {
