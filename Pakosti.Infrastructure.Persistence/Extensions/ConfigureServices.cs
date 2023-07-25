@@ -20,7 +20,7 @@ public static class ConfigureServices
         });
 
         services.AddHealthChecks()
-            .AddSqlServer(connectionString!);
+            .AddNpgSql(connectionString!);
 
         services.AddScoped<IPakostiDbContext>(provider => 
             provider.GetService<PakostiDbContext>()!);
