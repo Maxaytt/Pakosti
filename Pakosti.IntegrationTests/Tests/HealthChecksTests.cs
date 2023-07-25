@@ -1,7 +1,7 @@
 using System.Net;
 using Pakosti.IntegrationTests.Attributes;
 using Shouldly;
-using Testcontainers.MsSql;
+using Testcontainers.PostgreSql;
 using Xunit;
 
 namespace Pakosti.IntegrationTests.Tests;
@@ -20,7 +20,7 @@ public class HealthChecksTests
     }
 
     [Theory(Timeout = 5000), TestSetup]
-    public async Task HealthCheck_DatabaseUnavailable_ShouldBeHealthy(HttpClient client, MsSqlContainer container)
+    public async Task HealthCheck_DatabaseUnavailable_ShouldBeHealthy(HttpClient client, PostgreSqlContainer container)
     {
         // Arrange 
         await container.StopAsync();
