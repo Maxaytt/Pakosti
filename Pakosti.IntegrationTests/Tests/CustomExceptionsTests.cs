@@ -13,7 +13,7 @@ public class CustomExceptionsTests
     {
         // Arrange
         var command = new Register.Command(string.Empty, DateTime.Now, string.Empty,
-            string.Empty, string.Empty, string.Empty);
+            string.Empty, string.Empty, string.Empty, string.Empty);
         
         // Act
         var response = await client.PostAsJsonAsync("/api/identity/register", command);
