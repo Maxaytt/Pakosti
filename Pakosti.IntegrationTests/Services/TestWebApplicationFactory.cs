@@ -18,7 +18,7 @@ internal class TestWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
         builder.ConfigureAppConfiguration(configuration => configuration.AddInMemoryCollection(new Dictionary<string, string?>
         {
-            ["SQLSERVER_CONNECTION_STRING"] = sqlServerContainer.GetConnectionString()
+            ["POSTGRES_CONNECTION_STRING"] = postgresContainer.GetConnectionString()
         }));
     }
 }
