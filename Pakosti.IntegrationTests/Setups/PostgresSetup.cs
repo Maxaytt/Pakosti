@@ -4,7 +4,7 @@ using Testcontainers.MsSql;
 
 namespace Pakosti.IntegrationTests.Setups;
 
-public class SqlServerSetup : ICustomization
+public class PostgresSetup : ICustomization
 {
     public void Customize(IFixture fixture)
     {

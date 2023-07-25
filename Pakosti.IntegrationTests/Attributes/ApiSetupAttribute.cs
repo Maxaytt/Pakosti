@@ -7,6 +7,6 @@ namespace Pakosti.IntegrationTests.Attributes;
 public class TestSetupAttribute : AutoDataAttribute
 {
     public TestSetupAttribute() : base(() => new Fixture()
-        .Customize(new SqlServerSetup())
+        .Customize(new PostgresSetup())
         .Customize(new TestWebApplicationSetup())) { }
 }
