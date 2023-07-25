@@ -19,6 +19,9 @@ public static class ConfigureServices
             options.UseSqlServer(connectionString);
         });
 
+        services.AddHealthChecks()
+            .AddSqlServer(connectionString!);
+
         services.AddScoped<IPakostiDbContext>(provider => 
             provider.GetService<PakostiDbContext>()!);
 
