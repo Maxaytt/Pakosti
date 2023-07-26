@@ -1,7 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Features.Categories.Queries.GetCategory;
 using Pakosti.Application.Features.Reviews.Commands.CreateReview;
 using Pakosti.Application.Features.Reviews.Commands.DeleteReview;
 using Pakosti.Application.Features.Reviews.Commands.UpdateReview;
@@ -32,7 +31,7 @@ public class ReviewController : BaseController
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<ReviewVm>> Get(Guid id)
     {
-        var query = new GetCategoryQuery
+        var query = new GetReviewQuery
         {
             Id = id
         };
