@@ -2,6 +2,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Pakosti.Application.Common.Exceptions;
+using Pakosti.Application.Extensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
@@ -17,40 +18,16 @@ public static class Register
     {
         public Validator()
         {
-            RuleFor(c => c.Email)
-                .NotEmpty().WithMessage("Email is required")
-                .EmailAddress().WithMessage("Invalid email address")
-                .MaximumLength(50).WithMessage("Email must not exceed 50 characters");;
-
-            RuleFor(c => c.BirthDate)
-                .NotEmpty().WithMessage("Birth date is required");
-
-            RuleFor(c => c.Password)
-                .NotEmpty().WithMessage("Password is required")
-                .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
-                .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")
-                .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
-                .Matches("[0-9]").WithMessage("Password must contain at least one digit")
-                .Matches("[!@#$%\\^&*()\\[\\]{};':\",.<>\\/\\-=_+]").WithMessage("Password must contain at least one special character");
-
-            RuleFor(c => c.PasswordConfirm)
-                .NotEmpty().WithMessage("Confirm password is required")
-                .Equal(x => x.Password).WithMessage("Passwords do not match");
-
-            RuleFor(c => c.FirstName)
-                .NotEmpty().WithMessage("First name is required")
-                .MaximumLength(64).WithMessage("Firstname must not exceed 64 characters");
-
-            RuleFor(c => c.LastName)
-                .NotEmpty().WithMessage("Last name is required")
-                .MaximumLength(64).WithMessage("Username must not exceed 64 characters");
-            
-            RuleFor(c => c.Username)
-                .NotEmpty().WithMessage("Username is required")
-                .MinimumLength(5).WithMessage("Username must contain at least 5 characters")
-                .MaximumLength(25).WithMessage("Username must not exceed 25 characters");
+            RuleFor(c => c.Email).Email();
+            RuleFor(c => c.BirthDate).BirthDate();
+            RuleFor(c => c.Password).Password();
+            RuleFor(c => c.PasswordConfirm).PasswordConfirm(c => c.Password);
+            RuleFor(c => c.FirstName).FirstName();
+            RuleFor(c => c.LastName).LastName();
+            RuleFor(c => c.Username).Username();
         }
     }
+    
     
     public sealed class Handler : IRequestHandler<Command, Authenticate.Response>
     {
