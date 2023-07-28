@@ -15,7 +15,10 @@ public static class CreateCategory
     {
         public Validator()
         {
-            // TODO: add validation
+            RuleFor(c => c.Name)
+                .NotEmpty().WithMessage("Name is required")
+                .MinimumLength(5).WithMessage("Name must contain at least 5 characters")
+                .MaximumLength(50).WithMessage("Name must not exceed 50 characters");
         }
     }
 

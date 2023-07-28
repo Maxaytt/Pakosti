@@ -16,7 +16,15 @@ public static class CreateReview
     {
         public Validator()
         {
-            //TODO: add validation
+            RuleFor(c => c.Header)
+                .NotEmpty().WithMessage("Header is required")
+                .MinimumLength(5).WithMessage("Header must contain at least 5 characters")
+                .MaximumLength(100).WithMessage("Header must not exceed 150 characters");
+            
+            RuleFor(c => c.Body)
+                .NotEmpty().WithMessage("Body is required")
+                .MinimumLength(25).WithMessage("Body must contain at least 5 characters")
+                .MaximumLength(1500).WithMessage("Body must not exceed 150 characters");
         }
     }
     

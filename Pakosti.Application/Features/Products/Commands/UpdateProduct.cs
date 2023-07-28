@@ -7,7 +7,7 @@ using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Products.Commands;
 
-public class UpdateProduct
+public static class UpdateProduct
 {
     public sealed record Command(Guid Id, Guid UserId, Guid CategoryId,
         string? Name, string? Description) : IRequest;
@@ -16,7 +16,13 @@ public class UpdateProduct
     {
         public Validator()
         {
-            //TODO: add validation
+            RuleFor(c => c.Name)
+                .MinimumLength(5).WithMessage("Name must contain at least 5 characters")
+                .MaximumLength(150).WithMessage("Name must not exceed 150 characters");
+            
+            RuleFor(c => c.Description)
+                .MinimumLength(20).WithMessage("Description must contain at least 5 characters")
+                .MaximumLength(1500).WithMessage("Description must not exceed 150 characters");
         }
     }
     

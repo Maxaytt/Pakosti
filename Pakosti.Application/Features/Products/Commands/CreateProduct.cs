@@ -16,7 +16,15 @@ public static class CreateProduct
     {
         public Validator()
         {
-            //TODO: add validation
+            RuleFor(c => c.Name)
+                .NotEmpty().WithMessage("Name is required")
+                .MinimumLength(5).WithMessage("Name must contain at least 5 characters")
+                .MaximumLength(150).WithMessage("Name must not exceed 150 characters");
+            
+            RuleFor(c => c.Description)
+                .NotEmpty().WithMessage("Description is required")
+                .MinimumLength(20).WithMessage("Description must contain at least 5 characters")
+                .MaximumLength(1500).WithMessage("Description must not exceed 150 characters");
         }
     }
     
