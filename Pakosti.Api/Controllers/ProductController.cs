@@ -12,10 +12,8 @@ public class ProductController : BaseController
 {
     private readonly IMapper _mapper;
 
-    public ProductController(IMapper mapper)
-    {
+    public ProductController(IMapper mapper) =>
         _mapper = mapper;
-    }
 
     [HttpGet]
     public async Task<ActionResult> GetAll()

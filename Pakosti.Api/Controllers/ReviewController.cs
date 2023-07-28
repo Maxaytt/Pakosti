@@ -11,10 +11,8 @@ public class ReviewController : BaseController
 {
     private readonly IMapper _mapper;
 
-    public ReviewController(IMapper mapper)
-    {
+    public ReviewController(IMapper mapper) =>
         _mapper = mapper;
-    }
 
     [HttpGet]
     public async Task<ActionResult> GetAll()
