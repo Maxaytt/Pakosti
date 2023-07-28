@@ -1,12 +1,9 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Features.Reviews.Commands.CreateReview;
-using Pakosti.Application.Features.Reviews.Commands.DeleteReview;
-using Pakosti.Application.Features.Reviews.Commands.UpdateReview;
-using Pakosti.Application.Features.Reviews.Queries.GetReview;
-using Pakosti.Application.Features.Reviews.Queries.GetReviewList;
 using Pakosti.Api.Models.Review;
+using Pakosti.Application.Features.Reviews.Commands;
+using Pakosti.Application.Features.Reviews.Queries;
 
 namespace Pakosti.Api.Controllers;
 
@@ -20,21 +17,18 @@ public class ReviewController : BaseController
     }
 
     [HttpGet]
-    public async Task<ActionResult<ReviewListVm>> GetAll()
+    public async Task<ActionResult> GetAll()
     {
-        var query = new GetReviewListQuery();
+        var query = new GetReviewList.Query();
 
         var vm = await Mediator.Send(query);
         return Ok(vm);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<ReviewVm>> Get(Guid id)
+    public async Task<ActionResult> Get(Guid id)
     {
-        var query = new GetReviewQuery
-        {
-            Id = id
-        };
+        var query = new GetReview.Query(id);
 
         var vm = await Mediator.Send(query);
         return Ok(vm);
@@ -44,8 +38,8 @@ public class ReviewController : BaseController
     [Authorize]
     public async Task<ActionResult<Guid>> Crete([FromBody] CreateReviewDto createReviewDto)
     {
-        var query = _mapper.Map<CreateReviewCommand>(createReviewDto);
-        query.UserId = UserId;
+        var query = _mapper.Map<CreateReview.Command>(createReviewDto);
+        query = query with { UserId = UserId };
         var id = await Mediator.Send(query);
         return Ok(id);
     }
@@ -54,8 +48,8 @@ public class ReviewController : BaseController
     [Authorize]
     public async Task<ActionResult> Update([FromBody] UpdateReviewDto updateReviewDto)
     {
-        var query = _mapper.Map<UpdateReviewCommand>(updateReviewDto);
-        query.UserId = UserId;
+        var query = _mapper.Map<UpdateReview.Command>(updateReviewDto);
+        query = query with { UserId = UserId };
         await Mediator.Send(query);
         return NoContent();
     }
@@ -64,11 +58,7 @@ public class ReviewController : BaseController
     [Authorize]
     public async Task<ActionResult> Delete(Guid id)
     {
-        var query = new DeleteReviewCommand
-        {
-            Id = id,
-            UserId = UserId
-        };
+        var query = new DeleteReview.Command(id, UserId);
 
         await Mediator.Send(query);
         return NoContent();
