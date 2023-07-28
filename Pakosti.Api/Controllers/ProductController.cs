@@ -37,8 +37,8 @@ public class ProductController : BaseController
     [Authorize]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateProductDto createProductDto)
     {
-        var command = _mapper.Map<CreateProduct.Command>(createProductDto);
-        command = command with { UserId = UserId };
+        var command = _mapper.Map<CreateProduct.Command>(createProductDto)
+            with { UserId = UserId };
         var noteId = await Mediator.Send(command);
         return Ok(noteId);
     }
@@ -47,8 +47,8 @@ public class ProductController : BaseController
     [Authorize]
     public async Task<ActionResult> Update([FromBody] UpdateProductDto updateProductDto)
     {
-        var command = _mapper.Map<UpdateProduct.Command>(updateProductDto);
-        command = command with { UserId = UserId };
+        var command = _mapper.Map<UpdateProduct.Command>(updateProductDto)
+            with { UserId = UserId };
         await Mediator.Send(command);
         return NoContent();
     }

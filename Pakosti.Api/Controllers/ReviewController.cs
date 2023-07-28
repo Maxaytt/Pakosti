@@ -36,8 +36,8 @@ public class ReviewController : BaseController
     [Authorize]
     public async Task<ActionResult<Guid>> Crete([FromBody] CreateReviewDto createReviewDto)
     {
-        var query = _mapper.Map<CreateReview.Command>(createReviewDto);
-        query = query with { UserId = UserId };
+        var query = _mapper.Map<CreateReview.Command>(createReviewDto)
+            with { UserId = UserId };
         var id = await Mediator.Send(query);
         return Ok(id);
     }
@@ -46,8 +46,8 @@ public class ReviewController : BaseController
     [Authorize]
     public async Task<ActionResult> Update([FromBody] UpdateReviewDto updateReviewDto)
     {
-        var query = _mapper.Map<UpdateReview.Command>(updateReviewDto);
-        query = query with { UserId = UserId };
+        var query = _mapper.Map<UpdateReview.Command>(updateReviewDto)
+            with { UserId = UserId };
         await Mediator.Send(query);
         return NoContent();
     }
