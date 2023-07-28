@@ -1,17 +1,17 @@
 using AutoMapper;
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Features.Categories.Commands.CreateCategory;
+using Pakosti.Application.Features.Categories.Commands;
 
 namespace Pakosti.Api.Models.Category;
 
-public class CreateCategoryDto : IMapWith<CreateCategoryCommand>
+public class CreateCategoryDto : IMapWith<CreateCategory.Command>
 {
     public Guid? ParentCategoryId { get; set; }
     public string Name { get; set; } = null!;
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<CreateCategoryCommand, CreateCategoryDto>()
+        profile.CreateMap<CreateCategory.Command, CreateCategoryDto>()
             .ForMember(dto => dto.ParentCategoryId,
                 opt => opt
                     .MapFrom(c => c.ParentCategoryId))
