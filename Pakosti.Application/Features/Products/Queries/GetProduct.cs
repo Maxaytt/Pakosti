@@ -10,9 +10,9 @@ namespace Pakosti.Application.Features.Products.Queries;
 
 public static class GetProduct
 {
-    public sealed record Command(Guid Id) : IRequest<Response>;
+    public sealed record Query(Guid Id) : IRequest<Response>;
 
-    public sealed class Handler : IRequestHandler<Command, Response>
+    public sealed class Handler : IRequestHandler<Query, Response>
     {
         private readonly IPakostiDbContext _context;
         private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ public static class GetProduct
         public Handler(IPakostiDbContext context, IMapper mapper) =>
             (_context, _mapper) = (context, mapper);
 
-            public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
             var entity = await _context.Products
                 .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken: cancellationToken);

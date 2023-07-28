@@ -10,20 +10,17 @@ namespace Pakosti.Application.Features.Products.Queries;
 
 public static class GetProductList
 {
-    public sealed record Command() : IRequest<Response>;
+    public sealed record Query() : IRequest<Response>;
 
-    public sealed class Handler : IRequestHandler<Command, Response>
+    public sealed class Handler : IRequestHandler<Query, Response>
     {
         private readonly IPakostiDbContext _context;
         private readonly IMapper _mapper;
 
-        public Handler(IPakostiDbContext context, IMapper mapper)
-        {
-            _context = context;
-            _mapper = mapper;
-        }
+        public Handler(IPakostiDbContext context, IMapper mapper) =>
+            (_context, _mapper) = (context, mapper);
         
-        public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
             var products = _context.Products;
             var projected = products.ProjectTo<LookupDto>(_mapper.ConfigurationProvider);
