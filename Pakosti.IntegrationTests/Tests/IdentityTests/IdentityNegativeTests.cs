@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using Org.BouncyCastle.Asn1.Cms;
 using Pakosti.Application.Features.Identities.Commands;
 using Pakosti.IntegrationTests.Attributes;
 using Shouldly;
@@ -16,7 +17,7 @@ public class IdentityNegativeTests
     public async Task Authenticate_InvalidCredentials_ReturnsBadRequest(HttpClient client)
     {
         // Arrange
-        var command = new { Email = "test@example.com", Password = "InvalidPassword" };
+        var command = new Authenticate.Command("test@example.com","InvalidPassword");
 
         // Act
         var response = await client.GetAsync("/api/identity/register");
@@ -30,12 +31,10 @@ public class IdentityNegativeTests
     public async Task RefreshToken_InvalidRequest_ReturnsBadRequest(HttpClient client)
     {
         // Arrange
-        var expiredRefreshToken = "expired_refresh_token";
-        var accessToken = new JwtSecurityTokenHandler().WriteToken(new JwtSecurityToken());
-
+        var invalidCommand = new RefreshToken.Command("invalidAccessToken",  "invalidRefreshToken");
+        
         // Act
-        var command = new RefreshToken.Command(accessToken, expiredRefreshToken);
-        var response = await client.PostAsJsonAsync("/api/identity/refresh-token", command);
+        var response = await client.PostAsJsonAsync("/api/identity/refresh-token", invalidCommand);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
