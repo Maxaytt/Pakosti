@@ -1,5 +1,4 @@
 using System.IdentityModel.Tokens.Jwt;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,15 +9,10 @@ using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Identities.Commands;
 
-public class RefreshToken
+public static class RefreshToken
 {
     public sealed record Command(string? AccessToken, string? RefreshToken) : IRequest<ObjectResult>;
-
-    public class Validator : AbstractValidator<Command>
-    {
-        
-    }
-
+    
     public sealed class Handler : IRequestHandler<Command, ObjectResult>
     {
         private readonly UserManager<AppUser> _userManager;

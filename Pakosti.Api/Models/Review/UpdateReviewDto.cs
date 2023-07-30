@@ -1,10 +1,10 @@
 using AutoMapper;
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Features.Reviews.Commands.UpdateReview;
+using Pakosti.Application.Features.Reviews.Commands;
 
 namespace Pakosti.Api.Models.Review;
 
-public class UpdateReviewDto : IMapWith<UpdateReviewCommand>
+public class UpdateReviewDto : IMapWith<UpdateReview.Command>
 {
     public Guid Id { get; set; }
     public string? Header { get; set; }
@@ -12,7 +12,7 @@ public class UpdateReviewDto : IMapWith<UpdateReviewCommand>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<UpdateReviewCommand, UpdateReviewDto>()
+        profile.CreateMap<UpdateReview.Command, UpdateReviewDto>()
             .ForMember(dto => dto.Id,
                 opt => opt
                     .MapFrom(r => r.Id))

@@ -1,10 +1,10 @@
 using AutoMapper;
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Features.Reviews.Commands.CreateReview;
+using Pakosti.Application.Features.Reviews.Commands;
 
 namespace Pakosti.Api.Models.Review;
 
-public class CreateReviewDto : IMapWith<CreateReviewCommand>
+public class CreateReviewDto : IMapWith<CreateReview.Command>
 {
     public Guid ProductId { get; set; }
     public string Header { get; set; } = null!;
@@ -12,7 +12,7 @@ public class CreateReviewDto : IMapWith<CreateReviewCommand>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<CreateReviewCommand, CreateReviewDto>()
+        profile.CreateMap<CreateReview.Command, CreateReviewDto>()
             .ForMember(dto => dto.ProductId,
                 opt => opt
                     .MapFrom(c => c.ProductId))

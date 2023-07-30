@@ -5,7 +5,7 @@ using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Identities.Commands;
 
-public class Revoke
+public static class Revoke
 {
     public sealed record Command(string Username) : IRequest;
     

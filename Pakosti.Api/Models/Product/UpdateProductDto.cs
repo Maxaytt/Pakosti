@@ -1,11 +1,10 @@
 using AutoMapper;
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Features.Products.Commands.UpdateProduct;
-using Pakosti.Domain.Entities;
+using Pakosti.Application.Features.Products.Commands;
 
 namespace Pakosti.Api.Models.Product;
 
-public class UpdateProductDto : IMapWith<UpdateProductCommand>
+public class UpdateProductDto : IMapWith<UpdateProduct.Command>
 {
     public Guid Id { get; set; }
     public Guid CategoryId { get; set; }
@@ -14,7 +13,7 @@ public class UpdateProductDto : IMapWith<UpdateProductCommand>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<UpdateProductDto, UpdateProductCommand>()
+        profile.CreateMap<UpdateProductDto, UpdateProduct.Command>()
             .ForMember(u => u.Id,
                 opt =>
                     opt.MapFrom(u => u.Id))
