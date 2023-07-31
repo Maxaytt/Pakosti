@@ -1,4 +1,5 @@
 using Pakosti.Application.Interfaces;
+using Pakosti.Application.Middlewares;
 using Pakosti.Application.Services;
 
 namespace Pakosti.Api.Extensions;
@@ -17,7 +18,8 @@ public static class ConfigureServices
         services.AddControllers();
         services.AddEndpointsApiExplorer();
 
-        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<ITokenService, TokenService>()
+            .AddTransient<ExceptionHandlingMiddleware>();
         
         return services;
     }
