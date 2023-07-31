@@ -11,7 +11,7 @@ namespace Pakosti.IntegrationTests.Tests.IdentityTests;
 public class IdentityPositiveTests
 {
     [Theory(Timeout = 5000), TestSetup]
-    public async Task Authenticate_ValidRequest_ReturnsOk(HttpClient client)
+    public async Task Authenticate_ValidRequest_ShouldAuthenticate(HttpClient client)
     {
         // Arrange
         var registerRequest = new Register.Command("validuser@example.com", DateTime.Today.AddYears(-18), "ValidPassword1!",
@@ -23,7 +23,10 @@ public class IdentityPositiveTests
         var response = await client.PostAsJsonAsync("/api/identity/login", authenticateRequest);
 
         // Assert
+        var authenticateResult = response.Content.ReadFromJsonAsync<Authenticate.Response>().Result;
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        authenticateResult!.RefreshToken.ShouldNotBeNull();
+        authenticateResult.Token.ShouldNotBeNull();
     }
 
     [Theory(Timeout = 5000), TestSetup]
