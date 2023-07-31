@@ -90,12 +90,12 @@ public class IdentityPositiveTests
             "johndoe");
 
         var registerResponse = await client.PostAsJsonAsync("/api/identity/register", request);
-        var registerResponseData = registerResponse.Content.ReadFromJsonAsync<Authenticate.Response>();
+        var registerResponseData = await registerResponse.Content.ReadFromJsonAsync<Authenticate.Response>();
         client.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", registerResponseData.Result!.Token);
+            new AuthenticationHeaderValue("Bearer", registerResponseData!.Token);
         
         // Act
-        var response = await client.PostAsync($"/api/identity/revoke/{registerResponseData.Result!.Id}", null);
+        var response = await client.PostAsync($"/api/identity/revoke/{registerResponseData.Id}", null);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
