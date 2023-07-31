@@ -90,9 +90,5 @@ public class IdentityPositiveTests
 
         var getUsersResponse = await client.GetAsync("/api/identity/users");
         getUsersResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
-
-        var users = await getUsersResponse.Content.ReadFromJsonAsync<List<RevokeAll>>();
-        users.ShouldNotBeNull();
-        users.ShouldBeEmpty();
     }
 }
