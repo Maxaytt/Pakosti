@@ -1,7 +1,6 @@
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Api.Models.Product;
 using Pakosti.Application.Features.Products.Commands;
 using Pakosti.Application.Features.Products.Queries;
 
@@ -30,7 +29,7 @@ public class ProductController : BaseController
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateProductDto createProductDto)
+    public async Task<ActionResult<Guid>> Create([FromBody] CreateProduct.Dto createProductDto)
     {
         var command = createProductDto.Adapt<CreateProduct.Command>()
             with { UserId = UserId };
@@ -40,7 +39,7 @@ public class ProductController : BaseController
 
     [HttpPut]
     [Authorize]
-    public async Task<ActionResult> Update([FromBody] UpdateProductDto updateProductDto)
+    public async Task<ActionResult> Update([FromBody] UpdateProduct.Dto updateProductDto)
     {
         var command = updateProductDto.Adapt<UpdateProduct.Command>()
             with { UserId = UserId };

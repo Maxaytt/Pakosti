@@ -1,7 +1,6 @@
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Api.Models.Review;
 using Pakosti.Application.Features.Reviews.Commands;
 using Pakosti.Application.Features.Reviews.Queries;
 
@@ -29,7 +28,7 @@ public class ReviewController : BaseController
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Guid>> Crete([FromBody] CreateReviewDto createReviewDto)
+    public async Task<ActionResult<Guid>> Crete([FromBody] CreateReview.Dto createReviewDto)
     {
         var query = createReviewDto.Adapt<CreateReview.Command>()
             with { UserId = UserId };
@@ -39,7 +38,7 @@ public class ReviewController : BaseController
 
     [HttpPut]
     [Authorize]
-    public async Task<ActionResult> Update([FromBody] UpdateReviewDto updateReviewDto)
+    public async Task<ActionResult> Update([FromBody] UpdateReview.Dto updateReviewDto)
     {
         var query = updateReviewDto.Adapt<UpdateReview.Command>()
             with { UserId = UserId };
