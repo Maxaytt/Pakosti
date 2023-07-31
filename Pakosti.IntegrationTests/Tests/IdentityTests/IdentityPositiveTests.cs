@@ -85,7 +85,7 @@ public class IdentityPositiveTests
     public async Task RevokeAll_ShouldRevoke_AllUsers(HttpClient client)
     {
         // Act
-        var response = await client.PostAsync("/api/identity/revoke-all", null);
+        var response = await client.PostAsync($"/api/identity/revoke/{registerResponseData.Result!.Id}", null);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
