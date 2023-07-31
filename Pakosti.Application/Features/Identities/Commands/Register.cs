@@ -44,8 +44,6 @@ public static class Register
         
         public async Task<Authenticate.Response> Handle(Command request, CancellationToken cancellationToken)
         {
-            // Todo: check validation
-
             var user = new AppUser
             {
                 Firstname = request.FirstName,
