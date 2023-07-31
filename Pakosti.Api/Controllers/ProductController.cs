@@ -1,4 +1,4 @@
-using AutoMapper;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pakosti.Api.Models.Product;
@@ -10,11 +10,6 @@ namespace Pakosti.Api.Controllers;
 
 public class ProductController : BaseController
 {
-    private readonly IMapper _mapper;
-
-    public ProductController(IMapper mapper) =>
-        _mapper = mapper;
-
     [HttpGet]
     public async Task<ActionResult> GetAll()
     {
@@ -37,7 +32,7 @@ public class ProductController : BaseController
     [Authorize]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateProductDto createProductDto)
     {
-        var command = _mapper.Map<CreateProduct.Command>(createProductDto)
+        var command = createProductDto.Adapt<CreateProduct.Command>()
             with { UserId = UserId };
         var noteId = await Mediator.Send(command);
         return Ok(noteId);
@@ -47,7 +42,7 @@ public class ProductController : BaseController
     [Authorize]
     public async Task<ActionResult> Update([FromBody] UpdateProductDto updateProductDto)
     {
-        var command = _mapper.Map<UpdateProduct.Command>(updateProductDto)
+        var command = updateProductDto.Adapt<UpdateProduct.Command>()
             with { UserId = UserId };
         await Mediator.Send(command);
         return NoContent();
