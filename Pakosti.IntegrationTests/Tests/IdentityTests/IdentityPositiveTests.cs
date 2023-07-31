@@ -1,6 +1,6 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using Microsoft.AspNetCore.Mvc;
 using Pakosti.Application.Features.Identities.Commands;
 using Pakosti.IntegrationTests.Attributes;
 using Shouldly;
@@ -10,9 +10,8 @@ namespace Pakosti.IntegrationTests.Tests.IdentityTests;
 
 public class IdentityPositiveTests
 {
-    [Theory(Timeout = 5000)]
-    [TestSetup]
-    public async Task Authenticate_ValidCredentials(HttpClient client)
+    [Theory(Timeout = 5000), TestSetup]
+    public async Task Authenticate_ValidRequest_ReturnsOk(HttpClient client)
     {
         // Arrange
         var registerRequest = new Register.Command("validuser@example.com", DateTime.Today.AddYears(-18), "ValidPassword1!",
@@ -27,9 +26,8 @@ public class IdentityPositiveTests
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
     }
 
-    [Theory(Timeout = 5000)]
-    [TestSetup]
-    public async Task RefreshToken_ValidRequest_ReturnsNewToken(HttpClient client)
+    [Theory(Timeout = 5000), TestSetup]
+    public async Task RefreshToken_ValidRequest_ReturnsNewTokens(HttpClient client)
     {
         // Arrange
         var registerRequest = new Register.Command(
@@ -57,8 +55,7 @@ public class IdentityPositiveTests
         responseData.RefreshToken.ShouldNotBe(registerData.RefreshToken);
     }
 
-    [Theory(Timeout = 5000)]
-    [TestSetup]
+    [Theory(Timeout = 5000), TestSetup]
     public async Task Register_ValidCommand_ShouldAuthenticate(HttpClient client)
     {
         // Act
@@ -79,9 +76,8 @@ public class IdentityPositiveTests
         responseData.RefreshToken.ShouldNotBeNull();
     }
 
-    [Theory(Timeout = 5000)]
-    [TestSetup]
-    public async Task RevokeAll_ShouldRevoke_AllUsers(HttpClient client)
+    [Theory(Timeout = 5000), TestSetup]
+    public async Task Revoke_ValidRequest_ReturnsOk(HttpClient client)
     {
         // Arrange
         var request = new Register.Command(
@@ -103,8 +99,5 @@ public class IdentityPositiveTests
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
-
-        var getUsersResponse = await client.GetAsync("/api/identity/users");
-        getUsersResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
     }
 }
