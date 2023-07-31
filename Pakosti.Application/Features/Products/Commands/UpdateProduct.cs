@@ -9,6 +9,7 @@ namespace Pakosti.Application.Features.Products.Commands;
 
 public static class UpdateProduct
 {
+    public sealed record Dto(Guid Id, Guid CategoryId, string? Name, string? Description);
     public sealed record Command(Guid Id, Guid UserId, Guid CategoryId,
         string? Name, string? Description) : IRequest;
 

@@ -1,9 +1,6 @@
-using System.Reflection;
-using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Features.Categories.Queries;
 using Pakosti.Application.Interfaces;
+using Pakosti.Application.Middlewares;
 using Pakosti.Application.Services;
-using Pakosti.Infrastructure.Persistence;
 
 namespace Pakosti.Api.Extensions;
 
@@ -20,15 +17,9 @@ public static class ConfigureServices
         
         services.AddControllers();
         services.AddEndpointsApiExplorer();
-        
-        services.AddAutoMapper(config =>
-        {
-            config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-            config.AddProfile(new AssemblyMappingProfile(typeof(PakostiDbContext).Assembly));
-            config.AddProfile(new AssemblyMappingProfile(typeof(GetCategoryList.LookupDto).Assembly));
-        });
 
-        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<ITokenService, TokenService>()
+            .AddTransient<ExceptionHandlingMiddleware>();
         
         return services;
     }

@@ -1,8 +1,7 @@
-using AutoMapper;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Common.Mappings;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
@@ -15,10 +14,9 @@ public static class GetProduct
     public sealed class Handler : IRequestHandler<Query, Response>
     {
         private readonly IPakostiDbContext _context;
-        private readonly IMapper _mapper;
-        
-        public Handler(IPakostiDbContext context, IMapper mapper) =>
-            (_context, _mapper) = (context, mapper);
+
+        public Handler(IPakostiDbContext context) =>
+            _context = context;
 
             public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
@@ -32,7 +30,7 @@ public static class GetProduct
             var category = await _context.Categories
                 .FirstOrDefaultAsync(c => c.Id == entity.CategoryId, cancellationToken);
         
-            var response = _mapper.Map<Response>(entity);
+            var response = entity.Adapt<Response>();
             if (category != null)
             {
                 response = response with { CategoryName = category.Name };
@@ -45,9 +43,5 @@ public static class GetProduct
     public sealed record Response(
         Guid Id, Guid? CategoryId,
         string? CategoryName, string Name, string Description,
-        DateTime CreationDate, DateTime? EditionDate) : IMapWith<Product>
-    {
-        public void Mapping(Profile profile) =>
-            profile.CreateMap<Product, Response>();
-        }
+        DateTime CreationDate, DateTime? EditionDate);
 }

@@ -7,7 +7,7 @@ namespace Pakosti.Application.Features.Identities.Commands;
 
 public static class Revoke
 {
-    public sealed record Command(string Username) : IRequest;
+    public sealed record Command(Guid Id) : IRequest;
     
     public sealed class Handler : IRequestHandler<Command>
     {
@@ -20,7 +20,7 @@ public static class Revoke
 
         public async Task Handle(Command request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByNameAsync(request.Username);
+            var user = await _userManager.FindByIdAsync(request.Id.ToString());
             if (user == null) throw new BadRequestException("Invalid user name");
 
             user.RefreshToken = null;

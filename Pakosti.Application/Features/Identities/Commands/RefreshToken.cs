@@ -1,7 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Common.Exceptions;
 using Pakosti.Application.Extensions;
@@ -11,9 +10,9 @@ namespace Pakosti.Application.Features.Identities.Commands;
 
 public static class RefreshToken
 {
-    public sealed record Command(string? AccessToken, string? RefreshToken) : IRequest<ObjectResult>;
+    public sealed record Command(string? AccessToken, string? RefreshToken) : IRequest<Response>;
     
-    public sealed class Handler : IRequestHandler<Command, ObjectResult>
+    public sealed class Handler : IRequestHandler<Command, Response>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IConfiguration _configuration;
@@ -24,7 +23,7 @@ public static class RefreshToken
             _configuration = configuration;
         }
 
-        public async Task<ObjectResult> Handle(Command? request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(Command? request, CancellationToken cancellationToken)
         {
             if (request is null) throw new BadRequestException("Invalid client request");
 
@@ -48,11 +47,8 @@ public static class RefreshToken
             user.RefreshToken = newRefreshToken;
             await _userManager.UpdateAsync(user);
 
-            return new ObjectResult(new
-            {
-                accessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken),
-                refreshToken = newRefreshToken
-            });
+            return new Response(new JwtSecurityTokenHandler().WriteToken(newAccessToken), newRefreshToken);
         }
     }
+    public sealed record Response(string AccessToken, string? RefreshToken);
 }
