@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Products.Commands.CreateProduct;
+using Pakosti.Application.Features.Products.Commands;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
 using Shouldly;
@@ -16,14 +16,12 @@ public class CreateProductCommandHandlerTests : TestCommandBase
     public async Task Create_NoCategory_ProductAddedToDatabase()
     {
         // Arrange
-        var handler = new CreateProductCommandHandler(Context);
-        var query = new CreateProductCommand
-        {
-            UserId = ContextFactory.UserAId,
-            CategoryId = null,
-            Name = "Test product",
-            Description = "bal bal bal"
-        };
+        var handler = new CreateProduct.Handler(Context);
+        var query = new CreateProduct.Command(
+            ContextFactory.UserAId,
+            null,
+            "Test product",
+            "bal bal bal");
         
         // Act
         var resultId = await handler.Handle(query, CancellationToken.None);
@@ -44,14 +42,12 @@ public class CreateProductCommandHandlerTests : TestCommandBase
     {
         // Arrange
         await _contextFactory.SetUpForCreation(Context);
-        var handler = new CreateProductCommandHandler(Context);
-        var query = new CreateProductCommand
-        {
-            UserId = ContextFactory.UserAId,
-            CategoryId = _contextFactory.CategoryId,
-            Name = "Test product",
-            Description = "bal bal bal"
-        };
+        var handler = new CreateProduct.Handler(Context);
+        var query = new CreateProduct.Command(
+            ContextFactory.UserAId,
+            _contextFactory.CategoryId,
+            "Test product",
+            "bal bal bal");
         
         // Act
         var resultId = await handler.Handle(query, CancellationToken.None);
@@ -70,14 +66,12 @@ public class CreateProductCommandHandlerTests : TestCommandBase
     public async Task Create_InvalidCategoryId_ThrowsNotFoundException()
     {
         // Arrange
-        var handler = new CreateProductCommandHandler(Context);
-        var command = new CreateProductCommand
-        {
-            UserId = Guid.NewGuid(),
-            CategoryId = Guid.NewGuid(), // Invalid category ID
-            Name = "Test Product",
-            Description = "Test Description"
-        };
+        var handler = new CreateProduct.Handler(Context);
+        var command = new CreateProduct.Command(
+            Guid.NewGuid(),
+            Guid.NewGuid(), // Invalid category ID
+            "Test Product",
+            "Test Description");
 
         // Act & Assert
         await Assert.ThrowsAsync<NotFoundException>(() => handler.Handle(command, CancellationToken.None));

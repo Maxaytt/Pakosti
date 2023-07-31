@@ -1,7 +1,6 @@
-using System.Runtime.InteropServices.Marshalling;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Reviews.Commands.UpdateReview;
+using Pakosti.Application.Features.Reviews.Commands;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -20,14 +19,12 @@ public class UpdateReviewCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForUpdate(Context);
 
-        var handler = new UpdateReviewCommandHandler(Context);
-        var command = new UpdateReviewCommand
-        {
-            Id = _contextFactory.ReviewIdForUpdate,
-            Header = "test review",
-            Body = "its ok",
-            UserId = ContextFactory.UserAId
-        };
+        var handler = new UpdateReview.Handler(Context);
+        var command = new UpdateReview.Command(
+            _contextFactory.ReviewIdForUpdate,
+            ContextFactory.UserAId,
+            "test review",
+            "its ok");
         
         // Act 
         await handler.Handle(command, CancellationToken.None);
@@ -45,14 +42,12 @@ public class UpdateReviewCommandHandlerTests : TestCommandBase
     public async Task Update_InvalidReviewId_ThrowsNotFoundException()
     {
         // Arrange
-        var handler = new UpdateReviewCommandHandler(Context);
-        var command = new UpdateReviewCommand
-        {
-            Id = Guid.NewGuid(),
-            Header = "test review",
-            Body = "wrong review",
-            UserId = ContextFactory.UserAId
-        };
+        var handler = new UpdateReview.Handler(Context);
+        var command = new UpdateReview.Command(
+            Guid.NewGuid(),
+            ContextFactory.UserAId,
+            "test review",
+            "wrong review");
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(async () =>

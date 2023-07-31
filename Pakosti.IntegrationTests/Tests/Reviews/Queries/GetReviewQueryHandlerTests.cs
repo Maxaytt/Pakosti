@@ -1,8 +1,7 @@
 using AutoMapper;
 using Moq;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Categories.Queries.GetCategory;
-using Pakosti.Application.Features.Reviews.Queries.GetReview;
+using Pakosti.Application.Features.Reviews.Queries;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -22,24 +21,19 @@ public class GetReviewQueryHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForGetting(Context);
 
-        var vm = new ReviewVm
-        {
-            Id = _contextFactory.ReviewForGet.Id,
-            Header = _contextFactory.ReviewForGet.Header,
-            Body = _contextFactory.ReviewForGet.Body,
-            CreationDate = DateTime.Now,
-            EditionDate = null,
-            ProductId = _contextFactory.ReviewForGet.ProductId
-        };
+        var vm = new GetReview.Response(
+            _contextFactory.ReviewForGet.Id,
+            _contextFactory.ReviewForGet.ProductId,
+            _contextFactory.ReviewForGet.Header,
+            _contextFactory.ReviewForGet.Body,
+            DateTime.Now,
+            null);
 
-        _mapperMock.Setup(x => x.Map<ReviewVm>(It.IsAny<Review>()))
+        _mapperMock.Setup(x => x.Map<GetReview.Response>(It.IsAny<Review>()))
             .Returns(vm);
 
-        var handler = new GetReviewQueryHandler(Context, _mapperMock.Object);
-        var query = new GetReviewQuery
-        {
-            Id = _contextFactory.ReviewForGet.Id
-        };
+        var handler = new GetReview.Handler(Context, _mapperMock.Object);
+        var query = new GetReview.Query(_contextFactory.ReviewForGet.Id);
         
         // Act 
         var category = await handler.Handle(query, CancellationToken.None);
@@ -57,23 +51,19 @@ public class GetReviewQueryHandlerTests : TestCommandBase
     public async Task GetReview_ReviewNotFound_ThrowsNotFoundException()
     {
         // Arrange
-        var vm = new ReviewVm
-        {
-            Id = Guid.NewGuid(),
-            Header = _contextFactory.ReviewForGet.Header,
-            Body = _contextFactory.ReviewForGet.Body,
-            CreationDate = DateTime.Now,
-            EditionDate = null,
-            ProductId = _contextFactory.ReviewForGet.ProductId
-        };
-        _mapperMock.Setup(x => x.Map<ReviewVm>(It.IsAny<Review>()))
+        var vm = new GetReview.Response(
+            Guid.NewGuid(),
+            _contextFactory.ReviewForGet.ProductId,
+            _contextFactory.ReviewForGet.Header,
+            _contextFactory.ReviewForGet.Body,
+            DateTime.Now,
+            null);
+        
+        _mapperMock.Setup(x => x.Map<GetReview.Response>(It.IsAny<Review>()))
             .Returns(vm);
         
-        var handler = new GetReviewQueryHandler(Context, _mapperMock.Object);
-        var query = new GetReviewQuery
-        {
-            Id = _contextFactory.ReviewForGet.Id
-        };
+        var handler = new GetReview.Handler(Context, _mapperMock.Object);
+        var query = new GetReview.Query(_contextFactory.ReviewForGet.Id);
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(async () =>

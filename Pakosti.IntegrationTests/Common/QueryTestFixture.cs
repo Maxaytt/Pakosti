@@ -1,15 +1,13 @@
+using AutoMapper;
 using Pakosti.Application.Common.Mappings;
-using Pakosti.Application.Features.Categories.Queries.GetCategoryList;
-using Pakosti.Application.Features.Products.Queries.GetProductList;
-using Pakosti.Application.Features.Reviews.Queries.GetReviewList;
+using Pakosti.Application.Features.Categories.Queries;
+using Pakosti.Application.Features.Products.Queries;
+using Pakosti.Application.Features.Reviews.Queries;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 using Pakosti.Infrastructure.Persistence;
 
 namespace Pakosti.IntegrationTests.Common;
-
-using AutoMapper;
-using Xunit;
 
 public class QueryTestFixture : IDisposable
 {
@@ -23,13 +21,13 @@ public class QueryTestFixture : IDisposable
         {
             config.AddProfile(new AssemblyMappingProfile(
                 typeof(IPakostiDbContext).Assembly));
-            config.CreateMap<List<Product>, ProductListVm>()
+            config.CreateMap<List<Product>, GetProductList.Response>()
                 .ForMember(p => p.Products,
                     opt => opt.MapFrom(l => l));
-            config.CreateMap<List<Category>, CategoryListVm>()
+            config.CreateMap<List<Category>, GetCategoryList.Response>()
                 .ForMember(c => c.Categories,
                     opt => opt.MapFrom(l => l));
-            config.CreateMap<List<Review>, ReviewListVm>()
+            config.CreateMap<List<Review>, GetReviewList.Response>()
                 .ForMember(r => r.Reviews,
                     opt => opt.MapFrom(l => l));
         });

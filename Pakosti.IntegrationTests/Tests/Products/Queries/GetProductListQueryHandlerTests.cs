@@ -1,5 +1,5 @@
 using AutoMapper;
-using Pakosti.Application.Features.Products.Queries.GetProductList;
+using Pakosti.Application.Features.Products.Queries;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
 using Shouldly;
@@ -24,17 +24,17 @@ public class GetProductListQueryHandlerTests : TestCommandBase
     {
         await _contextFactory.SetUpForGettingList(Context);
 
-        var vm = _mapper.Map<ProductListVm>(_contextFactory.Products);
+        var vm = _mapper.Map<GetProductList.Response>(_contextFactory.Products);
         
-        var handler = new GetProductListQueryHandler(Context, _mapper);
-        var query = new GetProductListQuery();
+        var handler = new GetProductList.Handler(Context, _mapper);
+        var query = new GetProductList.Query();
 
         // Act
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
         result.Products.ShouldNotBeNull();
-        result.ShouldBeOfType<ProductListVm>();
+        result.ShouldBeOfType<GetProductList.Response>();
         result.Products.Count.ShouldBe(vm.Products.Count);
     }
 }

@@ -1,5 +1,5 @@
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Products.Commands.UpdateProduct;
+using Pakosti.Application.Features.Products.Commands;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -18,16 +18,14 @@ public class UpdateProductCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForUpdate(Context);
         
-        var handler = new UpdateProductCommandHandler(Context);
+        var handler = new UpdateProduct.Handler(Context);
         
-        var command = new UpdateProductCommand
-        {
-            Id = _contextFactory.ProductIdForUpdate,
-            UserId = ContextFactory.UserAId,
-            CategoryId = _contextFactory.CategoryId,
-            Name = "Updated Product",
-            Description = "Updated Description"
-        };
+        var command = new UpdateProduct.Command(
+            _contextFactory.ProductIdForUpdate,
+            ContextFactory.UserAId,
+            _contextFactory.CategoryId,
+            "Updated Product",
+            "Updated Description");
 
         // Act
         await handler.Handle(command, CancellationToken.None);
@@ -50,16 +48,14 @@ public class UpdateProductCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForUpdate(Context);
 
-        var handler = new UpdateProductCommandHandler(Context);
+        var handler = new UpdateProduct.Handler(Context);
 
-        var command = new UpdateProductCommand
-        {
-            Id = Guid.NewGuid(),
-            UserId = ContextFactory.UserAId,
-            CategoryId = _contextFactory.CategoryId,
-            Name = "Updated product",
-            Description = "Update description"
-        };
+        var command = new UpdateProduct.Command(
+            Guid.NewGuid(),
+            ContextFactory.UserAId,
+            _contextFactory.CategoryId,
+            "Updated product",
+            "Update description");
 
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(() => 
@@ -74,16 +70,14 @@ public class UpdateProductCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForUpdate(Context);
 
-        var handler = new UpdateProductCommandHandler(Context);
+        var handler = new UpdateProduct.Handler(Context);
 
-        var command = new UpdateProductCommand
-        {
-            Id = _contextFactory.ProductIdForUpdate,
-            UserId = ContextFactory.UserAId,
-            CategoryId = Guid.NewGuid(),
-            Name = "Updated product",
-            Description = "Update description"
-        };
+        var command = new UpdateProduct.Command(
+            _contextFactory.ProductIdForUpdate,
+            ContextFactory.UserAId,
+            Guid.NewGuid(),
+            "Updated product",
+            "Update description");
 
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(() => 

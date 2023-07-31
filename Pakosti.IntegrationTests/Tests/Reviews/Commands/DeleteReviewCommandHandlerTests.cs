@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Reviews.Commands.DeleteReview;
+using Pakosti.Application.Features.Reviews.Commands;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -19,12 +19,10 @@ public class DeleteReviewCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForDelete(Context);
 
-        var handler = new DeleteReviewCommandHandler(Context);
-        var command = new DeleteReviewCommand
-        {
-            Id = _contextFactory.ReviewIdForDelete,
-            UserId = ContextFactory.UserAId
-        };
+        var handler = new DeleteReview.Handler(Context);
+        var command = new DeleteReview.Command(
+            _contextFactory.ReviewIdForDelete,
+            ContextFactory.UserAId);
         
         // Act
         await handler.Handle(command, CancellationToken.None);
@@ -39,12 +37,10 @@ public class DeleteReviewCommandHandlerTests : TestCommandBase
     public async Task Delete_InvalidReviewId_ThrowsNotFoundException()
     {
         // Arrange
-        var handler = new DeleteReviewCommandHandler(Context);
-        var command = new DeleteReviewCommand
-        {
-            Id = Guid.NewGuid(),
-            UserId = ContextFactory.UserAId
-        };
+        var handler = new DeleteReview.Handler(Context);
+        var command = new DeleteReview.Command(
+            Guid.NewGuid(),
+            ContextFactory.UserAId);
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(async () =>

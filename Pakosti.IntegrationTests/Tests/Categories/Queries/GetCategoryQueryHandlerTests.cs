@@ -1,7 +1,7 @@
 using AutoMapper;
 using Moq;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Categories.Queries.GetCategory;
+using Pakosti.Application.Features.Categories.Queries;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -21,21 +21,16 @@ public class GetCategoryQueryHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForGetting(Context);
 
-        var vm = new CategoryVm
-        {
-            Id = _contextFactory.CategoryForGet.Id,
-            Name = _contextFactory.CategoryForGet.Name,
-            ParentCategoryId = _contextFactory.CategoryForGet.ParentCategoryId
-        };
+        var vm = new GetCategory.Response(
+            _contextFactory.CategoryForGet.Id,
+            _contextFactory.CategoryForGet.ParentCategoryId,
+            _contextFactory.CategoryForGet.Name);
 
-        _mapperMock.Setup(x => x.Map<CategoryVm>(It.IsAny<Category>()))
+        _mapperMock.Setup(x => x.Map<GetCategory.Response>(It.IsAny<Category>()))
             .Returns(vm);
 
-        var handler = new GetCategoryQueryHandler(Context, _mapperMock.Object);
-        var query = new GetCategoryQuery
-        {
-            Id = _contextFactory.CategoryForGet.Id
-        };
+        var handler = new GetCategory.Handler(Context, _mapperMock.Object);
+        var query = new GetCategory.Query(_contextFactory.CategoryForGet.Id);
         
         // Act 
         var category = await handler.Handle(query, CancellationToken.None);
@@ -51,20 +46,16 @@ public class GetCategoryQueryHandlerTests : TestCommandBase
     public async Task GetCategory_CategoryNotFound_ThrowsNotFoundException()
     {
         // Arrange
-        var vm = new CategoryVm
-        {
-            Id = _contextFactory.CategoryForGet.Id,
-            Name = "wrong category",
-            ParentCategoryId = null
-        };
-        _mapperMock.Setup(x => x.Map<CategoryVm>(It.IsAny<Category>()))
+        var vm = new GetCategory.Response(
+            _contextFactory.CategoryForGet.Id,
+            null,
+            "wrong category");
+        
+        _mapperMock.Setup(x => x.Map<GetCategory.Response>(It.IsAny<Category>()))
             .Returns(vm);
         
-        var handler = new GetCategoryQueryHandler(Context, _mapperMock.Object);
-        var query = new GetCategoryQuery
-        {
-            Id = _contextFactory.CategoryForGet.Id
-        };
+        var handler = new GetCategory.Handler(Context, _mapperMock.Object);
+        var query = new GetCategory.Query(_contextFactory.CategoryForGet.Id);
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(async () =>

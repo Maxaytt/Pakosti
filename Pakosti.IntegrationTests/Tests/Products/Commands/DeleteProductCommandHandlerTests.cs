@@ -1,5 +1,5 @@
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Products.Commands.DeleteProduct;
+using Pakosti.Application.Features.Products.Commands;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -18,12 +18,10 @@ public class DeleteProductCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForDelete(Context);
 
-        var handler = new DeleteProductCommandHandler(Context);
-        var command = new DeleteProductCommand
-        {
-            Id = _contextFactory.ProductIdForDelete,
-            UserId = ContextFactory.UserAId
-        };
+        var handler = new DeleteProduct.Handler(Context);
+        var command = new DeleteProduct.Command(
+            _contextFactory.ProductIdForDelete,
+            ContextFactory.UserAId);
         
         // Act
         await handler.Handle(command, CancellationToken.None);
@@ -42,13 +40,11 @@ public class DeleteProductCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForDelete(Context);
 
-        var handler = new DeleteProductCommandHandler(Context);
+        var handler = new DeleteProduct.Handler(Context);
 
-        var command = new DeleteProductCommand
-        {
-            Id = Guid.NewGuid(),
-            UserId = ContextFactory.UserAId
-        };
+        var command = new DeleteProduct.Command(
+            Guid.NewGuid(),
+            ContextFactory.UserAId);
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(() =>

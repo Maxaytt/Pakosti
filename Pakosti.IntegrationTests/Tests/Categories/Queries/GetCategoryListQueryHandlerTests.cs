@@ -1,5 +1,5 @@
 using AutoMapper;
-using Pakosti.Application.Features.Categories.Queries.GetCategoryList;
+using Pakosti.Application.Features.Categories.Queries;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
 using Shouldly;
@@ -25,17 +25,17 @@ public class GetCategoryListQueryHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForGettingList(Context);
 
-        _mapper.Map<CategoryListVm>(_contextFactory.Categories);
+        _mapper.Map<GetCategoryList.Response>(_contextFactory.Categories);
 
-        var handler = new GetCategoryListQueryHandler(Context, _mapper);
-        var query = new GetCategoryListQuery();
+        var handler = new GetCategoryList.Handler(Context, _mapper);
+        var query = new GetCategoryList.Query();
         
         // Act
         var result = await handler.Handle(query, CancellationToken.None);
         
         // Assert
         result.ShouldNotBeNull();
-        result.ShouldBeOfType<CategoryListVm>();
+        result.ShouldBeOfType<GetCategoryList.Response>();
         result.Categories.Count.ShouldBe(_contextFactory.Categories.Count);
     }
 }

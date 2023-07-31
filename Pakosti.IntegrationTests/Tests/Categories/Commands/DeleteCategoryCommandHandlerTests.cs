@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Categories.Commands.DeleteCategory;
+using Pakosti.Application.Features.Categories.Commands;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -19,11 +19,8 @@ public class DeleteCategoryCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForDelete(Context);
 
-        var handler = new DeleteCategoryCommandHandler(Context);
-        var query = new DeleteCategoryCommand
-        {
-            Id = _contextFactory.CategoryIdForDelete
-        };
+        var handler = new DeleteCategory.Handler(Context);
+        var query = new DeleteCategory.Command(_contextFactory.CategoryIdForDelete);
         
         // Act
         await handler.Handle(query, CancellationToken.None);
@@ -44,11 +41,8 @@ public class DeleteCategoryCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForDelete(Context);
 
-        var handler = new DeleteCategoryCommandHandler(Context);
-        var query = new DeleteCategoryCommand
-        {
-            Id = Guid.NewGuid()
-        };
+        var handler = new DeleteCategory.Handler(Context);
+        var query = new DeleteCategory.Command(Guid.NewGuid());
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(async () =>

@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Categories.Commands.UpdateCategory;
-using Pakosti.Application.Interfaces;
+using Pakosti.Application.Features.Categories.Commands;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -20,13 +19,11 @@ public class UpdateCategoryCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForUpdate(Context);
 
-        var handler = new UpdateCategoryCommandHandler(Context);
-        var query = new UpdateCategoryCommand
-        {
-            Id = _contextFactory.CategoryIdForUpdate,
-            Name = "Updated name",
-            ParentCategoryId = _contextFactory.ParentCategoryId
-        };
+        var handler = new UpdateCategory.Handler(Context);
+        var query = new UpdateCategory.Command(
+            _contextFactory.CategoryIdForUpdate,
+            _contextFactory.ParentCategoryId,
+             "Updated name");
         
         // Act
         await handler.Handle(query, CancellationToken.None);
@@ -50,13 +47,11 @@ public class UpdateCategoryCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForUpdate(Context);
 
-        var handler = new UpdateCategoryCommandHandler(Context);
-        var query = new UpdateCategoryCommand
-        {
-            Id = _contextFactory.CategoryIdForUpdate,
-            Name = "Updated name",
-            ParentCategoryId = null
-        };
+        var handler = new UpdateCategory.Handler(Context);
+        var query = new UpdateCategory.Command(
+            _contextFactory.CategoryIdForUpdate,
+            null,
+            "Updated name");
         
         // Act
         await handler.Handle(query, CancellationToken.None);
@@ -76,13 +71,11 @@ public class UpdateCategoryCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForUpdate(Context);
 
-        var handler = new UpdateCategoryCommandHandler(Context);
-        var query = new UpdateCategoryCommand
-        {
-            Id = _contextFactory.CategoryIdForUpdate,
-            ParentCategoryId = Guid.NewGuid(),
-            Name = "Invalid update"
-        };
+        var handler = new UpdateCategory.Handler(Context);
+        var query = new UpdateCategory.Command(
+            _contextFactory.CategoryIdForUpdate,
+            Guid.NewGuid(),
+            "Invalid update");
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>( async () =>
@@ -98,13 +91,11 @@ public class UpdateCategoryCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForUpdate(Context);
 
-        var handler = new UpdateCategoryCommandHandler(Context);
-        var query = new UpdateCategoryCommand
-        {
-            Id = Guid.NewGuid(),
-            ParentCategoryId = _contextFactory.ParentCategoryId,
-            Name = "Invalid update"
-        };
+        var handler = new UpdateCategory.Handler(Context);
+        var query = new UpdateCategory.Command(
+            Guid.NewGuid(),
+            _contextFactory.ParentCategoryId,
+            "Invalid update");
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>( async () =>

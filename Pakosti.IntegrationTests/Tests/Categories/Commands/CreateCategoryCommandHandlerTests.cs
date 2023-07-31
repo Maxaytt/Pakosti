@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Categories.Commands.CreateCategory;
+using Pakosti.Application.Features.Categories.Commands;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -19,12 +19,8 @@ public class CreateCategoryCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForCreation(Context);
 
-        var handler = new CreateCategoryCommandHandler(Context);
-        var query = new CreateCategoryCommand
-        {
-            ParentCategoryId = null,
-            Name = "Test category"
-        };
+        var handler = new CreateCategory.Handler(Context);
+        var query = new CreateCategory.Command(null, "Test category");
         
         // Act
         var id = await handler.Handle(query, CancellationToken.None);
@@ -43,12 +39,9 @@ public class CreateCategoryCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForCreation(Context);
 
-        var handler = new CreateCategoryCommandHandler(Context);
-        var query = new CreateCategoryCommand
-        {
-            ParentCategoryId = _contextFactory.ParentCategoryId,
-            Name = "Test category"
-        };
+        var handler = new CreateCategory.Handler(Context);
+        var query = new CreateCategory.Command(
+            _contextFactory.ParentCategoryId, "Test category");
         
         // Act
         var id = await handler.Handle(query, CancellationToken.None);
@@ -67,12 +60,8 @@ public class CreateCategoryCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForCreation(Context);
 
-        var handler = new CreateCategoryCommandHandler(Context);
-        var query = new CreateCategoryCommand
-        {
-            ParentCategoryId = Guid.NewGuid(),
-            Name = "Test category"
-        };
+        var handler = new CreateCategory.Handler(Context);
+        var query = new CreateCategory.Command(Guid.NewGuid(), "Test category");
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>( async () =>

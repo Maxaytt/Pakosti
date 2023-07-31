@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Reviews.Commands.CreateReview;
+using Pakosti.Application.Features.Reviews.Commands;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Pakosti.IntegrationTests.Tests.Reviews.Commands;
 
-public class CreateReviewCommandHandlerTests : TestCommandBase
+public class CreateReviewHandlerTests : TestCommandBase
 {
     private readonly ReviewContextFactory _contextFactory = new();
 
@@ -19,14 +19,12 @@ public class CreateReviewCommandHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForCreate(Context);
 
-        var handler = new CreateReviewCommandHandler(Context);
-        var command = new CreateReviewCommand
-        {
-            Header = "test review",
-            Body = "created review",
-            ProductId = _contextFactory.ProductId,
-            UserId = ContextFactory.UserAId
-        };
+        var handler = new CreateReview.Handler(Context);
+        var command = new CreateReview.Command(
+            ContextFactory.UserAId,
+            _contextFactory.ProductId,
+            "test review",
+            "created review");
         
         // Act
         var resultId = await handler.Handle(command, CancellationToken.None);
@@ -46,14 +44,12 @@ public class CreateReviewCommandHandlerTests : TestCommandBase
     public async Task Create_InvalidProductId_ThrowsNotFoundException()
     {
         // Arrange
-        var handler = new CreateReviewCommandHandler(Context);
-        var command = new CreateReviewCommand
-        {
-            Header = "test review",
-            Body = "created review",
-            ProductId = Guid.NewGuid(),
-            UserId = ContextFactory.UserAId
-        };
+        var handler = new CreateReview.Handler(Context);
+        var command = new CreateReview.Command(
+            ContextFactory.UserAId,
+            Guid.NewGuid(),
+            "test review",
+            "created review");
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(async () =>

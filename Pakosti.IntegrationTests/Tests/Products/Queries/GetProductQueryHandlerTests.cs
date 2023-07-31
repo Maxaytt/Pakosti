@@ -1,7 +1,7 @@
 using AutoMapper;
 using Moq;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Features.Products.Queries.GetProduct;
+using Pakosti.Application.Features.Products.Queries;
 using Pakosti.Domain.Entities;
 using Pakosti.IntegrationTests.Common;
 using Pakosti.IntegrationTests.Common.CqrsFactories;
@@ -21,25 +21,20 @@ public class GetProductQueryHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForGetting(Context);
 
-        var vm = new ProductVm
-        {
-            Id = _contextFactory.ProductForGetting.Id,
-            CategoryId = _contextFactory.ProductForGetting.CategoryId,
-            CategoryName = null,
-            Name = _contextFactory.ProductForGetting.Name,
-            Description = _contextFactory.ProductForGetting.Description,
-            CreationDate = _contextFactory.ProductForGetting.CreationDate,
-            EditionDate = _contextFactory.ProductForGetting.EditionDate
-        };
+        var vm = new GetProduct.Response(
+            _contextFactory.ProductForGetting.Id,
+            _contextFactory.ProductForGetting.CategoryId,
+            null,
+            _contextFactory.ProductForGetting.Name,
+            _contextFactory.ProductForGetting.Description,
+            _contextFactory.ProductForGetting.CreationDate,
+            _contextFactory.ProductForGetting.EditionDate);
         
-        _mapper.Setup(x => x.Map<ProductVm>(It.IsAny<Product>()))
+        _mapper.Setup(x => x.Map<GetProduct.Response>(It.IsAny<Product>()))
             .Returns(vm);
         
-        var handler = new GetProductQueryHandler(Context, _mapper.Object);
-        var query = new GetProductQuery
-        {
-            Id = _contextFactory.ProductForGetting.Id
-        };
+        var handler = new GetProduct.Handler(Context, _mapper.Object);
+        var query = new GetProduct.Query(_contextFactory.ProductForGetting.Id);
         
         // Act
         var product = await handler.Handle(query, CancellationToken.None);
@@ -55,25 +50,20 @@ public class GetProductQueryHandlerTests : TestCommandBase
         // Arrange
         await _contextFactory.SetUpForGetting(Context);
 
-        var vm = new ProductVm
-        {
-            Id = _contextFactory.ProductForGetting.Id,
-            CategoryId = _contextFactory.ProductForGetting.CategoryId,
-            CategoryName = null,
-            Name = _contextFactory.ProductForGetting.Name,
-            Description = _contextFactory.ProductForGetting.Description,
-            CreationDate = _contextFactory.ProductForGetting.CreationDate,
-            EditionDate = _contextFactory.ProductForGetting.EditionDate
-        };
+        var vm = new GetProduct.Response(
+            _contextFactory.ProductForGetting.Id,
+            _contextFactory.ProductForGetting.CategoryId,
+            null,
+            _contextFactory.ProductForGetting.Name,
+            _contextFactory.ProductForGetting.Description,
+            _contextFactory.ProductForGetting.CreationDate,
+            _contextFactory.ProductForGetting.EditionDate);
         
-        _mapper.Setup(x => x.Map<ProductVm>(It.IsAny<Product>()))
+        _mapper.Setup(x => x.Map<GetProduct.Response>(It.IsAny<Product>()))
             .Returns(vm);
         
-        var handler = new GetProductQueryHandler(Context, _mapper.Object);
-        var query = new GetProductQuery
-        {
-            Id = Guid.NewGuid()
-        };
+        var handler = new GetProduct.Handler(Context, _mapper.Object);
+        var query = new GetProduct.Query(Guid.NewGuid());
         
         // Act & Assert
         var exception = await Should.ThrowAsync<NotFoundException>(async () =>
