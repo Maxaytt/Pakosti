@@ -40,9 +40,11 @@ public class IdentityPositiveTests
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
-        var responseData = await response.Content.ReadFromJsonAsync<RefreshToken.Command>();
+        var responseData = await response.Content.ReadFromJsonAsync<RefreshToken.Response>();
         responseData!.AccessToken.ShouldNotBeNull();
+        responseData.AccessToken.ShouldNotBe(registerData.Token);
         responseData.RefreshToken.ShouldNotBeNull();
+        responseData.RefreshToken.ShouldNotBe(registerData.RefreshToken);
     }
 
     [Theory(Timeout = 5000)]
