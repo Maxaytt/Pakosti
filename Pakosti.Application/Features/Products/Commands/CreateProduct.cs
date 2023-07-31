@@ -1,4 +1,5 @@
 using FluentValidation;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
@@ -9,6 +10,7 @@ namespace Pakosti.Application.Features.Products.Commands;
 
 public static class CreateProduct
 {
+    public sealed record Dto(Guid CategoryId, string Name, string Description);
     public sealed record Command(Guid UserId, Guid? CategoryId, string Name, string Description) 
         : IRequest<Guid>;
 
@@ -43,17 +45,11 @@ public static class CreateProduct
                     .FirstOrDefaultAsync(c => c.Id == request.CategoryId, cancellationToken);
                 if (category == null) throw new NotFoundException(nameof(Category), request.CategoryId);
             }
-        
-            var product = new Product
-            {
-                Id = Guid.NewGuid(),
-                UserId = request.UserId,
-                CategoryId = request.CategoryId,
-                Name = request.Name,
-                Description = request.Description,
-                CreationDate = DateTime.Now,
-                EditionDate = null,
-            };
+
+            var product = request.Adapt<Product>();
+            product.Id = Guid.NewGuid();
+            product.CreationDate = DateTime.Now;
+            product.EditionDate = null;
 
             await _context.Products.AddAsync(product, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);

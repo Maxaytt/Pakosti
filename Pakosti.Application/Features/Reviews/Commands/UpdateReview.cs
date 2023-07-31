@@ -9,6 +9,7 @@ namespace Pakosti.Application.Features.Reviews.Commands;
 
 public static class UpdateReview
 {
+    public sealed record Dto(Guid Id, string? Header, string? Body);
     public sealed record Command(Guid Id, Guid UserId,
         string? Header, string? Body ) : IRequest;
 

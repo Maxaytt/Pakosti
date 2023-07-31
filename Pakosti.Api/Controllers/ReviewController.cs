@@ -1,7 +1,6 @@
-using AutoMapper;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Api.Models.Review;
 using Pakosti.Application.Features.Reviews.Commands;
 using Pakosti.Application.Features.Reviews.Queries;
 
@@ -9,11 +8,6 @@ namespace Pakosti.Api.Controllers;
 
 public class ReviewController : BaseController
 {
-    private readonly IMapper _mapper;
-
-    public ReviewController(IMapper mapper) =>
-        _mapper = mapper;
-
     [HttpGet]
     public async Task<ActionResult> GetAll()
     {
@@ -34,9 +28,9 @@ public class ReviewController : BaseController
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Guid>> Crete([FromBody] CreateReviewDto createReviewDto)
+    public async Task<ActionResult<Guid>> Crete([FromBody] CreateReview.Dto createReviewDto)
     {
-        var query = _mapper.Map<CreateReview.Command>(createReviewDto)
+        var query = createReviewDto.Adapt<CreateReview.Command>()
             with { UserId = UserId };
         var id = await Mediator.Send(query);
         return Ok(id);
@@ -44,9 +38,9 @@ public class ReviewController : BaseController
 
     [HttpPut]
     [Authorize]
-    public async Task<ActionResult> Update([FromBody] UpdateReviewDto updateReviewDto)
+    public async Task<ActionResult> Update([FromBody] UpdateReview.Dto updateReviewDto)
     {
-        var query = _mapper.Map<UpdateReview.Command>(updateReviewDto)
+        var query = updateReviewDto.Adapt<UpdateReview.Command>()
             with { UserId = UserId };
         await Mediator.Send(query);
         return NoContent();

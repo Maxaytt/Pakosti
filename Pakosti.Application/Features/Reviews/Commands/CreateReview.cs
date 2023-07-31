@@ -9,6 +9,7 @@ namespace Pakosti.Application.Features.Reviews.Commands;
 
 public static class CreateReview
 {
+    public sealed record Dto(Guid ProductId, string Header, string Body);
     public sealed record Command(Guid UserId, Guid ProductId,
         string Header, string Body) : IRequest<Guid>;
 

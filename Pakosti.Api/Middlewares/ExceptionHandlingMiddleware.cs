@@ -43,6 +43,8 @@ public class ExceptionHandlingMiddleware : IMiddleware
     {
         ValidationException => StatusCodes.Status400BadRequest,
         BadRequestException => StatusCodes.Status400BadRequest,
+        ArgumentException => StatusCodes.Status400BadRequest,
+        FluentValidation.ValidationException => StatusCodes.Status400BadRequest,
         _ => StatusCodes.Status500InternalServerError
     };
 
