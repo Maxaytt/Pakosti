@@ -15,10 +15,13 @@ public class IdentityPositiveTests
     public async Task Authenticate_ValidCredentials(HttpClient client)
     {
         // Arrange
-        var command = new Authenticate.Command( "validuser@example.com","ValidPassword");
+        var registerRequest = new Register.Command("validuser@example.com", DateTime.Today.AddYears(-18), "ValidPassword1!",
+            "ValidPassword1!", "firstname", "lastname", "username");
+        var authenticateRequest = new Authenticate.Command( "validuser@example.com","ValidPassword1!");
 
         // Act
-        var response = await client.GetAsync("/api/identity/register");
+        await client.PostAsJsonAsync("/api/identity/register", registerRequest);
+        var response = await client.PostAsJsonAsync("/api/identity/login", authenticateRequest);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -29,14 +32,21 @@ public class IdentityPositiveTests
     public async Task RefreshToken_ValidRequest_ReturnsNewToken(HttpClient client)
     {
         // Arrange
-        var registerCommand = new Register.Command("testemail@test.com", DateTime.Now, "testpasswordD1!",
-            "testpasswordD1!", "testfirstname", "testlastname", "testusername");
-        var registerResponse = await client.PostAsJsonAsync("/api/identity/register", registerCommand);
-        var registerData = await registerResponse.Content.ReadFromJsonAsync<RefreshToken.Command>();
-        var command = new RefreshToken.Command(registerData!.AccessToken, registerData.RefreshToken);
+        var registerRequest = new Register.Command(
+            "testemail@test.com",
+            DateTime.Today.AddYears(-18), 
+            "passwordD1!", 
+            "passwordD1!", 
+            "firstname", 
+            "lastname", 
+            "username");
+        var registerResponse = await client.PostAsJsonAsync("/api/identity/register", registerRequest);
+        
+        var registerData = await registerResponse.Content.ReadFromJsonAsync<Authenticate.Response>();
+        var request = new RefreshToken.Command(registerData!.Token, registerData.RefreshToken);
 
         // Act
-        var response = await client.PostAsJsonAsync("/api/identity/refresh-token", command);
+        var response = await client.PostAsJsonAsync("/api/identity/refresh-token", request);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -52,38 +62,42 @@ public class IdentityPositiveTests
     public async Task Register_ValidCommand_ShouldAuthenticate(HttpClient client)
     {
         // Act
-        var command = new Register.Command(
+        var request = new Register.Command(
             "test@example.com",
-            DateTime.UtcNow,
+            DateTime.Today.AddYears(-18),
             "TestPassword!1",
             "TestPassword!1",
             "John",
             "Doe",
-            "johndoe"
-        );
-        var content = await client.PostAsJsonAsync("/api/identity/register", command);
-
-        // Assert
-        content.StatusCode.ShouldBe(HttpStatusCode.OK);
-        var responseData = await content.Content.ReadFromJsonAsync<Authenticate.Response>();
-        responseData.ShouldBeNull();
-    }
-
-    [Theory(Timeout = 5000)]
-    [TestSetup]
-    public async Task Revoke_ValidRequest(HttpClient client)
-    {
-        // Act
-        var response = await client.PostAsync("/api/identity/revoke", new StringContent("userId"));
+            "johndoe");
+        var response = await client.PostAsJsonAsync("/api/identity/register", request);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        var responseData = await response.Content.ReadFromJsonAsync<Authenticate.Response>();
+        responseData!.Token.ShouldNotBeNull();
+        responseData.RefreshToken.ShouldNotBeNull();
     }
 
     [Theory(Timeout = 5000)]
     [TestSetup]
     public async Task RevokeAll_ShouldRevoke_AllUsers(HttpClient client)
     {
+        // Arrange
+        var request = new Register.Command(
+            "test@example.com",
+            DateTime.Today.AddYears(-18),
+            "TestPassword!1",
+            "TestPassword!1",
+            "John",
+            "Doe",
+            "johndoe");
+
+        var registerResponse = await client.PostAsJsonAsync("/api/identity/register", request);
+        var registerResponseData = registerResponse.Content.ReadFromJsonAsync<Authenticate.Response>();
+        client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", registerResponseData.Result!.Token);
+        
         // Act
         var response = await client.PostAsync($"/api/identity/revoke/{registerResponseData.Result!.Id}", null);
 

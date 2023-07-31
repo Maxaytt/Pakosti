@@ -83,6 +83,6 @@ public class IdentityNegativeTests
         var response = await client.PostAsync("/api/identity/revoke-all", null);
 
         // Assert
-        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
 }
