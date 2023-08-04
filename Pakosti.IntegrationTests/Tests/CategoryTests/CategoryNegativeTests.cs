@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Http.Json;
 using Pakosti.Application.Features.Categories.Commands;
 using Pakosti.IntegrationTests.Attributes;
+using Pakosti.IntegrationTests.Services;
 using Shouldly;
 using Testcontainers.PostgreSql;
 using Xunit;
@@ -11,7 +12,7 @@ namespace Pakosti.IntegrationTests.Tests.CategoryTests;
 public class CategoryNegativeTests
 {
     [Theory(Timeout = 5000), TestSetup]
-    public async Task CreateCategory_InvalidRequest(HttpClient client)
+    public async Task CreateCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
     {
         //Arrange
         var request = new CreateCategory.Command(null, "test");
@@ -24,7 +25,7 @@ public class CategoryNegativeTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task DeleteCategory_InvalidRequest(HttpClient client)
+    public async Task DeleteCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
     {
         // Act
         var id = Guid.NewGuid();
@@ -35,7 +36,7 @@ public class CategoryNegativeTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task UpdateCategory_InvalidRequest(HttpClient client)
+    public async Task UpdateCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
     {
         //Arrange
         var request = new UpdateCategory.Command(Guid.NewGuid(),null ,"UpdatedCategoryName");
@@ -48,7 +49,7 @@ public class CategoryNegativeTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task GetCategory_InvalidRequest(HttpClient client)
+    public async Task GetCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
     {
         // Act
         var id = Guid.NewGuid();
@@ -59,7 +60,7 @@ public class CategoryNegativeTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task GetCategoryList_ValidRequest(HttpClient client, PostgreSqlContainer container)
+    public async Task GetCategoryList_DatabaseUnavailable_ReturnsServerError(HttpClient client, PostgreSqlContainer container)
     {
         // Arrange
         await container.StopAsync();
