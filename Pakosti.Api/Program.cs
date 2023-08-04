@@ -1,6 +1,6 @@
 using Pakosti.Api.Extensions;
+using Pakosti.Api.Middlewares;
 using Pakosti.Application.Extensions;
-using Pakosti.Application.Middlewares;
 using Pakosti.Infrastructure.Persistence.Extensions;
 
 namespace Pakosti.Api;
