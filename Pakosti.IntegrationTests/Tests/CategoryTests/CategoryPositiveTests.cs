@@ -27,7 +27,7 @@ public class CategoryPositiveTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task DeleteCategory_ValidRequest(HttpClient client)
+    public async Task DeleteCategory_ValidRequest_ShouldSetNullChildrenParentId(HttpClient client)
     {
         //Arrange
         await TestDataInitializer.RegisterUser(client);
@@ -47,7 +47,7 @@ public class CategoryPositiveTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task UpdateCategory_ValidRequest(HttpClient client)
+    public async Task UpdateCategory_ValidRequest_ReturnsNoContent(HttpClient client)
     {
         //Arrange
         await TestDataInitializer.RegisterUser(client);
@@ -62,7 +62,7 @@ public class CategoryPositiveTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task GetCategory_ValidRequest(HttpClient client)
+    public async Task GetCategory_ValidRequest_ReturnsOk(HttpClient client)
     {
         //Arrange
         await TestDataInitializer.RegisterUser(client);
@@ -76,7 +76,7 @@ public class CategoryPositiveTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task GetCategoryList_ValidRequest(HttpClient client)
+    public async Task GetCategoryList_ValidRequest_ReturnsOk(HttpClient client)
     {
         // Act
         await TestDataInitializer.RegisterUser(client);
