@@ -15,37 +15,41 @@ public class CategoryNegativeTests
     public async Task CreateCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
     {
         //Arrange
-        var request = new CreateCategory.Command(null, "test");
+        await TestDataInitializer.RegisterUser(client);
+        var id = Guid.NewGuid();
+        var request = new CreateCategory.Command(id, "test");
         
         // Act
         var response = await client.PostAsJsonAsync("/api/category", request);
 
         // Assert
-        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
     
     [Theory(Timeout = 5000), TestSetup]
     public async Task DeleteCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
     {
         // Act
+        await TestDataInitializer.RegisterUser(client);
         var id = Guid.NewGuid();
         var response = await client.DeleteAsync($"/api/category/{id}");
 
         // Assert
-        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
     
     [Theory(Timeout = 5000), TestSetup]
     public async Task UpdateCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
     {
         //Arrange
+        await TestDataInitializer.RegisterUser(client);
         var request = new UpdateCategory.Command(Guid.NewGuid(),null ,"UpdatedCategoryName");
         
         // Act
         var response = await client.PutAsJsonAsync("/api/category", request);
 
         // Assert
-        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
     
     [Theory(Timeout = 5000), TestSetup]
