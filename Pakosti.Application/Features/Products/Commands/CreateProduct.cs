@@ -12,7 +12,7 @@ public static class CreateProduct
 {
     public sealed record Dto(Guid CategoryId, string Name, string Description);
     public sealed record Command(Guid UserId, Guid? CategoryId, string Name, string Description) 
-        : IRequest<Guid>;
+        : IRequest<Response>;
 
     public sealed class Validator : AbstractValidator<Command>
     {
@@ -30,14 +30,14 @@ public static class CreateProduct
         }
     }
     
-    public sealed class Handler : IRequestHandler<Command, Guid>
+    public sealed class Handler : IRequestHandler<Command, Response>
     {
         private readonly IPakostiDbContext _context;
 
         public Handler(IPakostiDbContext context) =>
             _context = context;
 
-            public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
             if (request.CategoryId != null)
             {
@@ -54,7 +54,9 @@ public static class CreateProduct
             await _context.Products.AddAsync(product, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return product.Id;
+            return new Response(product.Id);
         }
     }
+
+    public sealed record Response(Guid Id);
 }
