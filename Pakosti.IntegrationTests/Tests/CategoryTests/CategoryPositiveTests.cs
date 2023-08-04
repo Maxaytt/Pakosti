@@ -31,8 +31,8 @@ public class CategoryPositiveTests
     {
         //Arrange
         await TestDataInitializer.RegisterUser(client);
-        var id = await TestDataInitializer.CreateCategory(client, null, "test1");
-        var childId = await TestDataInitializer.CreateCategory(client, id, "test2");
+        var id = await TestDataInitializer.CreateCategory(client, (null, "test1"));
+        var childId = await TestDataInitializer.CreateCategory(client, (id, "test2"));
         
 
         // Act
@@ -51,7 +51,7 @@ public class CategoryPositiveTests
     {
         //Arrange
         await TestDataInitializer.RegisterUser(client);
-        var id = await TestDataInitializer.CreateCategory(client, null, "test");
+        var id = await TestDataInitializer.CreateCategory(client, (null, "test"));
         var request = new UpdateCategory.Command(id, null,"UpdatedCategoryName");
         
         // Act
@@ -66,7 +66,7 @@ public class CategoryPositiveTests
     {
         //Arrange
         await TestDataInitializer.RegisterUser(client);
-        var id = await TestDataInitializer.CreateCategory(client, null, "test");
+        var id = await TestDataInitializer.CreateCategory(client, (null, "test"));
 
         // Act
         var response = await client.GetAsync($"/api/category/{id}");
@@ -80,7 +80,7 @@ public class CategoryPositiveTests
     {
         // Act
         await TestDataInitializer.RegisterUser(client);
-        await TestDataInitializer.CreateCategory(client, null, "test");
+        await TestDataInitializer.CreateCategory(client, (null, "test"));
 
         var response = await client.GetAsync("/api/category");
 

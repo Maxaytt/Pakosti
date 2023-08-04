@@ -25,9 +25,10 @@ public class TestDataInitializer
             new AuthenticationHeaderValue("Bearer", responseData!.Token);
     }
 
-    public static async Task<Guid> CreateCategory(HttpClient client, Guid? parentId, string name)
+    public static async Task<Guid> CreateCategory(HttpClient client, 
+        (Guid? parentId, string name) dto)
     {
-        var request = new CreateCategory.Command(parentId, name);
+        var request = new CreateCategory.Command(dto.parentId, dto.name);
         var response = await client.PostAsJsonAsync("/api/category", request);
         var responseData = await response.Content.ReadFromJsonAsync<CreateCategory.Response>();
         return responseData!.Id;
