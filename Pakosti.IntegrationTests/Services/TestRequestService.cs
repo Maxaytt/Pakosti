@@ -1,9 +1,11 @@
+using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using AutoFixture;
 using Pakosti.Application.Features.Categories.Commands;
 using Pakosti.Application.Features.Identities.Commands;
 using Pakosti.Application.Features.Products.Commands;
+using Pakosti.Application.Features.Products.Queries;
 using Pakosti.IntegrationTests.Setups;
 
 namespace Pakosti.IntegrationTests.Services;
@@ -43,5 +45,16 @@ public static class TestRequestService
         var responseData = await response.Content.ReadFromJsonAsync<CreateProduct.Response>();
         return responseData!.Id;
     }
-    
+
+    public static async Task<GetProduct.Response?> GetProduct(HttpClient client, Guid id)
+    {
+        var response = await client.GetAsync($"/api/product/{id}");
+        var result = response.StatusCode switch
+        {
+            HttpStatusCode.OK =>
+                await response.Content.ReadFromJsonAsync<GetProduct.Response>(),
+            _ => null
+        };
+        return result;
+    }
 }
