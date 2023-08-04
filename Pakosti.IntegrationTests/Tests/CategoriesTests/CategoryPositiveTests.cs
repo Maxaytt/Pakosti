@@ -1,8 +1,8 @@
 using System.Net;
 using System.Net.Http.Json;
 using Pakosti.Application.Features.Categories.Commands;
-using Pakosti.Application.Features.Categories.Queries;
 using Pakosti.IntegrationTests.Attributes;
+using Pakosti.IntegrationTests.Services;
 using Shouldly;
 using Xunit;
 
@@ -10,55 +10,59 @@ namespace Pakosti.IntegrationTests.Tests.CategoriesTests;
 
 public class CategoryPositiveTests
 {
+
     [Theory(Timeout = 5000), TestSetup]
-    public async Task CreateCategory_ValidRequest(HttpClient client)
+    public async Task CreateCategory_ValidRequest_ReturnsOk(HttpClient client)
     {
         //Arrange
-        var request = new CreateCategory.Command(Guid.NewGuid(), "TestCategory");
+        await TestDataInitializer.RegisterUser(client);
+        var request = new CreateCategory.Command(null, "TestCategory");
         
         // Act
-        var response = await client.PostAsJsonAsync("/api/categories/createcategory", request);
+        var response = await client.PostAsJsonAsync("/api/category", request);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
-        request.ParentCategoryId.ShouldNotBeNull();
     }
     
     [Theory(Timeout = 5000), TestSetup]
     public async Task DeleteCategory_ValidRequest(HttpClient client)
     {
         //Arrange
-        var request = new DeleteCategory.Command(Guid.NewGuid());
-        
+        await TestDataInitializer.RegisterUser(client);
+        var id = await TestDataInitializer.CreateCategory(client);
+
         // Act
-        var response = await client.DeleteAsync("/api/categories/deletecategory");
+        var response = await client.DeleteAsync($"/api/category/{id}");
 
         // Assert
-        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
     }
     
     [Theory(Timeout = 5000), TestSetup]
     public async Task UpdateCategory_ValidRequest(HttpClient client)
     {
         //Arrange
-        var request = new UpdateCategory.Command(Guid.NewGuid(),Guid.NewGuid() ,"UpdatedCategoryName");
+        await TestDataInitializer.RegisterUser(client);
+        var id = await TestDataInitializer.CreateCategory(client);
+        var request = new UpdateCategory.Command(id, null,"UpdatedCategoryName");
         
         // Act
-        var response = await client.PutAsJsonAsync("/api/categories/updatecategory", request);
+        var response = await client.PutAsJsonAsync("/api/category", request);
 
         // Assert
-        response.StatusCode.ShouldBe(HttpStatusCode.OK);
-        request.ParentCategoryId.ShouldNotBeNull();
+        response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
     }
     
     [Theory(Timeout = 5000), TestSetup]
     public async Task GetCategory_ValidRequest(HttpClient client)
     {
         //Arrange
-        var request = new GetCategory.Query(Guid.NewGuid());
-        
+        await TestDataInitializer.RegisterUser(client);
+        var id = await TestDataInitializer.CreateCategory(client);
+
         // Act
-        var response = await client.GetAsync("/api/categories/getcategory");
+        var response = await client.GetAsync($"/api/category/{id}");
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -68,7 +72,10 @@ public class CategoryPositiveTests
     public async Task GetCategoryList_ValidRequest(HttpClient client)
     {
         // Act
-        var response = await client.GetAsync("/api/categories");
+        await TestDataInitializer.RegisterUser(client);
+        await TestDataInitializer.CreateCategory(client);
+
+        var response = await client.GetAsync("/api/category");
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
