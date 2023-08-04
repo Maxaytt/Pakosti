@@ -6,7 +6,7 @@ using Shouldly;
 using Testcontainers.PostgreSql;
 using Xunit;
 
-namespace Pakosti.IntegrationTests.Tests.CategoriesTests;
+namespace Pakosti.IntegrationTests.Tests.CategoryTests;
 
 public class CategoryNegativeTests
 {
