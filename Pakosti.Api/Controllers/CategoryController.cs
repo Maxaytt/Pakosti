@@ -27,10 +27,10 @@ public class CategoryController : BaseController
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateCategory.Command request)
+    public async Task<ActionResult> Create([FromBody] CreateCategory.Command request)
     {
-        var id = await Mediator.Send(request);
-        return Ok(id);
+        var response = await Mediator.Send(request);
+        return Ok(response);
     }
 
     [HttpPut]
