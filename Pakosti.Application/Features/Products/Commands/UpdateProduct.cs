@@ -46,7 +46,7 @@ public static class UpdateProduct
             if (category == null) throw new NotFoundException(nameof(Category), request.CategoryId);
         
             product.CategoryId = request.CategoryId;
-            product.EditionDate = DateTime.Now;
+            product.EditionDate = DateTime.UtcNow;
             if (request.Name != null)
             {
                 product.Name = request.Name;

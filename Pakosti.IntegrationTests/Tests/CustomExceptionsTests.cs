@@ -12,7 +12,7 @@ public class CustomExceptionsTests
     public async Task FailureResponse_ShouldContain_CustomException(HttpClient client)
     {
         // Arrange
-        var command = new Register.Command(string.Empty, DateTime.Now, string.Empty,
+        var command = new Register.Command(string.Empty, DateTime.UtcNow, string.Empty,
             string.Empty, string.Empty, string.Empty, string.Empty);
         
         // Act

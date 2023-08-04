@@ -56,7 +56,7 @@ public static class CreateProduct
 
             var product = request.Adapt<Product>();
             product.Id = Guid.NewGuid();
-            product.CreationDate = DateTime.Now;
+            product.CreationDate = DateTime.UtcNow;
             product.EditionDate = null;
 
             await _context.Products.AddAsync(product, cancellationToken);
