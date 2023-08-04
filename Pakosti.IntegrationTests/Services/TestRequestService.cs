@@ -8,11 +8,11 @@ using Pakosti.IntegrationTests.Setups;
 
 namespace Pakosti.IntegrationTests.Services;
 
-public static class TestDataInitializer
+public static class TestRequestService
 {
     private static readonly Fixture Fixture = new();
 
-    static TestDataInitializer()
+    static TestRequestService()
     {
         Fixture.Customize(new TestDataSetup());
     }
@@ -43,4 +43,5 @@ public static class TestDataInitializer
         var responseData = await response.Content.ReadFromJsonAsync<CreateProduct.Response>();
         return responseData!.Id;
     }
+    
 }
