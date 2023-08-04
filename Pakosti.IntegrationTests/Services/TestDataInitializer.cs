@@ -8,7 +8,7 @@ using Pakosti.IntegrationTests.Setups;
 
 namespace Pakosti.IntegrationTests.Services;
 
-public class TestDataInitializer
+public static class TestDataInitializer
 {
     private static readonly Fixture Fixture = new();
 
