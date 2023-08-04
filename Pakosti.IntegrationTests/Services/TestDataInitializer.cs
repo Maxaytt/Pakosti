@@ -25,9 +25,9 @@ public class TestDataInitializer
             new AuthenticationHeaderValue("Bearer", responseData!.Token);
     }
 
-    public static async Task<Guid> CreateCategory(HttpClient client)
+    public static async Task<Guid> CreateCategory(HttpClient client, Guid? parentId, string name)
     {
-        var request = Fixture.Create<CreateCategory.Command>();
+        var request = new CreateCategory.Command(parentId, name);
         var response = await client.PostAsJsonAsync("/api/category", request);
         var responseData = await response.Content.ReadFromJsonAsync<CreateCategory.Response>();
         return responseData!.Id;

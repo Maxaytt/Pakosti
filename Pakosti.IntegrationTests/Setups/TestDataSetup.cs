@@ -1,5 +1,4 @@
 using AutoFixture;
-using Pakosti.Application.Features.Categories.Commands;
 using Pakosti.Application.Features.Identities.Commands;
 
 namespace Pakosti.IntegrationTests.Setups;
@@ -17,6 +16,5 @@ public class TestDataSetup : ICustomization
             "TestLastName",
             "TestUsername"
         ));
-        fixture.Register(() => new CreateCategory.Command(null, "test"));
     }
 }
