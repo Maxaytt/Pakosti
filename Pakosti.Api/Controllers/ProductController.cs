@@ -32,8 +32,8 @@ public class ProductController : BaseController
     {
         var command = createProductDto.Adapt<CreateProduct.Command>()
             with { UserId = UserId };
-        var noteId = await Mediator.Send(command);
-        return Ok(noteId);
+        var response = await Mediator.Send(command);
+        return Created($"/api/product/{response.Id}", response);
     }
 
     [HttpPut]

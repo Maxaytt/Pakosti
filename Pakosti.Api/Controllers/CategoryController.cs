@@ -30,7 +30,7 @@ public class CategoryController : BaseController
     public async Task<ActionResult> Create([FromBody] CreateCategory.Command request)
     {
         var response = await Mediator.Send(request);
-        return Ok(response);
+        return Created($"/api/category/{response.Id}", response);
     }
 
     [HttpPut]

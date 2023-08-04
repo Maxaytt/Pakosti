@@ -23,7 +23,7 @@ public class CategoryPositiveTests
         var response = await client.PostAsJsonAsync("/api/category", request);
 
         // Assert
-        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        response.StatusCode.ShouldBe(HttpStatusCode.Created);
     }
     
     [Theory(Timeout = 5000), TestSetup]

@@ -15,7 +15,7 @@ public class ProductPositiveTests
     private const string Name = "test test";
     private const string Description = "test test test test!";
     
-    [Theory(Timeout = 500000), TestSetup]
+    [Theory(Timeout = 5000), TestSetup]
     public async Task CreateProduct_ShouldCreate_Product(HttpClient client)
     {
         // Arrange
@@ -27,7 +27,7 @@ public class ProductPositiveTests
         var response = await client.PostAsJsonAsync("/api/product", request);
         
         // Assert
-        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        response.StatusCode.ShouldBe(HttpStatusCode.Created);
         var responseData = await response.Content.ReadFromJsonAsync<CreateProduct.Response>();
         var getResponse = await client.GetAsync($"/api/product/{responseData!.Id}");
         getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);

@@ -11,7 +11,7 @@ public static class CreateReview
 {
     public sealed record Dto(Guid ProductId, string Header, string Body);
     public sealed record Command(Guid UserId, Guid ProductId,
-        string Header, string Body) : IRequest<Guid>;
+        string Header, string Body) : IRequest<Response>;
 
     public sealed class Validator : AbstractValidator<Command>
     {
@@ -29,14 +29,14 @@ public static class CreateReview
         }
     }
     
-    public sealed class Handler : IRequestHandler<Command, Guid>
+    public sealed class Handler : IRequestHandler<Command, Response>
     {
         private readonly IPakostiDbContext _context;
 
         public Handler(IPakostiDbContext context) =>
             _context = context;
         
-        public async Task<Guid> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
             var product = await _context.Products
                 .FirstOrDefaultAsync(p => p.Id == request.ProductId, CancellationToken.None);
@@ -57,7 +57,9 @@ public static class CreateReview
             await _context.Reviews.AddAsync(review, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return review.Id;
+            return new Response(review.Id);
         }
     }
+
+    public sealed record Response(Guid Id);
 }
