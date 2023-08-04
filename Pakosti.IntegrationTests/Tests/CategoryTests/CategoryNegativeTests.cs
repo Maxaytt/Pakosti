@@ -15,7 +15,7 @@ public class CategoryNegativeTests
     public async Task CreateCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
     {
         //Arrange
-        await TestDataInitializer.RegisterUser(client);
+        await TestRequestService.RegisterUser(client);
         var id = Guid.NewGuid();
         var request = new CreateCategory.Command(id, "test");
         
@@ -30,7 +30,7 @@ public class CategoryNegativeTests
     public async Task DeleteCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
     {
         // Act
-        await TestDataInitializer.RegisterUser(client);
+        await TestRequestService.RegisterUser(client);
         var id = Guid.NewGuid();
         var response = await client.DeleteAsync($"/api/category/{id}");
 
@@ -42,7 +42,7 @@ public class CategoryNegativeTests
     public async Task UpdateCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
     {
         //Arrange
-        await TestDataInitializer.RegisterUser(client);
+        await TestRequestService.RegisterUser(client);
         var request = new UpdateCategory.Command(Guid.NewGuid(),null ,"UpdatedCategoryName");
         
         // Act

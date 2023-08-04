@@ -16,7 +16,7 @@ public class CategoryPositiveTests
     public async Task CreateCategory_ValidRequest_ReturnsOk(HttpClient client)
     {
         //Arrange
-        await TestDataInitializer.RegisterUser(client);
+        await TestRequestService.RegisterUser(client);
         var request = new CreateCategory.Command(null, "TestCategory");
         
         // Act
@@ -30,9 +30,9 @@ public class CategoryPositiveTests
     public async Task DeleteCategory_ValidRequest_ShouldSetNullChildrenParentId(HttpClient client)
     {
         //Arrange
-        await TestDataInitializer.RegisterUser(client);
-        var id = await TestDataInitializer.CreateCategory(client, (null, "test1"));
-        var childId = await TestDataInitializer.CreateCategory(client, (id, "test2"));
+        await TestRequestService.RegisterUser(client);
+        var id = await TestRequestService.CreateCategory(client, (null, "test1"));
+        var childId = await TestRequestService.CreateCategory(client, (id, "test2"));
         
 
         // Act
@@ -50,8 +50,8 @@ public class CategoryPositiveTests
     public async Task UpdateCategory_ValidRequest_ReturnsNoContent(HttpClient client)
     {
         //Arrange
-        await TestDataInitializer.RegisterUser(client);
-        var id = await TestDataInitializer.CreateCategory(client, (null, "test"));
+        await TestRequestService.RegisterUser(client);
+        var id = await TestRequestService.CreateCategory(client, (null, "test"));
         var request = new UpdateCategory.Command(id, null,"UpdatedCategoryName");
         
         // Act
@@ -65,8 +65,8 @@ public class CategoryPositiveTests
     public async Task GetCategory_ValidRequest_ReturnsOk(HttpClient client)
     {
         //Arrange
-        await TestDataInitializer.RegisterUser(client);
-        var id = await TestDataInitializer.CreateCategory(client, (null, "test"));
+        await TestRequestService.RegisterUser(client);
+        var id = await TestRequestService.CreateCategory(client, (null, "test"));
 
         // Act
         var response = await client.GetAsync($"/api/category/{id}");
@@ -79,8 +79,8 @@ public class CategoryPositiveTests
     public async Task GetCategoryList_ValidRequest_ReturnsOk(HttpClient client)
     {
         // Act
-        await TestDataInitializer.RegisterUser(client);
-        await TestDataInitializer.CreateCategory(client, (null, "test"));
+        await TestRequestService.RegisterUser(client);
+        await TestRequestService.CreateCategory(client, (null, "test"));
 
         var response = await client.GetAsync("/api/category");
 

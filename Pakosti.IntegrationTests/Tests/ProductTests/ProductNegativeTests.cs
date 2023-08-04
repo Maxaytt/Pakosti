@@ -14,7 +14,7 @@ public class ProductNegativeTests
     public async Task CreateProduct_InvalidCategoryId_ReturnsNotFound(HttpClient client)
     {
         // Arrange
-        await TestDataInitializer.RegisterUser(client);
+        await TestRequestService.RegisterUser(client);
         var invalidId = Guid.NewGuid();
         var request = new CreateProduct.Dto(invalidId, "test test", "test test test test!");
 
@@ -29,7 +29,7 @@ public class ProductNegativeTests
     public async Task UpdateProduct_InvalidId_ReturnsNotFound(HttpClient client)
     {
         // Arrange
-        await TestDataInitializer.RegisterUser(client);
+        await TestRequestService.RegisterUser(client);
         var request = new UpdateProduct.Dto(Guid.NewGuid(), Guid.NewGuid(), null, null);
         
         // Act
@@ -43,7 +43,7 @@ public class ProductNegativeTests
     public async Task DeleteProduct_InvalidId_ReturnsNotFound(HttpClient client)
     {
         // Arrange
-        await TestDataInitializer.RegisterUser(client);
+        await TestRequestService.RegisterUser(client);
         var id = Guid.NewGuid();
         // Act
         var response = await client.DeleteAsync($"/api/product/{id}");
