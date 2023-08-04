@@ -2,6 +2,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
+using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
@@ -17,13 +18,8 @@ public static class UpdateProduct
     {
         public Validator()
         {
-            RuleFor(c => c.Name)
-                .MinimumLength(5).WithMessage("Name must contain at least 5 characters")
-                .MaximumLength(150).WithMessage("Name must not exceed 150 characters");
-            
-            RuleFor(c => c.Description)
-                .MinimumLength(20).WithMessage("Description must contain at least 5 characters")
-                .MaximumLength(1500).WithMessage("Description must not exceed 150 characters");
+            RuleFor(c => c.Name).ProductName();
+            RuleFor(c => c.Description).ProductDescription();
         }
     }
     

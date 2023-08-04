@@ -2,6 +2,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
+using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
@@ -13,13 +14,7 @@ public static class UpdateCategory
 
     public sealed class Validator : AbstractValidator<Command>
     {
-        public Validator()
-        {
-            RuleFor(c => c.Name)
-                .NotEmpty().WithMessage("Name is required")
-                .MinimumLength(5).WithMessage("Name must contain at least 5 characters")
-                .MaximumLength(50).WithMessage("Name must not exceed 50 characters");
-        }
+        public Validator() => RuleFor(c => c.Name).CategoryName();
     }
     
     public sealed class Handler : IRequestHandler<Command>

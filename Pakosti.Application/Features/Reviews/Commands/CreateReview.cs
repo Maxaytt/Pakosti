@@ -2,6 +2,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
+using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
@@ -17,15 +18,10 @@ public static class CreateReview
     {
         public Validator()
         {
-            RuleFor(c => c.Header)
-                .NotEmpty().WithMessage("Header is required")
-                .MinimumLength(5).WithMessage("Header must contain at least 5 characters")
-                .MaximumLength(100).WithMessage("Header must not exceed 150 characters");
-            
-            RuleFor(c => c.Body)
-                .NotEmpty().WithMessage("Body is required")
-                .MinimumLength(25).WithMessage("Body must contain at least 5 characters")
-                .MaximumLength(1500).WithMessage("Body must not exceed 150 characters");
+            RuleFor(c => c.Header).ReviewHeader()
+                .NotNull().WithMessage("Header is required");
+            RuleFor(c => c.Body).ReviewBody()
+                .NotNull().WithMessage("Body is required");
         }
     }
     

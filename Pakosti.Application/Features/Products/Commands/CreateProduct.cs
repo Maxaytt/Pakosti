@@ -3,6 +3,7 @@ using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
+using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
@@ -16,25 +17,12 @@ public static class CreateProduct
 
     public sealed class Validator : AbstractValidator<Command>
     {
-        private const int NameMinLength = 5;
-        private const int NameMaxLength = 150;
-        private const int DescriptionMinLength = 20;
-        private const int DescriptionMaxLength = 1500;
         public Validator()
         {
-            RuleFor(c => c.Name)
-                .NotEmpty().WithMessage("Name is required")
-                .MinimumLength(NameMinLength)
-                .WithMessage($"Name must contain at least {NameMinLength} characters")
-                .MaximumLength(NameMaxLength)
-                .WithMessage($"Name must not exceed {NameMaxLength} characters");
-            
-            RuleFor(c => c.Description)
-                .NotEmpty().WithMessage("Description is required")
-                .MinimumLength(DescriptionMinLength)
-                .WithMessage($"Description must contain at least {DescriptionMinLength} characters")
-                .MaximumLength(DescriptionMaxLength)
-                .WithMessage($"Description must not exceed {DescriptionMaxLength} characters");
+            RuleFor(c => c.Name).ProductName()
+                .NotNull().WithMessage("Name is required");
+            RuleFor(c => c.Description).ProductDescription()
+                .NotNull().WithMessage("Description is required");;
         }
     }
     
