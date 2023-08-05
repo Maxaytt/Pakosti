@@ -35,8 +35,4 @@
       <ProjectReference Include="..\Pakosti.Infrastructure.Persistence\Pakosti.Infrastructure.Persistence.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Tests\ReviewTests\" />
-    </ItemGroup>
-
 </Project>
