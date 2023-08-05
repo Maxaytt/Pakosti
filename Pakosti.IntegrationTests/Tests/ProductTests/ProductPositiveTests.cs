@@ -25,12 +25,13 @@ public class ProductPositiveTests
         
         // Act
         var response = await client.PostAsJsonAsync("/api/product", request);
+        var responseData = await response.Content.ReadFromJsonAsync<CreateProduct.Response>();
+        var product = await TestRequestService.GetProduct(client, responseData!.Id);
         
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
-        var responseData = await response.Content.ReadFromJsonAsync<CreateProduct.Response>();
-        var getResponse = await client.GetAsync($"/api/product/{responseData!.Id}");
-        getResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
+        product!.Name.ShouldBe(Name);
+        product.Description.ShouldBe(Description);
     }
 
     [Theory(Timeout = 5000), TestSetup]
@@ -44,10 +45,10 @@ public class ProductPositiveTests
         
         // Act
         var response = await client.PutAsJsonAsync("/api/product", request);
+        var product = await TestRequestService.GetProduct(client, productId);
         
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
-        var product = await TestRequestService.GetProduct(client, productId);
         product!.Name.ShouldBe(UpdatedName);
     }
 
@@ -61,10 +62,10 @@ public class ProductPositiveTests
         
         // Act
         var response = await client.DeleteAsync($"/api/product/{productId}");
+        var product = await TestRequestService.GetProduct(client, productId);
         
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
-        var product = await TestRequestService.GetProduct(client, productId);
         product.ShouldBeNull();
     }
 
@@ -78,10 +79,10 @@ public class ProductPositiveTests
         
         // Act
         var response = await client.GetAsync($"/api/product/{productId}");
+        var responseData = await response.Content.ReadFromJsonAsync<GetProduct.Response>();
         
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
-        var responseData = await response.Content.ReadFromJsonAsync<GetProduct.Response>();
         responseData!.Id.ShouldBe(productId);
     }
     
@@ -99,10 +100,10 @@ public class ProductPositiveTests
         
         // Act
         var response = await client.GetAsync("/api/product");
+        var responseData = await response.Content.ReadFromJsonAsync<GetProductList.Response>();
         
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
-        var responseData = await response.Content.ReadFromJsonAsync<GetProductList.Response>();
         responseData!.Products.ToList()
             .ForEach(p => productIds.ShouldContain(p.Id));
     }
