@@ -12,7 +12,7 @@ namespace Pakosti.IntegrationTests.Tests.CategoryTests;
 public class CategoryNegativeTests
 {
     [Theory(Timeout = 5000), TestSetup]
-    public async Task CreateCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
+    public async Task CreateCategory_InvalidParentCategoryId_ReturnsNotFound(HttpClient client)
     {
         //Arrange
         await TestRequestService.RegisterUser(client);
@@ -27,7 +27,7 @@ public class CategoryNegativeTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task DeleteCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
+    public async Task DeleteCategory_InvalidId_ReturnsNotFound(HttpClient client)
     {
         // Act
         await TestRequestService.RegisterUser(client);
@@ -39,7 +39,7 @@ public class CategoryNegativeTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task UpdateCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
+    public async Task UpdateCategory_InvalidId_ReturnsNotFound(HttpClient client)
     {
         //Arrange
         await TestRequestService.RegisterUser(client);
@@ -53,7 +53,7 @@ public class CategoryNegativeTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task GetCategory_InvalidRequest_ReturnsNotFound(HttpClient client)
+    public async Task GetCategory_InvalidId_ReturnsNotFound(HttpClient client)
     {
         // Act
         var id = Guid.NewGuid();
