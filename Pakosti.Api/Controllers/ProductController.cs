@@ -22,19 +22,18 @@ public class ProductController : BaseController
     public async Task<ActionResult> Get(Guid id)
     {
         var query = new GetProduct.Query(id);
-
         var vm = await Mediator.Send(query);
         return Ok(vm);
     }
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateProduct.Dto createProductDto)
+    public async Task<ActionResult> Create([FromBody] CreateProduct.Dto createProductDto)
     {
         var command = createProductDto.Adapt<CreateProduct.Command>()
             with { UserId = UserId };
-        var noteId = await Mediator.Send(command);
-        return Ok(noteId);
+        var response = await Mediator.Send(command);
+        return Created($"/api/product/{response.Id}", response);
     }
 
     [HttpPut]

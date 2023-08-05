@@ -1,11 +1,10 @@
 using System.Net.Mime;
 using System.Text.Json;
-using Microsoft.AspNetCore.Http;
 using Pakosti.Application.Common.Exceptions;
 using Pakosti.Application.Exceptions;
 using ApplicationException = Pakosti.Domain.Exceptions.ApplicationException;
 
-namespace Pakosti.Application.Middlewares;
+namespace Pakosti.Api.Middlewares;
 
 public class ExceptionHandlingMiddleware : IMiddleware
 {
@@ -45,6 +44,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
         BadRequestException => StatusCodes.Status400BadRequest,
         ArgumentException => StatusCodes.Status400BadRequest,
         FluentValidation.ValidationException => StatusCodes.Status400BadRequest,
+        NotFoundException => StatusCodes.Status404NotFound,
         _ => StatusCodes.Status500InternalServerError
     };
 

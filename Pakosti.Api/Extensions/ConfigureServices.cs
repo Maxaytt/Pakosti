@@ -1,5 +1,5 @@
+using Pakosti.Api.Middlewares;
 using Pakosti.Application.Interfaces;
-using Pakosti.Application.Middlewares;
 using Pakosti.Application.Services;
 
 namespace Pakosti.Api.Extensions;

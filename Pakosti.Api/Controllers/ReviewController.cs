@@ -28,12 +28,12 @@ public class ReviewController : BaseController
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Guid>> Crete([FromBody] CreateReview.Dto createReviewDto)
+    public async Task<ActionResult> Crete([FromBody] CreateReview.Dto createReviewDto)
     {
         var query = createReviewDto.Adapt<CreateReview.Command>()
             with { UserId = UserId };
-        var id = await Mediator.Send(query);
-        return Ok(id);
+        var response = await Mediator.Send(query);
+        return Created($"/api/review/{response.Id}", response);
     }
 
     [HttpPut]
