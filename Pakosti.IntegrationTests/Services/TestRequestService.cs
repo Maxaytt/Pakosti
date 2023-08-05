@@ -7,6 +7,8 @@ using Pakosti.Application.Features.Categories.Queries;
 using Pakosti.Application.Features.Identities.Commands;
 using Pakosti.Application.Features.Products.Commands;
 using Pakosti.Application.Features.Products.Queries;
+using Pakosti.Application.Features.Reviews.Commands;
+using Pakosti.Application.Features.Reviews.Queries;
 using Pakosti.IntegrationTests.Setups;
 
 namespace Pakosti.IntegrationTests.Services;
@@ -66,6 +68,27 @@ public static class TestRequestService
         {
             HttpStatusCode.OK =>
                 await response.Content.ReadFromJsonAsync<GetProduct.Response>(),
+            _ => null
+        };
+        return result;
+    }
+    
+    public static async Task<Guid> CreateReview(HttpClient client, 
+        (Guid productId, string header, string body) dto)
+    {
+        var request = new CreateReview.Dto(dto.productId, dto.header, dto.body);
+        var response = await client.PostAsJsonAsync("/api/review", request);
+        var responseData = await response.Content.ReadFromJsonAsync<CreateReview.Response>();
+        return responseData!.Id;
+    }
+
+    public static async Task<GetReview.Response?> GetReview(HttpClient client, Guid id)
+    {
+        var response = await client.GetAsync($"/api/review/{id}");
+        var result = response.StatusCode switch
+        {
+            HttpStatusCode.OK =>
+                await response.Content.ReadFromJsonAsync<GetReview.Response>(),
             _ => null
         };
         return result;
