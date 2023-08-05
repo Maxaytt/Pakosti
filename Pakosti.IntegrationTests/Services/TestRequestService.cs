@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using AutoFixture;
 using Pakosti.Application.Features.Categories.Commands;
+using Pakosti.Application.Features.Categories.Queries;
 using Pakosti.Application.Features.Identities.Commands;
 using Pakosti.Application.Features.Products.Commands;
 using Pakosti.Application.Features.Products.Queries;
@@ -35,6 +36,18 @@ public static class TestRequestService
         var response = await client.PostAsJsonAsync("/api/category", request);
         var responseData = await response.Content.ReadFromJsonAsync<CreateCategory.Response>();
         return responseData!.Id;
+    }
+    
+    public static async Task<GetCategory.Response?> GetCategory(HttpClient client, Guid id)
+    {
+        var response = await client.GetAsync($"/api/category/{id}");
+        var result = response.StatusCode switch
+        {
+            HttpStatusCode.OK =>
+                await response.Content.ReadFromJsonAsync<GetCategory.Response>(),
+            _ => null
+        };
+        return result;
     }
     
     public static async Task<Guid> CreateProduct(HttpClient client, 
