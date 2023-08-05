@@ -32,7 +32,6 @@ public class CategoryPositiveTests
         category.Name.ShouldBe(Name);
     }
     
-    //TODO: DeleteCategory_ShouldDelete_Category
     [Theory(Timeout = 5000), TestSetup]
     public async Task DeleteCategory_ShouldSetNull_ChildrenParentId(HttpClient client)
     {
