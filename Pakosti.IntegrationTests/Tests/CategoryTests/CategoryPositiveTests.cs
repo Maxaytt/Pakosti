@@ -11,13 +11,15 @@ namespace Pakosti.IntegrationTests.Tests.CategoryTests;
 
 public class CategoryPositiveTests
 {
-
+    private const string Name = "test test";
+    private const string UpdatedName = "updated test name";
+    
     [Theory(Timeout = 5000), TestSetup]
-    public async Task CreateCategory_ValidRequest_ReturnsOk(HttpClient client)
+    public async Task CreateCategory_ShouldCreate_Category(HttpClient client)
     {
         //Arrange
         await TestRequestService.RegisterUser(client);
-        var request = new CreateCategory.Command(null, "TestCategory");
+        var request = new CreateCategory.Command(null, Name);
         
         // Act
         var response = await client.PostAsJsonAsync("/api/category", request);
@@ -27,7 +29,7 @@ public class CategoryPositiveTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task DeleteCategory_ValidRequest_ShouldSetNullChildrenParentId(HttpClient client)
+    public async Task DeleteCategory_ShouldSetNull_ChildrenParentId(HttpClient client)
     {
         //Arrange
         await TestRequestService.RegisterUser(client);
@@ -47,12 +49,12 @@ public class CategoryPositiveTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task UpdateCategory_ValidRequest_ReturnsNoContent(HttpClient client)
+    public async Task UpdateCategory_ShouldUpdate_Category(HttpClient client)
     {
         //Arrange
         await TestRequestService.RegisterUser(client);
-        var id = await TestRequestService.CreateCategory(client, (null, "test"));
-        var request = new UpdateCategory.Command(id, null,"UpdatedCategoryName");
+        var id = await TestRequestService.CreateCategory(client, (null, Name));
+        var request = new UpdateCategory.Command(id, null,UpdatedName);
         
         // Act
         var response = await client.PutAsJsonAsync("/api/category", request);
@@ -62,7 +64,7 @@ public class CategoryPositiveTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task GetCategory_ValidRequest_ReturnsOk(HttpClient client)
+    public async Task GetCategory_ShouldGet_Category(HttpClient client)
     {
         //Arrange
         await TestRequestService.RegisterUser(client);
@@ -76,9 +78,9 @@ public class CategoryPositiveTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task GetCategoryList_ValidRequest_ReturnsOk(HttpClient client)
+    public async Task GetCategoryList_ShouldGetAll_Categories(HttpClient client)
     {
-        // Act
+        // Arrange
         await TestRequestService.RegisterUser(client);
         await TestRequestService.CreateCategory(client, (null, "test"));
 
