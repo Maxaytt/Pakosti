@@ -87,7 +87,7 @@ public class ProductPositiveTests
     }
     
     [Theory(Timeout = 5000), TestSetup]
-    public async Task GetProduct_ShouldGetAll_Products(HttpClient client)
+    public async Task GetProductList_ShouldGetAll_Products(HttpClient client)
     {
         // Arrange
         await TestRequestService.RegisterUser(client);
