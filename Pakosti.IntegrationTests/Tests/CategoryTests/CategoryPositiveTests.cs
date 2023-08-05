@@ -23,11 +23,16 @@ public class CategoryPositiveTests
         
         // Act
         var response = await client.PostAsJsonAsync("/api/category", request);
+        var responseData = await response.Content.ReadFromJsonAsync<CreateCategory.Response>();
+        var category = await TestRequestService.GetCategory(client, responseData!.Id);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
+        category!.ParentCategoryId.ShouldBeNull();
+        category.Name.ShouldBe(Name);
     }
     
+    //TODO: DeleteCategory_ShouldDelete_Category
     [Theory(Timeout = 5000), TestSetup]
     public async Task DeleteCategory_ShouldSetNull_ChildrenParentId(HttpClient client)
     {
@@ -36,16 +41,14 @@ public class CategoryPositiveTests
         var id = await TestRequestService.CreateCategory(client, (null, "test1"));
         var childId = await TestRequestService.CreateCategory(client, (id, "test2"));
         
-
         // Act
         var response = await client.DeleteAsync($"/api/category/{id}");
         var childResponse = await client.GetAsync($"/api/category/{childId}");
+        var childData = await childResponse.Content.ReadFromJsonAsync<GetCategory.Response>();
 
         // Assert
-        var childData = await childResponse.Content.ReadFromJsonAsync<GetCategory.Response>();
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
         childData!.ParentCategoryId.ShouldBeNull();
-        
     }
     
     [Theory(Timeout = 5000), TestSetup]
@@ -58,9 +61,13 @@ public class CategoryPositiveTests
         
         // Act
         var response = await client.PutAsJsonAsync("/api/category", request);
+        var category = await TestRequestService.GetCategory(client, id);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+        category!.ParentCategoryId.ShouldBeNull();
+        category.Name.ShouldBe(UpdatedName);
+        category.Id.ShouldBe(id);
     }
     
     [Theory(Timeout = 5000), TestSetup]
@@ -72,9 +79,11 @@ public class CategoryPositiveTests
 
         // Act
         var response = await client.GetAsync($"/api/category/{id}");
+        var responseData = await response.Content.ReadFromJsonAsync<GetCategory.Response>();
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        responseData!.Id.ShouldBe(id);
     }
     
     [Theory(Timeout = 5000), TestSetup]
@@ -82,11 +91,19 @@ public class CategoryPositiveTests
     {
         // Arrange
         await TestRequestService.RegisterUser(client);
-        await TestRequestService.CreateCategory(client, (null, "test"));
+        var categoryIds = new List<Guid>
+        {
+            await TestRequestService.CreateCategory(client, (null, Name + "1")),
+            await TestRequestService.CreateCategory(client, (null, Name + "2"))
+        };
 
+        // Act
         var response = await client.GetAsync("/api/category");
+        var responseData = await response.Content.ReadFromJsonAsync<GetCategoryList.Response>();
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        responseData!.Categories.ToList()
+            .ForEach(p => categoryIds.ShouldContain(p.Id));
     }
 }
