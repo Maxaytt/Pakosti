@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Common.Exceptions;
 using Pakosti.Application.Extensions;
+using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
@@ -50,11 +51,8 @@ public static class Authenticate
             if (!isPasswordValid)
                 throw new BadRequestException("Bad credentials");
 
-            var user = await _repository.GetUserByEmailAsync(request.Email, cancellationToken)
-                ?? throw new UnauthorizedAccessException();
-
             var roleIds = _repository
-                .GetUserRolesById(user.Id, cancellationToken)
+                .GetUserRolesById(managedUser.Id, cancellationToken)
                 .Select(r => r.RoleId)
                 .ToList();
 
@@ -62,16 +60,16 @@ public static class Authenticate
                 .Where(x => roleIds.Contains(x.Id))
                 .ToList();
 
-            var accessToken = _tokenService.CreateToken(user, roles);
-            user.RefreshToken = _configuration.GenerateRefreshToken();
-            user.RefreshTokenExpiryTime = DateTime.UtcNow
+            var accessToken = _tokenService.CreateToken(managedUser, roles);
+            managedUser.RefreshToken = _configuration.GenerateRefreshToken();
+            managedUser.RefreshTokenExpiryTime = DateTime.UtcNow
                 .AddMinutes(_configuration.GetSection("Jwt:TokenValidityInMinutes").Get<int>());
 
             await _repository.SaveChangesAsync(cancellationToken);
 
-            return new Response(user.UserName!, user.Email!, accessToken, user.RefreshToken);
+            return new Response(accessToken, managedUser.RefreshToken, managedUser.Id);
         }
     }
 
-    public sealed record Response(string Username, string Email, string Token, string RefreshToken);
+    public sealed record Response(string Token, string RefreshToken, Guid Id);
 }

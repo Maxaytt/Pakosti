@@ -44,7 +44,7 @@ public static class JwtBearerExtensions
             configuration["Jwt:Issuer"],
             configuration["Jwt:Audience"],
             claims,
-            expires: DateTime.Now.AddMinutes(expire),
+            expires: DateTime.UtcNow.AddMinutes(expire),
             signingCredentials: configuration.CreateSigningCredentials()
         );
     }
@@ -57,7 +57,7 @@ public static class JwtBearerExtensions
         var token = new JwtSecurityToken(
             issuer: configuration["Jwt:Issuer"],
             audience: configuration["Jwt:Audience"],
-            expires: DateTime.Now.AddMinutes(tokenValidityInMinutes),
+            expires: DateTime.UtcNow.AddMinutes(tokenValidityInMinutes),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
         );

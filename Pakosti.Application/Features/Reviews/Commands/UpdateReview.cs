@@ -2,6 +2,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
+using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
@@ -9,6 +10,7 @@ namespace Pakosti.Application.Features.Reviews.Commands;
 
 public static class UpdateReview
 {
+    public sealed record Dto(Guid Id, string? Header, string? Body);
     public sealed record Command(Guid Id, Guid UserId,
         string? Header, string? Body ) : IRequest;
 
@@ -16,13 +18,8 @@ public static class UpdateReview
     {
         public Validator()
         {
-            RuleFor(c => c.Header)
-                .MinimumLength(5).WithMessage("Header must contain at least 5 characters")
-                .MaximumLength(100).WithMessage("Header must not exceed 150 characters");
-            
-            RuleFor(c => c.Body)
-                .MinimumLength(25).WithMessage("Body must contain at least 5 characters")
-                .MaximumLength(1500).WithMessage("Body must not exceed 150 characters");
+            RuleFor(c => c.Header).ReviewHeader();
+            RuleFor(c => c.Body).ReviewBody();
         }
     }
     
@@ -43,7 +40,7 @@ public static class UpdateReview
                 throw new NotFoundException(nameof(Review), request.Id);
             }
         
-            review.EditionDate = DateTime.Now;
+            review.EditionDate = DateTime.UtcNow;
             if (request.Header != null)
             {
                 review.Header = request.Header;

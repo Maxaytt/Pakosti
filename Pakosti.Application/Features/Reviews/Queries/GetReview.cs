@@ -1,8 +1,7 @@
-using AutoMapper;
+using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Common.Mappings;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
@@ -15,10 +14,9 @@ public static class GetReview
     public sealed class Handler : IRequestHandler<Query, Response>
     {
         private readonly IPakostiDbContext _context;
-        private readonly IMapper _mapper;
 
-        public Handler(IPakostiDbContext context, IMapper mapper) =>
-            (_context, _mapper) = (context, mapper);
+        public Handler(IPakostiDbContext context) =>
+            _context = context;
 
         public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
@@ -30,15 +28,11 @@ public static class GetReview
                 throw new NotFoundException(nameof(Review), request.Id);
             }
 
-            return _mapper.Map<Response>(review);
+            return review.Adapt<Response>();
         }
     }
 
     public sealed record Response(Guid Id, Guid ProductId,
         string Header, string Body,
-        DateTime CreationDate, DateTime? EditionDate) : IMapWith<Review>
-    {
-        public void Mapping(Profile profile) =>
-            profile.CreateMap<Review, Response>();
-    };
+        DateTime CreationDate, DateTime? EditionDate);
 }

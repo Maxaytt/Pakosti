@@ -29,10 +29,10 @@ public class IdentityController : BaseController
     }
     [Authorize]
     [HttpPost]
-    [Route("revoke/{username}")]
-    public async Task<IActionResult> Revoke(string username)
+    [Route("revoke/{id:guid}")]
+    public async Task<IActionResult> Revoke(Guid id)
     {
-        var command = new Revoke.Command(username);
+        var command = new Revoke.Command(id);
         await Mediator.Send(command);
         return Ok();
     }

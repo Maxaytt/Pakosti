@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Api.Models.Category;
 using Pakosti.Application.Features.Categories.Commands;
 using Pakosti.Application.Features.Categories.Queries;
 
@@ -28,26 +27,17 @@ public class CategoryController : BaseController
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateCategoryDto createCategoryDto)
+    public async Task<ActionResult> Create([FromBody] CreateCategory.Command request)
     {
-        var query = new CreateCategory.Command(
-            createCategoryDto.ParentCategoryId,
-            createCategoryDto.Name);
-
-        var id = await Mediator.Send(query);
-        return Ok(id);
+        var response = await Mediator.Send(request);
+        return Created($"/api/category/{response.Id}", response);
     }
 
     [HttpPut]
     [Authorize]
-    public async Task<ActionResult> Update([FromBody] UpdateCategoryDto updateCategoryDto)
+    public async Task<ActionResult> Update([FromBody] UpdateCategory.Command request)
     {
-        var query = new UpdateCategory.Command(
-            updateCategoryDto.Id,
-            updateCategoryDto.ParentCategoryId,
-            updateCategoryDto.Name);
-
-        await Mediator.Send(query);
+        await Mediator.Send(request);
         return NoContent();
     }
     
