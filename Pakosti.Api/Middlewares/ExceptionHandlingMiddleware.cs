@@ -1,7 +1,6 @@
 using System.Net.Mime;
 using System.Text.Json;
 using Pakosti.Application.Common.Exceptions;
-using Pakosti.Application.Exceptions;
 using ApplicationException = Pakosti.Domain.Exceptions.ApplicationException;
 
 namespace Pakosti.Api.Middlewares;
@@ -40,7 +39,6 @@ public class ExceptionHandlingMiddleware : IMiddleware
 
     private static int GetStatusCode(Exception exception) => exception switch
     {
-        ValidationException => StatusCodes.Status400BadRequest,
         BadRequestException => StatusCodes.Status400BadRequest,
         ArgumentException => StatusCodes.Status400BadRequest,
         FluentValidation.ValidationException => StatusCodes.Status400BadRequest,
@@ -56,7 +54,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
 
     private IReadOnlyDictionary<string, string[]> GetErrors(Exception exception) => exception switch
     {
-        ValidationException validationException => validationException.ErrorsDictionary,
+        BadRequestException badRequestException => badRequestException.ErrorsDictionary,
         _ => new Dictionary<string, string[]>()
     };
 }
