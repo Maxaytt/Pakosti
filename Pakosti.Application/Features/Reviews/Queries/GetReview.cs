@@ -34,5 +34,5 @@ public static class GetReview
 
     public sealed record Response(Guid Id, Guid ProductId,
         string Header, string Body,
-        DateTime CreationDate, DateTime? EditionDate);
+        DateTimeOffset CreationDate, DateTimeOffset? EditionDate);
 }

@@ -40,7 +40,7 @@ public static class UpdateReview
                 throw new NotFoundException(nameof(Review), request.Id);
             }
         
-            review.EditionDate = DateTime.UtcNow;
+            review.EditionDate = DateTimeOffset.UtcNow;
             if (request.Header != null)
             {
                 review.Header = request.Header;

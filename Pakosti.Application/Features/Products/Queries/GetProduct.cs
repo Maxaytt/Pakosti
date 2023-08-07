@@ -43,5 +43,5 @@ public static class GetProduct
     public sealed record Response(
         Guid Id, Guid? CategoryId,
         string? CategoryName, string Name, string Description,
-        DateTime CreationDate, DateTime? EditionDate);
+        DateTimeOffset CreationDate, DateTimeOffset? EditionDate);
 }

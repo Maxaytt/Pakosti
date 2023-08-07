@@ -36,7 +36,7 @@ public static class RefreshToken
             var username = principal.Identity!.Name;
             var user = await _userManager.FindByNameAsync(username!);
 
-            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTimeOffset.UtcNow)
             {
                 throw new BadRequestException("Invalid access token or refresh token");
             }
