@@ -44,7 +44,7 @@ public static class CreateProduct
 
             var product = request.Adapt<Product>();
             product.Id = Guid.NewGuid();
-            product.CreationDate = DateTime.UtcNow;
+            product.CreationDate = DateTimeOffset.UtcNow;
             product.EditionDate = null;
 
             await _context.Products.AddAsync(product, cancellationToken);

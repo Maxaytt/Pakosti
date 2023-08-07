@@ -46,7 +46,7 @@ public static class CreateReview
                 ProductId = request.ProductId,
                 Header = request.Header,
                 Body = request.Body,
-                CreationDate = DateTime.UtcNow,
+                CreationDate = DateTimeOffset.UtcNow,
                 EditionDate = null
             };
         

@@ -8,6 +8,6 @@ public class Product
 
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
-    public DateTime CreationDate { get; set; }
-    public DateTime? EditionDate { get; set; }
+    public DateTimeOffset CreationDate { get; set; }
+    public DateTimeOffset? EditionDate { get; set; }
 }

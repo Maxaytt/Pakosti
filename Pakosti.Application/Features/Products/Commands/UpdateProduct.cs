@@ -52,7 +52,7 @@ public static class UpdateProduct
             {
                 product.Description = request.Description;
             }
-            product.EditionDate = DateTime.UtcNow;
+            product.EditionDate = DateTimeOffset.UtcNow;
 
             await _context.SaveChangesAsync(cancellationToken);
         }

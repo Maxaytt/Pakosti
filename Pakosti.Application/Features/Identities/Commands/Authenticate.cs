@@ -62,7 +62,7 @@ public static class Authenticate
 
             var accessToken = _tokenService.CreateToken(managedUser, roles);
             managedUser.RefreshToken = _configuration.GenerateRefreshToken();
-            managedUser.RefreshTokenExpiryTime = DateTime.UtcNow
+            managedUser.RefreshTokenExpiryTime = DateTimeOffset.UtcNow
                 .AddMinutes(_configuration.GetSection("Jwt:TokenValidityInMinutes").Get<int>());
 
             await _repository.SaveChangesAsync(cancellationToken);
