@@ -27,7 +27,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
         {
             Title = GetTitle(exception),
             Status = statusCode,
-            Detail = exception.Message,
+            Detail = exception.Message
         };
 
         httpContext.Response.ContentType = MediaTypeNames.Application.Json;
@@ -50,6 +50,5 @@ public class ExceptionHandlingMiddleware : IMiddleware
         ApplicationException a => a.Title,
         _ => "Server error"
     };
-    
 }
 
