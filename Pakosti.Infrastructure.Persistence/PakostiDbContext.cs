@@ -9,7 +9,6 @@ namespace Pakosti.Infrastructure.Persistence;
 
 public class PakostiDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IPakostiDbContext 
 {
-    public bool IsDisposed { get; set; }
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;
     public DbSet<Review> Reviews { get; set; } = null!;
