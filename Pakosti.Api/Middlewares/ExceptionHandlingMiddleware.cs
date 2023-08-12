@@ -28,7 +28,6 @@ public class ExceptionHandlingMiddleware : IMiddleware
             Title = GetTitle(exception),
             Status = statusCode,
             Detail = exception.Message,
-            Errors = GetErrors(exception)
         };
 
         httpContext.Response.ContentType = MediaTypeNames.Application.Json;
@@ -51,11 +50,6 @@ public class ExceptionHandlingMiddleware : IMiddleware
         ApplicationException a => a.Title,
         _ => "Server error"
     };
-
-    private IReadOnlyDictionary<string, string[]> GetErrors(Exception exception) => exception switch
-    {
-        BadRequestException badRequestException => badRequestException.ErrorsDictionary,
-        _ => new Dictionary<string, string[]>()
-    };
+    
 }
 
