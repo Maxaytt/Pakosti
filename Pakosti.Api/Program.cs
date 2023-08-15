@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Pakosti.Api.Extensions;
 using Pakosti.Api.Middlewares;
 using Pakosti.Application.Extensions;
@@ -56,9 +55,5 @@ public class Startup
             .ConfigurePersistenceServices(_configuration)
             .ConfigureApplicationServices()
             .ConfigureApiServices(_configuration);
-        services.AddControllers(options => 
-        {
-            options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
-        });
     }
 }
