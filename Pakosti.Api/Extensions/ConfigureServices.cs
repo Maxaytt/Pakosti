@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Pakosti.Api.Middlewares;
 using Pakosti.Application.Interfaces;
 using Pakosti.Application.Services;
@@ -15,7 +16,10 @@ public static class ConfigureServices
             .ConfigureAuthorization()
             .ConfigureIdentity();
         
-        services.AddControllers();
+        services.AddControllers(options => 
+        {
+            options.Conventions.Add(new RouteTokenTransformerConvention(new KebabTransformer()));
+        }); 
         services.AddEndpointsApiExplorer();
 
         services.AddScoped<ITokenService, TokenService>()
