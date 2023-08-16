@@ -1,4 +1,4 @@
-namespace Pakosti.Application.Common.Exceptions;
+namespace Pakosti.Application.Exceptions;
 
 public class BadRequestException : Exception
 {
