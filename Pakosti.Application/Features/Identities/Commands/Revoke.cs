@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Pakosti.Application.Common.Exceptions;
+using Pakosti.Application.Exceptions;
 using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Identities.Commands;
