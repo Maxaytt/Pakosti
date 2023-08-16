@@ -61,9 +61,12 @@ public static class Authenticate
                 .ToList();
 
             var accessToken = _tokenService.CreateToken(managedUser, roles);
+            var validityString = Environment.GetEnvironmentVariable("JWT_TOKEN_VALIDITY_IN_MINUTES");
+            if (!int.TryParse(validityString, out var validity)) 
+                throw new FormatException("JWT_TOKEN_VALIDITY_IN_MINUTES is not a number");
             managedUser.RefreshToken = _configuration.GenerateRefreshToken();
             managedUser.RefreshTokenExpiryTime = DateTimeOffset.UtcNow
-                .AddMinutes(_configuration.GetSection("Jwt:TokenValidityInMinutes").Get<int>());
+                .AddMinutes(validity);
 
             await _repository.SaveChangesAsync(cancellationToken);
 

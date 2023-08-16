@@ -7,7 +7,7 @@ namespace Pakosti.Api.Extensions;
 public static class ConfigureAuthenticationExtensions
 {
     public static IServiceCollection ConfigureAuthentication(
-        this IServiceCollection services, IConfiguration configuration)
+        this IServiceCollection services)
     {
         services.AddAuthentication(cfg =>
             {
@@ -22,9 +22,10 @@ public static class ConfigureAuthenticationExtensions
                     ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = configuration["Jwt:Issuer"]!,
-                    ValidAudience = configuration["Jwt:Audience"]!,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]!))
+                    ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER")!,
+                    ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE")!,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                        .GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!))
                 };
             });
 
