@@ -1,6 +1,7 @@
 using Pakosti.Api.Extensions;
 using Pakosti.Api.Middlewares;
 using Pakosti.Application.Extensions;
+using Pakosti.Infrastructure.Communication.Extensions;
 using Pakosti.Infrastructure.Persistence.Extensions;
 
 namespace Pakosti.Api;
@@ -54,6 +55,7 @@ public class Startup
         services
             .ConfigurePersistenceServices(_configuration)
             .ConfigureApplicationServices()
-            .ConfigureApiServices(_configuration);
+            .ConfigureApiServices(_configuration)
+            .ConfigureCommunicationServices();
     }
 }
