@@ -1,20 +1,26 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 using Pakosti.Infrastructure.Persistence.EntityTypeConfigurations;
 
 namespace Pakosti.Infrastructure.Persistence;
 
-public class PakostiDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IPakostiDbContext 
+public class PakostiDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IPakostiDbContext
 {
+    private readonly IConfiguration _configuration;
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;
     public DbSet<Review> Reviews { get; set; } = null!;
+    public DbSet<Currency> Currencies { get; set; } = null!;
+    
 
-    public PakostiDbContext(DbContextOptions<PakostiDbContext> options) : base(options)
+    public PakostiDbContext(DbContextOptions<PakostiDbContext> options
+        , IConfiguration configuration) : base(options)
     {
+        _configuration = configuration;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,6 +28,7 @@ public class PakostiDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, G
         modelBuilder.ApplyConfiguration(new CategoryConfiguration());
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
         modelBuilder.ApplyConfiguration(new ReviewConfiguration());
+        modelBuilder.ApplyConfiguration(new CurrencyConfiguration(_configuration));
         base.OnModelCreating(modelBuilder);
     }
     
