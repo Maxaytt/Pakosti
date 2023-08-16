@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Pakosti.Domain\Pakosti.Domain.csproj" />
+      <ProjectReference Include="..\Pakosti.Infrastructure.Communication\Pakosti.Infrastructure.Communication.csproj" />
       <ProjectReference Include="..\Pakosti.Infrastructure.Persistence\Pakosti.Infrastructure.Persistence.csproj" />
     </ItemGroup>
 
