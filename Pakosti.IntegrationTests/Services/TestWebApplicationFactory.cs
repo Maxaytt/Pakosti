@@ -18,7 +18,12 @@ internal class TestWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
         builder.ConfigureAppConfiguration(configuration => configuration.AddInMemoryCollection(new Dictionary<string, string?>
         {
-            ["POSTGRES_CONNECTION_STRING"] = postgresContainer.GetConnectionString()
+            ["POSTGRES_CONNECTION_STRING"] = postgresContainer.GetConnectionString(),
+            ["JWT_EXPIRE"] = "60",
+            ["JWT_SECRET"] = "superSecretKey@451",
+            ["JWT_ISSUER"] = "https://localhost:5001",
+            ["JWT_AUDIENCE"] = "https://localhost:5001",
+            ["JWT_TOKEN_VALIDITY_IN_MINUTES"] = "30"
         }));
     }
 }
