@@ -1,6 +1,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Exceptions;
 using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
@@ -16,10 +17,10 @@ public static class UpdateProduct
 
     public sealed class Validator : AbstractValidator<Command>
     {
-        public Validator()
+        public Validator(IConfiguration configuration)
         {
-            RuleFor(c => c.Name).ProductName();
-            RuleFor(c => c.Description).ProductDescription();
+            RuleFor(c => c.Name).ProductName(configuration);
+            RuleFor(c => c.Description).ProductDescription(configuration);
         }
     }
     

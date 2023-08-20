@@ -1,6 +1,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Exceptions;
 using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
@@ -16,11 +17,11 @@ public static class CreateReview
 
     public sealed class Validator : AbstractValidator<Command>
     {
-        public Validator()
+        public Validator(IConfiguration configuration)
         {
-            RuleFor(c => c.Header).ReviewHeader()
+            RuleFor(c => c.Header).ReviewHeader(configuration)
                 .NotNull().WithMessage("Header is required");
-            RuleFor(c => c.Body).ReviewBody()
+            RuleFor(c => c.Body).ReviewBody(configuration)
                 .NotNull().WithMessage("Body is required");
         }
     }

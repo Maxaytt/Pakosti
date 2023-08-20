@@ -16,10 +16,10 @@ public static class Authenticate
 
     public class Validator : AbstractValidator<Command>
     {
-        public Validator()
+        public Validator(IConfiguration configuration)
         {
-            RuleFor(c => c.Email).Email();
-            RuleFor(c => c.Password).Password();
+            RuleFor(c => c.Email).Email(configuration);
+            RuleFor(c => c.Password).Password(configuration);
         }
     }
     

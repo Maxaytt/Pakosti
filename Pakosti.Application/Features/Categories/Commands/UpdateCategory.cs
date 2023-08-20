@@ -1,6 +1,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Exceptions;
 using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
@@ -14,7 +15,8 @@ public static class UpdateCategory
 
     public sealed class Validator : AbstractValidator<Command>
     {
-        public Validator() => RuleFor(c => c.Name).CategoryName();
+        public Validator(IConfiguration configuration) => 
+            RuleFor(c => c.Name).CategoryName(configuration);
     }
     
     public sealed class Handler : IRequestHandler<Command>

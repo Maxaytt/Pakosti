@@ -2,6 +2,7 @@ using FluentValidation;
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Exceptions;
 using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
@@ -17,11 +18,11 @@ public static class CreateProduct
 
     public sealed class Validator : AbstractValidator<Command>
     {
-        public Validator()
+        public Validator(IConfiguration configuration)
         {
-            RuleFor(c => c.Name).ProductName()
+            RuleFor(c => c.Name).ProductName(configuration)
                 .NotNull().WithMessage("Name is required");
-            RuleFor(c => c.Description).ProductDescription()
+            RuleFor(c => c.Description).ProductDescription(configuration)
                 .NotNull().WithMessage("Description is required");;
         }
     }

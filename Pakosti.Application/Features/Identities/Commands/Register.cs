@@ -1,6 +1,7 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Exceptions;
 using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
@@ -16,15 +17,15 @@ public static class Register
     
     public class Validator : AbstractValidator<Command>
     {
-        public Validator()
+        public Validator(IConfiguration configuration)
         {
-            RuleFor(c => c.Email).Email();
+            RuleFor(c => c.Email).Email(configuration);
             RuleFor(c => c.BirthDate).BirthDate();
-            RuleFor(c => c.Password).Password();
+            RuleFor(c => c.Password).Password(configuration);
             RuleFor(c => c.PasswordConfirm).PasswordConfirm(c => c.Password);
-            RuleFor(c => c.FirstName).FirstName();
-            RuleFor(c => c.LastName).LastName();
-            RuleFor(c => c.Username).Username();
+            RuleFor(c => c.FirstName).FirstName(configuration);
+            RuleFor(c => c.LastName).LastName(configuration);
+            RuleFor(c => c.Username).Username(configuration);
         }
     }
     
