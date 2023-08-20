@@ -15,7 +15,6 @@ public class CategoryController : BaseController
         var vm = await Mediator.Send(query, cancellationToken);
         return Ok(vm);
     }
-    //TODO: add cancellation tokens
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult> Get(Guid id,
