@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Exceptions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
@@ -16,12 +17,13 @@ public class CoefficientService : ICoefficientService
 
     private const decimal MinimalChanges = 0.05M;
 
-    public CoefficientService(IPakostiDbContext context, IHttpClientFactory clientFactory)
+    public CoefficientService(IPakostiDbContext context,
+        IHttpClientFactory clientFactory, IConfiguration configuration)
     {
         _context = context;
         _client = clientFactory.CreateClient("CurrencyApiClient");
-        _appId = Environment.GetEnvironmentVariable("CURRENCY_APP_ID")!; 
-        _baseUrl = Environment.GetEnvironmentVariable("CURRENCY_APP_BASE_URL")!;
+        _appId = configuration["CURRENCY_APP_ID"]!; 
+        _baseUrl = configuration["CURRENCY_APP_BASE_URL"]!;
     }
 
     public async Task<Currency> Create(string name, CancellationToken cancellationToken)

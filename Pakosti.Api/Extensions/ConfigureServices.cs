@@ -12,7 +12,7 @@ public static class ConfigureServices
     {
         services
             .ConfigureSwagger(configuration)
-            .ConfigureAuthentication()
+            .ConfigureAuthentication(configuration)
             .ConfigureAuthorization()
             .ConfigureIdentity();
         

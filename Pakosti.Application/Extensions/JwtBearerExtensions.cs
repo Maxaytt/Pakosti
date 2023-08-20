@@ -30,7 +30,7 @@ public static class JwtBearerExtensions
     {
         return new SigningCredentials(
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!)
+                Encoding.UTF8.GetBytes(configuration["JWT_SECRET"]!)
             ),
             SecurityAlgorithms.HmacSha256
         );
@@ -38,12 +38,12 @@ public static class JwtBearerExtensions
 
     public static JwtSecurityToken CreateJwtToken(this IEnumerable<Claim> claims, IConfiguration configuration)
     {
-        var expireString = Environment.GetEnvironmentVariable("JWT_EXPIRE");
+        var expireString = configuration["JWT_EXPIRE"];
         if (!int.TryParse(expireString, out var expire)) throw new FormatException("JWT_EXPIRE is not number");
 
             return new JwtSecurityToken(
-                Environment.GetEnvironmentVariable("JWT_ISSUER"), 
-                Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+                configuration["JWT_ISSUER"], 
+                configuration["JWT_AUDIENCE"],
                 claims,
                 expires: DateTime.UtcNow.AddMinutes(expire),
                 signingCredentials: configuration.CreateSigningCredentials());
@@ -52,14 +52,14 @@ public static class JwtBearerExtensions
     public static JwtSecurityToken CreateToken(this IConfiguration configuration, IEnumerable<Claim> authClaims)
     {
         var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-            .GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!));
-        var validityString = Environment.GetEnvironmentVariable("JWT_TOKEN_VALIDITY_IN_MINUTES");
+            .GetBytes(configuration["JWT_SECRET"]!));
+        var validityString = configuration["JWT_TOKEN_VALIDITY_IN_MINUTES"];
         if (!int.TryParse(validityString, out var tokenValidityInMinutes))
             throw new FormatException("JWT_TOKEN_VALIDITY_IN_MINUTES is not number");
 
         var token = new JwtSecurityToken(
-            Environment.GetEnvironmentVariable("JWT_ISSUER"), 
-            Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+            configuration["JWT_ISSUER"], 
+            configuration["JWT_AUDIENCE"],
             expires: DateTime.UtcNow.AddMinutes(tokenValidityInMinutes),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
@@ -84,7 +84,7 @@ public static class JwtBearerExtensions
             ValidateIssuer = false,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET")!)),
+                .GetBytes(configuration["JWT_SECRET"]!)),
             ValidateLifetime = false
         };
 
