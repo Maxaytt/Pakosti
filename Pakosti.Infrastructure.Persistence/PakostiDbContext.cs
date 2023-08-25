@@ -38,9 +38,9 @@ public class PakostiDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, G
         base.OnModelCreating(modelBuilder);
     }
     
-    public async Task SetNullCategoryChildes(Category entity)
+    public async Task SetNullCategoryChildes(Category category)
     {
-        var categories = Categories.Where(c => c.ParentCategoryId == entity.Id);
+        var categories = Categories.Where(c => c.ParentCategoryId == category.Id);
         await categories.ForEachAsync(c => c.ParentCategoryId = null);
         await SaveChangesAsync();
     }
