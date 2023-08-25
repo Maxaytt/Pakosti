@@ -34,15 +34,18 @@ public static class Register
     {
         private readonly IIdentityRepository _repository;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IPakostiDbContext _context;
         private readonly ISender _sender;
 
-        public Handler(UserManager<AppUser> userManager, IIdentityRepository repository, ISender sender)
+        public Handler(UserManager<AppUser> userManager, IIdentityRepository repository,
+            ISender sender, IPakostiDbContext context)
         {
             _userManager = userManager;
             _repository = repository;
             _sender = sender;
+            _context = context;
         }
-        
+        //todo: User already exists exception
         public async Task<Authenticate.Response> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = new AppUser
@@ -53,15 +56,16 @@ public static class Register
                 UserName = request.Username
             };
             var result = await _userManager.CreateAsync(user, request.Password);
-
             if (!result.Succeeded) throw new BadRequestException("result is not succeeded");
 
             var findUser = await _repository.GetUserByEmailAsync(request.Email, cancellationToken);
-
             if (findUser is null) throw new NotFoundException(nameof(user), request.Email);
 
             await _userManager.AddToRoleAsync(findUser, RoleConstants.Consumer);
             
+            await _context.Carts.AddAsync(new Cart { UserId = findUser.Id }, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+
             var command = new Authenticate.Command(
                 request.Email, request.Password);
             return await _sender.Send(command, cancellationToken);
