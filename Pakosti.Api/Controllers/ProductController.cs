@@ -29,7 +29,7 @@ public class ProductController : BaseController
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult> Create([FromBody] CreateProduct.Dto createProductDto,
+    public async Task<ActionResult> Create([FromBody] CreateProduct.Dto dto,
         CancellationToken cancellationToken)
     {
         var command = createProductDto.Adapt<CreateProduct.Command>()
@@ -40,7 +40,7 @@ public class ProductController : BaseController
 
     [HttpPut]
     [Authorize]
-    public async Task<ActionResult> Update([FromBody] UpdateProduct.Dto updateProductDto,
+    public async Task<ActionResult> Update([FromBody] UpdateProduct.Dto dto,
         CancellationToken cancellationToken)
     {
         var command = updateProductDto.Adapt<UpdateProduct.Command>()
