@@ -231,6 +231,38 @@ namespace Pakosti.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Pakosti.Domain.Entities.Cart", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("Pakosti.Domain.Entities.CartItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("CartId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("CostOfOne")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId", "Id")
+                        .IsUnique();
+
+                    b.ToTable("CartItems");
+                });
+
             modelBuilder.Entity("Pakosti.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -252,6 +284,49 @@ namespace Pakosti.Infrastructure.Persistence.Migrations
                     b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Pakosti.Domain.Entities.Currency", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasMaxLength(0)
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Coefficient")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Currencies");
+                });
+
+            modelBuilder.Entity("Pakosti.Domain.Entities.Price", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("CurrencyName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyName");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.HasIndex("ProductId", "CurrencyName")
+                        .IsUnique();
+
+                    b.ToTable("Prices");
                 });
 
             modelBuilder.Entity("Pakosti.Domain.Entities.Product", b =>
@@ -278,9 +353,6 @@ namespace Pakosti.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -379,11 +451,56 @@ namespace Pakosti.Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Pakosti.Domain.Entities.Cart", b =>
+                {
+                    b.HasOne("Pakosti.Domain.Entities.AppUser", null)
+                        .WithOne()
+                        .HasForeignKey("Pakosti.Domain.Entities.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Pakosti.Domain.Entities.CartItem", b =>
+                {
+                    b.HasOne("Pakosti.Domain.Entities.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pakosti.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Pakosti.Domain.Entities.Category", b =>
                 {
                     b.HasOne("Pakosti.Domain.Entities.Category", null)
                         .WithMany()
                         .HasForeignKey("ParentCategoryId");
+                });
+
+            modelBuilder.Entity("Pakosti.Domain.Entities.Price", b =>
+                {
+                    b.HasOne("Pakosti.Domain.Entities.Currency", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pakosti.Domain.Entities.Product", null)
+                        .WithOne("Price")
+                        .HasForeignKey("Pakosti.Domain.Entities.Price", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Currency");
                 });
 
             modelBuilder.Entity("Pakosti.Domain.Entities.Product", b =>
@@ -400,6 +517,17 @@ namespace Pakosti.Infrastructure.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Pakosti.Domain.Entities.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+                });
+
+            modelBuilder.Entity("Pakosti.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("Price")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
