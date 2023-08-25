@@ -22,7 +22,7 @@ public class RoleInitializer : IHostedService
         var roles = new[]
         {
             RoleConstants.Administrator, RoleConstants.Moderator, 
-            RoleConstants.Consumer, RoleConstants.Seller
+            RoleConstants.Consumer
         };
         foreach (var roleName in roles)
         {
