@@ -12,7 +12,7 @@ namespace Pakosti.Application.Features.Products.Commands;
 public static class UpdateProduct
 {
     public sealed record Dto(Guid Id, Guid? CategoryId, string? Name, string? Description);
-    public sealed record Command(Guid Id, Guid UserId, Guid? CategoryId,
+    public sealed record Command(Guid Id, Guid? CategoryId,
         string? Name, string? Description) : IRequest;
 
     public sealed class Validator : AbstractValidator<Command>
@@ -35,7 +35,7 @@ public static class UpdateProduct
         {
             var product = await _context.Products
                 .FirstOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
-            if (product == null || product.UserId != request.UserId) 
+            if (product == null) 
                 throw new NotFoundException(nameof(Product), request.Id);
             
             if (request.CategoryId != null)

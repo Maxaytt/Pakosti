@@ -12,8 +12,8 @@ namespace Pakosti.Application.Features.Products.Commands;
 
 public static class CreateProduct
 {
-    public sealed record Dto(Guid CategoryId, string Name, string Description);
-    public sealed record Command(Guid UserId, Guid? CategoryId, string Name, string Description) 
+    public sealed record Dto(Guid CategoryId, string Name, string Description, decimal Cost, string Currency);
+    public sealed record Command(Guid? CategoryId, string Name, string Description, decimal Cost, string Currency) 
         : IRequest<Response>;
 
     public sealed class Validator : AbstractValidator<Command>
@@ -43,10 +43,22 @@ public static class CreateProduct
                 if (category == null) throw new NotFoundException(nameof(Category), request.CategoryId);
             }
 
+            var currency = await _context.Currencies
+                    .FirstOrDefaultAsync(c => c.Name == request.Currency, cancellationToken);
+            if (currency is null) throw new NotFoundException(nameof(Currency), request.Currency);
+
             var product = request.Adapt<Product>();
             product.Id = Guid.NewGuid();
             product.CreationDate = DateTimeOffset.UtcNow;
             product.EditionDate = null;
+            product.Price = new Price
+            {
+                Id = Guid.NewGuid(),
+                ProductId = product.Id,
+                CurrencyName = request.Currency,
+                Cost = request.Cost,
+                Currency = currency
+            };
 
             await _context.Products.AddAsync(product, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);

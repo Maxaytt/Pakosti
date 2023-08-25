@@ -7,7 +7,7 @@ namespace Pakosti.Application.Features.Products.Commands;
 
 public static class DeleteProduct
 {
-    public sealed record Command(Guid Id, Guid UserId) : IRequest;
+    public sealed record Command(Guid Id) : IRequest;
     
     public sealed class Handler : IRequestHandler<Command>
     {
@@ -23,7 +23,7 @@ public static class DeleteProduct
             var entity = await _context.Products
                 .FindAsync(new object[] {request.Id}, cancellationToken);
         
-            if (entity == null || entity.UserId != request.UserId)
+            if (entity == null)
             {
                 throw new NotFoundException(nameof(Product), request.Id);
             }
