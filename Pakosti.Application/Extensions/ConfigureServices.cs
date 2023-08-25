@@ -8,6 +8,7 @@ using Pakosti.Application.Features.Currencies.Commands;
 using Pakosti.Application.Features.Identities.Commands;
 using Pakosti.Application.Features.Products.Commands;
 using Pakosti.Application.Features.Reviews.Commands;
+using Pakosti.Application.Mappings;
 
 namespace Pakosti.Application.Extensions;
 
@@ -28,6 +29,8 @@ public static class ConfigureServices
             .AddTransient<UpdateProduct.Validator>()
             .AddTransient<CreateReview.Validator>()
             .AddTransient<UpdateReview.Validator>();
+        
+        MapsterConfig.Setup();
         
         return services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() })
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
