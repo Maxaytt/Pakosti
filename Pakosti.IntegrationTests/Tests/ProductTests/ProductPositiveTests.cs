@@ -14,14 +14,16 @@ public class ProductPositiveTests
     private const string UpdatedName = "updated test";
     private const string Name = "test test";
     private const string Description = "test test test test!";
-    
+    private const decimal Cost = 5;
+    private const string Currency = "USD";
+
     [Theory(Timeout = 5000), TestSetup]
     public async Task CreateProduct_ShouldCreate_Product(HttpClient client)
     {
         // Arrange
         await TestRequestService.RegisterUser(client);
         var categoryId = await TestRequestService.CreateCategory(client, (null, Name));
-        var request = new CreateProduct.Dto(categoryId, Name, Description);
+        var request = new CreateProduct.Dto(categoryId, Name, Description, Cost, Currency);
         
         // Act
         var response = await client.PostAsJsonAsync("/api/product", request);

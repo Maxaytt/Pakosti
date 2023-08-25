@@ -16,7 +16,7 @@ public class ProductNegativeTests
         // Arrange
         await TestRequestService.RegisterUser(client);
         var invalidId = Guid.NewGuid();
-        var request = new CreateProduct.Dto(invalidId, "test test", "test test test test!");
+        var request = new CreateProduct.Dto(invalidId, "test test", "test test test test!", 5, "USD");
 
         // Act
         var response = await client.PostAsJsonAsync("/api/product", request);

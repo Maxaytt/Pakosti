@@ -55,7 +55,7 @@ public static class TestRequestService
     public static async Task<Guid> CreateProduct(HttpClient client, 
         (Guid categoryId, string name, string description) dto)
     {
-        var request = new CreateProduct.Dto(dto.categoryId, dto.name, dto.description);
+        var request = new CreateProduct.Dto(dto.categoryId, dto.name, dto.description, 5, "USD");
         var response = await client.PostAsJsonAsync("/api/product", request);
         var responseData = await response.Content.ReadFromJsonAsync<CreateProduct.Response>();
         return responseData!.Id;
