@@ -11,4 +11,11 @@ public class ConflictException : ApplicationException
         EntityName = entityName;
         EntityId = entityId;
     }
+    
+    public ConflictException(string entityName, object entityId, string message)
+        : base(message)
+    {
+        EntityName = entityName;
+        EntityId = entityId;
+    }
 }
