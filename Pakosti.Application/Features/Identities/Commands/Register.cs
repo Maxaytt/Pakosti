@@ -64,9 +64,9 @@ public static class Register
                 throw (duplicateUsername, duplicateEmail) switch
                 {
                     (not null, _) => throw new ConflictException(nameof(AppUser), request.Username,
-                        $"User with username {request.Username} already exists."),
+                        $"User with username \"{request.Username}\" already exists."),
                     (_, not null) => throw new ConflictException(nameof(AppUser), request.Email,
-                        $"User with email {request.Email} already exists."),
+                        $"User with email \"{request.Email}\" already exists."),
                     _ => throw new BadRequestException("User creation failed for unknown reasons.")
                 };
             }
