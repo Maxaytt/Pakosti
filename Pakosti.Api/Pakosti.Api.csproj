@@ -6,6 +6,7 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <RootNamespace>Pakosti.Api</RootNamespace>
         <TargetFramework>net7.0</TargetFramework>
+        <UserSecretsId>c89a3272-c15c-4e8c-a64c-c7a58d1eacd3</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,6 +21,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
