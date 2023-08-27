@@ -11,6 +11,7 @@ public static class Program
     public static void Main(string[] args) => CreateHostBuilder(args).Build().Run();
 
     private static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
+        .ConfigureAppConfiguration(config => config.AddUserSecrets<Startup>())
         .ConfigureWebHostDefaults(builder => builder.UseStartup<Startup>());
 }
 
@@ -42,10 +43,9 @@ public class Startup
 
         app.UseHealthChecks("/health");
         app.UseMiddleware<ExceptionHandlingMiddleware>();
-        app.UseAuthentication();
-
         app.UseRouting();
-
+        
+        app.UseAuthentication();
         app.UseAuthorization();
         app.UseEndpoints(builder => builder.MapControllers());
     }
