@@ -22,8 +22,8 @@ public static class ConfigureAuthenticationExtensions
                     ValidateAudience = false,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = configuration["JWT_ISSUER"]!,
-                    ValidAudience = configuration["JWT_AUDIENCE"]!,
+                    ValidIssuer = configuration["Jwt:Issuer"]!,
+                    ValidAudience = configuration["Jwt:Audience"]!,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
                         .GetBytes(configuration["JWT_SECRET"]!))
                 };

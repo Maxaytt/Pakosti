@@ -61,9 +61,8 @@ public static class Authenticate
                 .ToList();
 
             var accessToken = _tokenService.CreateToken(managedUser, roles);
-            var validityString = _configuration["JWT_TOKEN_VALIDITY_IN_MINUTES"];
-            if (!int.TryParse(validityString, out var validity)) 
-                throw new FormatException("JWT_TOKEN_VALIDITY_IN_MINUTES is not a number");
+            var validity = _configuration.GetSection("Jwt:TokenValidityInMinutes").Get<int>();
+
             managedUser.RefreshToken = _configuration.GenerateRefreshToken();
             managedUser.RefreshTokenExpiryTime = DateTimeOffset.UtcNow
                 .AddMinutes(validity);
