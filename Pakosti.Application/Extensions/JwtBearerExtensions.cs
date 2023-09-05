@@ -38,12 +38,11 @@ public static class JwtBearerExtensions
 
     public static JwtSecurityToken CreateJwtToken(this IEnumerable<Claim> claims, IConfiguration configuration)
     {
-        var expireString = configuration["JWT_EXPIRE"];
-        if (!int.TryParse(expireString, out var expire)) throw new FormatException("JWT_EXPIRE is not number");
+        var expire = configuration.GetSection("Jwt:Expire").Get<int>();
 
-            return new JwtSecurityToken(
-                configuration["JWT_ISSUER"], 
-                configuration["JWT_AUDIENCE"],
+        return new JwtSecurityToken(
+                configuration["Jwt:Issuer"], 
+                configuration["Jwt:Audience"],
                 claims,
                 expires: DateTime.UtcNow.AddMinutes(expire),
                 signingCredentials: configuration.CreateSigningCredentials());
@@ -53,13 +52,11 @@ public static class JwtBearerExtensions
     {
         var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8
             .GetBytes(configuration["JWT_SECRET"]!));
-        var validityString = configuration["JWT_TOKEN_VALIDITY_IN_MINUTES"];
-        if (!int.TryParse(validityString, out var tokenValidityInMinutes))
-            throw new FormatException("JWT_TOKEN_VALIDITY_IN_MINUTES is not number");
+        var tokenValidityInMinutes = configuration.GetSection("Jwt:TokenValidityInMinutes").Get<int>();
 
         var token = new JwtSecurityToken(
-            configuration["JWT_ISSUER"], 
-            configuration["JWT_AUDIENCE"],
+            configuration["Jwt:Issuer"], 
+            configuration["Jwt:Audience"],
             expires: DateTime.UtcNow.AddMinutes(tokenValidityInMinutes),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)

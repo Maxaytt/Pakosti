@@ -23,7 +23,7 @@ public class CoefficientService : ICoefficientService
         _context = context;
         _client = clientFactory.CreateClient("CurrencyApiClient");
         _appId = configuration["CURRENCY_APP_ID"]!; 
-        _baseUrl = configuration["CURRENCY_APP_BASE_URL"]!;
+        _baseUrl = configuration["CurrencyAppBaseUrl"]!;
     }
 
     public async Task<Currency> Create(string name, CancellationToken cancellationToken)
