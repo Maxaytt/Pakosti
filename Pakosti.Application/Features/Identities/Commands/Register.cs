@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Exceptions;
 using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
+using Pakosti.Domain.Constants;
 using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Identities.Commands;
@@ -74,7 +75,7 @@ public static class Register
             var findUser = await _repository.GetUserByEmailAsync(request.Email, cancellationToken);
             if (findUser is null) throw new NotFoundException(nameof(user), request.Email);
 
-            await _userManager.AddToRoleAsync(findUser, RoleConstants.Consumer);
+            await _userManager.AddToRoleAsync(findUser, Roles.Consumer);
             
             await _context.Carts.AddAsync(new Cart { UserId = findUser.Id }, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
