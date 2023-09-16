@@ -5,7 +5,7 @@ using Pakosti.Application.Features.Users.Queries;
 
 namespace Pakosti.Api.Controllers;
 
-public class UserController : BaseController
+public class UsersController : BaseController
 {
     //todo: should be in update method
     [HttpPost("{userId:guid}/assign-role")]
