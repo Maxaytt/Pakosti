@@ -22,7 +22,7 @@ public static class GetRoles
         {
             var roleNames = await _roleManager.Roles.Select(r => r.Name)
                 .ToListAsync(cancellationToken: cancellationToken);
-            return roleNames.Adapt<Response>();
+            return new Response(roleNames!);
         }
     }
 

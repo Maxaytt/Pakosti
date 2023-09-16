@@ -1,5 +1,4 @@
-﻿using Mapster;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Pakosti.Application.Exceptions;
 using Pakosti.Domain.Entities;
@@ -25,10 +24,12 @@ public static class GetRole
             if(user is null) throw new NotFoundException(nameof(AppUser), request.UserId);
 
             var roles = await _userManager.GetRolesAsync(user);
+            if (roles.Count > 1) throw new InternalServerException(nameof(AppUser), user.Id, 
+                "User have more then 1 role");
 
-            return roles.Adapt<Response>();
+            return new Response(roles.First());
         }
     }
 
-    public sealed record Response(IList<string> Roles);
+    public sealed record Response(string Role);
 }
