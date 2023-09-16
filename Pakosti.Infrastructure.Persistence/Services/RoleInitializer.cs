@@ -21,7 +21,7 @@ public class RoleInitializer : IHostedService
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
         var roles = new[]
         {
-            Roles.Administrator, Roles.Consumer, Roles.SuperAdministrator
+            RoleConstants.Administrator, RoleConstants.Consumer, RoleConstants.SuperAdministrator
         };
         foreach (var roleName in roles)
         {
