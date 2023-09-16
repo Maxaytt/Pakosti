@@ -1,6 +1,6 @@
 namespace Pakosti.Domain.Constants;
 
-public static class Roles
+public static class RoleConstants
 {
     public const string Consumer = "Consumer";
     public const string Administrator = "Administrator";
