@@ -6,7 +6,7 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <RootNamespace>Pakosti.Api</RootNamespace>
         <TargetFramework>net7.0</TargetFramework>
-        <UserSecretsId>c89a3272-c15c-4e8c-a64c-c7a58d1eacd3</UserSecretsId>
+        <UserSecretsId>f56e11c2-0431-4237-96e2-e74df169e09e</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>

@@ -22,18 +22,16 @@ public class IdentityController : BaseController
         return Ok(response);
     }
     
-    [HttpPost]
-    [Route("refresh-token")]
-    public async Task<IActionResult> RefreshToken(RefreshToken.Command request,
+    [HttpPost("refresh-token")]
+    public async Task<ActionResult> RefreshToken(RefreshToken.Command request,
         CancellationToken cancellationToken)
     {
         var response = await Mediator.Send(request, cancellationToken);
         return Ok(response);
     }
     [Authorize]
-    [HttpPost]
-    [Route("revoke/{id:guid}")]
-    public async Task<IActionResult> Revoke(Guid id,
+    [HttpPost("revoke/{id:guid}")]
+    public async Task<ActionResult> Revoke(Guid id,
         CancellationToken cancellationToken)
     {
         var command = new Revoke.Command(id);
@@ -42,9 +40,8 @@ public class IdentityController : BaseController
     }
     
     [Authorize(Policy = "AdministratorOnly")]
-    [HttpPost]
-    [Route("revoke-all")]
-    public async Task<IActionResult> RevokeAll(CancellationToken cancellationToken)
+    [HttpPost("revoke-all")]
+    public async Task<ActionResult> RevokeAll(CancellationToken cancellationToken)
     {
         await Mediator.Send(new RevokeAll.Command(), cancellationToken);
         return Ok();

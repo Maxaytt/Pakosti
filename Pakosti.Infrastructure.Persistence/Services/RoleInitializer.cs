@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pakosti.Domain.Entities;
+using Pakosti.Domain.Constants;
 
 namespace Pakosti.Infrastructure.Persistence.Services;
 
@@ -21,8 +21,7 @@ public class RoleInitializer : IHostedService
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
         var roles = new[]
         {
-            RoleConstants.Administrator, RoleConstants.Moderator, 
-            RoleConstants.Consumer
+            RoleConstants.Administrator, RoleConstants.Consumer, RoleConstants.SuperAdministrator
         };
         foreach (var roleName in roles)
         {
