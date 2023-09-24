@@ -11,8 +11,7 @@ public interface IPakostiDbContext : ICategoryNullSetter
     DbSet<Product> Products { get; set; }
     DbSet<Price> Prices { get; set; }
     DbSet<Review> Reviews { get; set; }
-    DbSet<Currency> Currencies { get; set; } 
-    DbSet<AppUser> Users { get; set; }
-
+    DbSet<Currency> Currencies { get; set; }
+    
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
