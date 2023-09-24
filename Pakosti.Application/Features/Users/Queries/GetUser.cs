@@ -27,7 +27,7 @@ public class GetUser
 
             return user.Adapt<Response>();
         }
-        public sealed record Response(UserDto Users);
+        public sealed record Response(UserDto User);
         public sealed record UserDto(Guid UserId, string Email, string Firstname, string Lastname, string Username, IList<string> Roles);
     }
 }
