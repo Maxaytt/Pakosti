@@ -1,5 +1,6 @@
 using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Exceptions;
 using Pakosti.Application.Interfaces;
@@ -13,21 +14,23 @@ public class GetUser
 
     public sealed class Handler : IRequestHandler<Query, Handler.Response>
     {
-        private readonly IPakostiDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public Handler(IPakostiDbContext context) =>
-            _context = context;
+        public Handler(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
 
         public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
-            var user = await _context.Users
+            var user = await _userManager.Users
                 .FirstOrDefaultAsync(c => c.Id == request.UserId, cancellationToken);
 
             if (user == null) throw new NotFoundException(nameof(AppUser), request.UserId);
 
             return user.Adapt<Response>();
         }
-
-        public sealed record Response(string Firstname, string Lastname, string? RefreshToken, DateTimeOffset RefreshTokenExpiryTime);
+        public sealed record Response(IList<UserDto> Users);
+        public sealed record UserDto(Guid UserId, string Email, string Firstname, string Lastname, string Username, IList<string> Roles, string? RefreshToken, DateTimeOffset RefreshTokenExpiryTime);
     }
 }

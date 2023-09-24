@@ -1,7 +1,7 @@
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Pakosti.Application.Exceptions;
-using Pakosti.Application.Interfaces;
+using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Users.Commands;
 
@@ -11,22 +11,19 @@ public class DeleteUser
     
     public sealed class Handler : IRequestHandler<Command>
     {
-        private readonly IPakostiDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public Handler(IPakostiDbContext context)
+        public Handler(UserManager<AppUser> userManager)
         {
-            _context = context;
+            _userManager = userManager;
         }
 
         public async Task Handle(Command request, CancellationToken cancellationToken)
         {
-            var user = await _context.Users
-                .FirstOrDefaultAsync(c => c.Id == request.UserId, cancellationToken);
-
+            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
             if (user == null) throw new NotFoundException(nameof(Users), request.UserId);
 
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _userManager.DeleteAsync(user);
         }
     }
 }

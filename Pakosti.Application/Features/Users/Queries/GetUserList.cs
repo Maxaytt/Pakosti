@@ -1,7 +1,8 @@
 using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Pakosti.Application.Interfaces;
+using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Users.Queries;
 
@@ -11,22 +12,24 @@ public class GetUserList
 
     public sealed class Handler : IRequestHandler<Query, Response>
     {
-        private readonly IPakostiDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
 
-        public Handler(IPakostiDbContext context) =>
-            _context = context;
+        public Handler(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
         
         public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
-            var users = await _context.Users
-                .ProjectToType<LookupDto>()
+            var users = await _userManager.Users
+                .ProjectToType<UserDto>()
                 .ToListAsync(cancellationToken);
 
             return new Response(users);
         }
     }
 
-    public sealed record Response(IList<LookupDto> Users);
+    public sealed record Response(IList<UserDto> Users);
 
-    public sealed record LookupDto(Guid UserId);
+    public sealed record UserDto(Guid UserId, string Email, string FirstName, string LastName, string Username, IList<string> Roles);
 }
