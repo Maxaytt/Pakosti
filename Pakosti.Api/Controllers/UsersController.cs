@@ -30,46 +30,46 @@ public class UsersController : BaseController
     }
     
     [HttpGet]
-    public async Task<ActionResult> GetAll()
+    public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
     {
         var query = new GetUserList.Query();
 
-        var vm = await Mediator.Send(query);
+        var vm = await Mediator.Send(query, cancellationToken);
         return Ok(vm);
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult> Get(Guid id)
+    [HttpGet("{userId:guid}")]
+    public async Task<ActionResult> Get(Guid userId, CancellationToken cancellationToken)
     {
-        var query = new GetUser.Query(id);
+        var query = new GetUser.Query(userId);
 
-        var vm = await Mediator.Send(query);
+        var vm = await Mediator.Send(query, cancellationToken);
         return Ok(vm);
     }
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult> Create([FromBody] CreateUser.Command request)
+    public async Task<ActionResult> Create([FromBody] CreateUser.Command request, CancellationToken cancellationToken)
     {
-        var response = await Mediator.Send(request);
+        var response = await Mediator.Send(request, cancellationToken);
         return Created($"/api/user/{response.UserId}", response);
     }
 
     [HttpPut]
     [Authorize]
-    public async Task<ActionResult> Update([FromBody] UpdateUser.Command request)
+    public async Task<ActionResult> Update([FromBody] UpdateUser.Command request, CancellationToken cancellationToken)
     {
-        await Mediator.Send(request);
+        await Mediator.Send(request, cancellationToken);
         return NoContent();
     }
     
-    [HttpDelete("{id:guid}")]
+    [HttpDelete("{userId:guid}")]
     [Authorize]
-    public async Task<ActionResult> Delete(Guid id)
+    public async Task<ActionResult> Delete(Guid userId, CancellationToken cancellationToken)
     {
-        var query = new DeleteUser.Command(id);
+        var query = new DeleteUser.Command(userId);
             
-        await Mediator.Send(query);
+        await Mediator.Send(query, cancellationToken);
         return NoContent();
     }
 }
