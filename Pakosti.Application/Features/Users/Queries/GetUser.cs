@@ -16,10 +16,7 @@ public class GetUser
     {
         private readonly UserManager<AppUser> _userManager;
 
-        public Handler(UserManager<AppUser> userManager)
-        {
-            _userManager = userManager;
-        }
+        public Handler(UserManager<AppUser> userManager) => _userManager = userManager;
 
         public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
@@ -30,7 +27,7 @@ public class GetUser
 
             return user.Adapt<Response>();
         }
-        public sealed record Response(IList<UserDto> Users);
-        public sealed record UserDto(Guid UserId, string Email, string Firstname, string Lastname, string Username, IList<string> Roles, string? RefreshToken, DateTimeOffset RefreshTokenExpiryTime);
+        public sealed record Response(UserDto Users);
+        public sealed record UserDto(Guid UserId, string Email, string Firstname, string Lastname, string Username, IList<string> Roles);
     }
 }
