@@ -13,11 +13,8 @@ public class DeleteUser
     {
         private readonly UserManager<AppUser> _userManager;
 
-        public Handler(UserManager<AppUser> userManager)
-        {
-            _userManager = userManager;
-        }
-
+        public Handler(UserManager<AppUser> userManager) => _userManager = userManager;
+            
         public async Task Handle(Command request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByIdAsync(request.UserId.ToString());

@@ -14,11 +14,8 @@ public class GetUserList
     {
         private readonly UserManager<AppUser> _userManager;
 
-        public Handler(UserManager<AppUser> userManager)
-        {
-            _userManager = userManager;
-        }
-        
+        public Handler(UserManager<AppUser> userManager) => _userManager = userManager;
+
         public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
             var users = await _userManager.Users

@@ -32,10 +32,7 @@ public class UpdateUser
     {
         private readonly UserManager<AppUser> _userManager;
 
-        public Handler(UserManager<AppUser> userManager)
-        {
-            _userManager = userManager;
-        }
+        public Handler(UserManager<AppUser> userManager) => _userManager = userManager;
 
         public async Task Handle(Command request, CancellationToken cancellationToken)
         {

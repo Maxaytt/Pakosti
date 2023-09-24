@@ -30,11 +30,8 @@ public class CreateUser
     {
         private readonly UserManager<AppUser> _userManager;
 
-        public Handler(UserManager<AppUser> userManager)
-        {
-            _userManager = userManager;
-        }
-
+        public Handler(UserManager<AppUser> userManager) => _userManager = userManager;
+        
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
             var user = new AppUser
