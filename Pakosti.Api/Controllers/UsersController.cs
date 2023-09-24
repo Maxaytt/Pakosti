@@ -52,7 +52,7 @@ public class UsersController : BaseController
     public async Task<ActionResult> Create([FromBody] CreateUser.Command request, CancellationToken cancellationToken)
     {
         var response = await Mediator.Send(request, cancellationToken);
-        return Created($"/api/user/{response.UserId}", response);
+        return Created($"/api/users/{response.UserId}", response);
     }
 
     [HttpPut]
