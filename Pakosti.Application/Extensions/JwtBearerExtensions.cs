@@ -12,15 +12,15 @@ namespace Pakosti.Application.Extensions;
 
 public static class JwtBearerExtensions
 {
-    public static IEnumerable<Claim> CreateClaims(this AppUser appUser, IEnumerable<IdentityRole<Guid>> roles)
+    public static IEnumerable<Claim> CreateClaims(this AppUser user, IEnumerable<IdentityRole<Guid>> roles)
     {
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new(JwtRegisteredClaimNames.Jti, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)),
-            new(ClaimTypes.NameIdentifier, appUser.Id.ToString()),
-            new(ClaimTypes.Name, appUser.UserName!),
-            new(ClaimTypes.Email, appUser.Email!),
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Name, user.UserName!),
+            new(ClaimTypes.Email, user.Email!),
             new(ClaimTypes.Role, string.Join(" ", roles.Select(x => x.Name)))
         };
         return claims;

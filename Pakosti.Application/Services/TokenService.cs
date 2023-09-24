@@ -16,9 +16,9 @@ public class TokenService : ITokenService
         _configuration = configuration;
     }
 
-    public string CreateToken(AppUser appUser, IEnumerable<IdentityRole<Guid>> roles)
+    public string CreateToken(AppUser user, IEnumerable<IdentityRole<Guid>> roles)
     {
-        var token = appUser
+        var token = user
             .CreateClaims(roles)
             .CreateJwtToken(_configuration);
         var tokenHandler = new JwtSecurityTokenHandler();

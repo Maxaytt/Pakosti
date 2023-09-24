@@ -5,5 +5,5 @@ namespace Pakosti.Application.Interfaces;
 
 public interface ITokenService
 {
-    string CreateToken(AppUser appUser, IEnumerable<IdentityRole<Guid>> roles);
+    string CreateToken(AppUser user, IEnumerable<IdentityRole<Guid>> roles);
 }
