@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Pakosti.Api.Controllers;
+namespace Pakosti.Api.BaseControllers;
 
 [ApiController]
 [Route("api/[controller]")]
