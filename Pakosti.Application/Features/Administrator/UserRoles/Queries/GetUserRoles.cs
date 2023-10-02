@@ -24,12 +24,8 @@ public static class GetRole
             if(user is null) throw new NotFoundException(nameof(AppUser), request.UserId);
 
             var roles = await _userManager.GetRolesAsync(user);
-            if (roles.Count > 1) throw new InternalServerException(nameof(AppUser), user.Id, 
-                "User have more then 1 role");
-
-            return new Response(roles.First());
+            return new Response(roles);
         }
     }
-
-    public sealed record Response(string Role);
+    public sealed record Response(IList<string> Roles);
 }

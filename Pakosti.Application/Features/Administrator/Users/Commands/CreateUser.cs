@@ -7,9 +7,9 @@ using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Administrator.Users.Commands;
 
-public class CreateUser
+public static class CreateUser
 {
-    public sealed record Command(Guid UserId, string Email, DateTime BirthDate, string Password,
+    public sealed record Command(string Email, DateTime BirthDate, string Password,
         string PasswordConfirm, string FirstName, string LastName, string Username) : IRequest<Response>;
 
     public sealed class Validator : AbstractValidator<Command>

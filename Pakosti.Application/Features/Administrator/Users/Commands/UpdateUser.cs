@@ -11,8 +11,8 @@ namespace Pakosti.Application.Features.Administrator.Users.Commands;
 
 public static class UpdateUser
 {
-    public sealed record Command(Guid UserId, string Email, DateTime BirthDate, string Password,
-        string PasswordConfirm, string FirstName, string LastName, string Username) : IRequest;
+    public sealed record Command(Guid UserId, string? Email, DateTime? BirthDate, string? Password,
+        string? PasswordConfirm, string? FirstName, string? LastName, string? Username) : IRequest;
 
     public sealed class Validator : AbstractValidator<Command>
     {
@@ -38,8 +38,21 @@ public static class UpdateUser
         {
             var user = await _userManager.Users
                 .FirstOrDefaultAsync(c => c.Id == request.UserId, cancellationToken);
-
-            if (user == null) throw new NotFoundException(nameof(Users), request.UserId);
+            if (user == null) throw new NotFoundException(nameof(AppUser), request.UserId);
+            
+            user.Email = request.Email ?? user.Email;
+            user.Firstname = request.FirstName ?? user.Firstname;
+            user.Lastname = request.LastName ?? user.Lastname;
+            user.UserName = request.Username ?? user.UserName;
+            
+            if (request.Password is not null)
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var changePasswordResult = await _userManager.ResetPasswordAsync(user, token, request.Password);
+    
+                if (!changePasswordResult.Succeeded)
+                    throw new InvalidOperationException($"Failed to change password");
+            }
             
             await _userManager.UpdateAsync(user);
         }
