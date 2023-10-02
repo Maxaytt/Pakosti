@@ -1,5 +1,5 @@
 using Mapster;
-using Pakosti.Application.Features.Carts.Queries;
+using Pakosti.Application.Features.Consumer.CartItems.Queries;
 using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Mappings;

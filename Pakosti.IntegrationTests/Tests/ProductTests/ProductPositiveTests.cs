@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
-using Pakosti.Application.Features.Products.Commands;
-using Pakosti.Application.Features.Products.Queries;
+using Pakosti.Application.Features.Administrator.Products.Commands;
+using Pakosti.Application.Features.Guest.Products.Queries;
 using Pakosti.IntegrationTests.Attributes;
 using Pakosti.IntegrationTests.Services;
 using Shouldly;

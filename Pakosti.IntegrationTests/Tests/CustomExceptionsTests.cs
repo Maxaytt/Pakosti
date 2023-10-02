@@ -1,5 +1,5 @@
 using System.Net.Http.Json;
-using Pakosti.Application.Features.Identities.Commands;
+using Pakosti.Application.Features.Guest.Identities.Commands;
 using Pakosti.IntegrationTests.Attributes;
 using Shouldly;
 using Xunit;
