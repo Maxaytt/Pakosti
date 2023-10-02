@@ -1,33 +1,15 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Features.Categories.Commands;
-using Pakosti.Application.Features.Categories.Queries;
+using Pakosti.Api.BaseControllers;
+using Pakosti.Application.Features.Administrator.Categories.Commands;
+using Pakosti.Application.Features.Administrator.Categories.Queries;
 
-namespace Pakosti.Api.Controllers;
+        var vm = await Mediator.Send(query, cancellationToken);
+        return Ok(vm);
+    }
 
-public class CategoryController : BaseController
+public class CategoryController : AdminBaseController
 {
-    [HttpGet]
-    public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
-    {
-        var query = new GetCategoryList.Query();
-
-        var vm = await Mediator.Send(query, cancellationToken);
-        return Ok(vm);
-    }
-
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult> Get(Guid id,
-        CancellationToken cancellationToken)
-    {
-        var query = new GetCategory.Query(id);
-
-        var vm = await Mediator.Send(query, cancellationToken);
-        return Ok(vm);
-    }
-
     [HttpPost]
-    [Authorize]
     public async Task<ActionResult> Create([FromBody] CreateCategory.Command request,
         CancellationToken cancellationToken)
     {
@@ -36,7 +18,6 @@ public class CategoryController : BaseController
     }
 
     [HttpPut]
-    [Authorize]
     public async Task<ActionResult> Update([FromBody] UpdateCategory.Command request,
         CancellationToken cancellationToken)
     {
@@ -45,7 +26,6 @@ public class CategoryController : BaseController
     }
     
     [HttpDelete("{id:guid}")]
-    [Authorize]
     public async Task<ActionResult> Delete(Guid id,
         CancellationToken cancellationToken)
     {

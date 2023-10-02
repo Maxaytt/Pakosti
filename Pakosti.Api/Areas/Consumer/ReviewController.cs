@@ -1,34 +1,15 @@
 using Mapster;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Features.Reviews.Commands;
-using Pakosti.Application.Features.Reviews.Queries;
+using Pakosti.Api.BaseControllers;
+using Pakosti.Application.Features.Consumer.Reviews.Commands;
 
-namespace Pakosti.Api.Controllers;
+        var vm = await Mediator.Send(query, cancellationToken);
+        return Ok(vm);
+    }
 
-public class ReviewController : BaseController
+public class ReviewController : ConsumerBaseController
 {
-    [HttpGet]
-    public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
-    {
-        var query = new GetReviewList.Query();
-
-        var vm = await Mediator.Send(query, cancellationToken);
-        return Ok(vm);
-    }
-
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult> Get(Guid id,
-        CancellationToken cancellationToken)
-    {
-        var query = new GetReview.Query(id);
-
-        var vm = await Mediator.Send(query, cancellationToken);
-        return Ok(vm);
-    }
-
     [HttpPost]
-    [Authorize]
     public async Task<ActionResult> Crete([FromBody] CreateReview.Dto createReviewDto,
         CancellationToken cancellationToken)
     {
@@ -39,7 +20,6 @@ public class ReviewController : BaseController
     }
 
     [HttpPut]
-    [Authorize]
     public async Task<ActionResult> Update([FromBody] UpdateReview.Dto updateReviewDto,
         CancellationToken cancellationToken)
     {
@@ -50,7 +30,6 @@ public class ReviewController : BaseController
     }
 
     [HttpDelete("{id:guid}")]
-    [Authorize]
     public async Task<ActionResult> Delete(Guid id,
         CancellationToken cancellationToken)
     {

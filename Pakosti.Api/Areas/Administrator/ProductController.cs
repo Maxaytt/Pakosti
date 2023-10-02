@@ -1,34 +1,15 @@
 using Mapster;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Features.Products.Commands;
-using Pakosti.Application.Features.Products.Queries;
+using Pakosti.Api.BaseControllers;
+using Pakosti.Application.Features.Administrator.Products.Commands;
 
-namespace Pakosti.Api.Controllers;
+        var vm = await Mediator.Send(query, cancellationToken);
+        return Ok(vm);
+    }
 
-
-public class ProductController : BaseController
+public class ProductController : AdminBaseController
 {
-    [HttpGet]
-    public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
-    {
-        var query = new GetProductList.Query();
-
-        var vm = await Mediator.Send(query, cancellationToken);
-        return Ok(vm);
-    }
-
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult> Get(Guid id,
-        CancellationToken cancellationToken)
-    {
-        var query = new GetProduct.Query(id);
-        var vm = await Mediator.Send(query, cancellationToken);
-        return Ok(vm);
-    }
-
     [HttpPost]
-    [Authorize]
     public async Task<ActionResult> Create([FromBody] CreateProduct.Dto dto,
         CancellationToken cancellationToken)
     {
@@ -38,7 +19,6 @@ public class ProductController : BaseController
     }
 
     [HttpPut]
-    [Authorize]
     public async Task<ActionResult> Update([FromBody] UpdateProduct.Dto dto,
         CancellationToken cancellationToken)
     {
@@ -48,7 +28,6 @@ public class ProductController : BaseController
     }
 
     [HttpDelete("{id:guid}")]
-    [Authorize]
     public async Task<ActionResult> Delete(Guid id,
         CancellationToken cancellationToken)
     {

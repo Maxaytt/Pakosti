@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Features.Currencies.Commands;
-using Pakosti.Application.Features.Currencies.Queries;
+using Pakosti.Api.BaseControllers;
+using Pakosti.Application.Features.SuperAdministrator.Currencies.Commands;
+using Pakosti.Application.Features.SuperAdministrator.Currencies.Queries;
 
 namespace Pakosti.Api.Controllers;
 
-public class CurrencyController : BaseController
+public class CurrencyController : SuperAdminBaseController
 {
     [HttpPost]
     public async Task<ActionResult> Create([FromBody] CreateCurrency.Command request,

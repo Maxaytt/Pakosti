@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Features.Roles.Commands;
+using Pakosti.Api.BaseControllers;
+using Pakosti.Application.Features.Administrator.Roles.Commands;
 
 namespace Pakosti.Api.Controllers;
 
-public class RolesController : BaseController
+public class RolesController : AdminBaseController
 {
     [HttpGet]
     public async Task<ActionResult> GetRoles(CancellationToken cancellationToken)

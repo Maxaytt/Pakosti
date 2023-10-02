@@ -1,10 +1,10 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Features.Identities.Commands;
+using Pakosti.Api.BaseControllers;
+using Pakosti.Application.Features.Guest.Identities.Commands;
 
 namespace Pakosti.Api.Controllers;
 
-public class IdentityController : BaseController
+public class IdentityController : GuestBaseController
 {
     [HttpPost("login")]
     public async Task<ActionResult> Authenticate([FromBody] Authenticate.Command request,
