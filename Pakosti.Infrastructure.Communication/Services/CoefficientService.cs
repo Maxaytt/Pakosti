@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Pakosti.Application.Exceptions;
 using Pakosti.Application.Interfaces;
+using Pakosti.Domain.Constants;
 using Pakosti.Domain.Entities;
 using Pakosti.Infrastructure.Communication.DTOs;
 
@@ -22,7 +23,7 @@ public class CoefficientService : ICoefficientService
     {
         _context = context;
         _client = clientFactory.CreateClient("CurrencyApiClient");
-        _appId = configuration["CURRENCY_APP_ID"]!; 
+        _appId = configuration[SecretKeys.CurrencyApiKey]!; 
         _baseUrl = configuration["CurrencyAppBaseUrl"]!;
     }
 

@@ -2,6 +2,7 @@ using AutoFixture;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using Pakosti.Domain.Constants;
 using Testcontainers.PostgreSql;
 
 namespace Pakosti.IntegrationTests.Services;
@@ -18,7 +19,7 @@ internal class TestWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
 
         builder.ConfigureAppConfiguration(configuration => configuration.AddInMemoryCollection(new Dictionary<string, string?>
         {
-            ["POSTGRES_CONNECTION_STRING"] = postgresContainer.GetConnectionString(),
+            [SecretKeys.PostgresConnectionString] = postgresContainer.GetConnectionString(),
             ["Jwt:Secret"] = "superSecretKey@451"
         }));
     }
