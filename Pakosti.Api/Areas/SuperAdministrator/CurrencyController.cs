@@ -12,7 +12,7 @@ public class CurrencyController : SuperAdminBaseController
         CancellationToken cancellationToken)
     {
         var currency = await Mediator.Send(request, cancellationToken);
-        return Created($"api/currency/{request.Name}", currency.Currency);
+        return Created($"api/super/currency/{request.Name}", currency.Currency);
     }
 
     [HttpDelete]

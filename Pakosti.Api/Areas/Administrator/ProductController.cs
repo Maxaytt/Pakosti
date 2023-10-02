@@ -15,7 +15,7 @@ public class ProductController : AdminBaseController
     {
         var command = dto.Adapt<CreateProduct.Command>();
         var response = await Mediator.Send(command, cancellationToken);
-        return Created($"/api/product/{response.Id}", response);
+        return Created($"/api/admin/product/{response.Id}", response);
     }
 
     [HttpPut]

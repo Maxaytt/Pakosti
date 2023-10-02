@@ -14,7 +14,7 @@ public class CategoryController : AdminBaseController
         CancellationToken cancellationToken)
     {
         var response = await Mediator.Send(request, cancellationToken);
-        return Created($"/api/category/{response.Id}", response);
+        return Created($"/api/admin/category/{response.Id}", response);
     }
 
     [HttpPut]
