@@ -6,7 +6,7 @@ using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Administrator.Users.Queries;
 
-public class GetUserList
+public static class GetUserList
 {
     public sealed record Query : IRequest<Response>;
 
@@ -27,6 +27,5 @@ public class GetUserList
     }
 
     public sealed record Response(IList<UserDto> Users);
-
-    public sealed record UserDto(Guid UserId, string Email, string FirstName, string LastName, string Username, IList<string> Roles);
+    public sealed record UserDto(Guid UserId, string Email, string FirstName, string LastName, string Username);
 }

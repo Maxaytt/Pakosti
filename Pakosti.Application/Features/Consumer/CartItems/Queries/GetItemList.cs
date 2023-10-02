@@ -7,7 +7,7 @@ using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Consumer.CartItems.Queries;
 
-public class GetItemList
+public static class GetItemList
 {
     public sealed record Query(Guid UserId) : IRequest<Response>;
 

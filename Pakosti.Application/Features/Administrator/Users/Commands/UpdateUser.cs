@@ -9,7 +9,7 @@ using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Administrator.Users.Commands;
 
-public class UpdateUser
+public static class UpdateUser
 {
     public sealed record Command(Guid UserId, string Email, DateTime BirthDate, string Password,
         string PasswordConfirm, string FirstName, string LastName, string Username) : IRequest;

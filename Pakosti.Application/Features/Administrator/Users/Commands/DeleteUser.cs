@@ -5,7 +5,7 @@ using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.Administrator.Users.Commands;
 
-public class DeleteUser
+public static class DeleteUser
 {
     public sealed record Command(Guid UserId) : IRequest;
     
@@ -18,7 +18,7 @@ public class DeleteUser
         public async Task Handle(Command request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByIdAsync(request.UserId.ToString());
-            if (user == null) throw new NotFoundException(nameof(Users), request.UserId);
+            if (user is null) throw new NotFoundException(nameof(AppUser), request.UserId);
 
             await _userManager.DeleteAsync(user);
         }
