@@ -29,21 +29,4 @@ public class IdentityController : GuestBaseController
         var response = await Mediator.Send(request, cancellationToken);
         return Ok(response);
     }
-    [Authorize]
-    [HttpPost("revoke/{id:guid}")]
-    public async Task<ActionResult> Revoke(Guid id,
-        CancellationToken cancellationToken)
-    {
-        var command = new Revoke.Command(id);
-        await Mediator.Send(command, cancellationToken);
-        return Ok();
-    }
-    
-    [Authorize(Policy = "AdministratorOnly")]
-    [HttpPost("revoke-all")]
-    public async Task<ActionResult> RevokeAll(CancellationToken cancellationToken)
-    {
-        await Mediator.Send(new RevokeAll.Command(), cancellationToken);
-        return Ok();
-    }
 }
