@@ -30,12 +30,10 @@ public static class RemoveRoleFromUser
             if (role is null) throw new NotFoundException(nameof(IdentityRole<Guid>), request.Role);
             
             var userRoles = await _userManager.GetRolesAsync(user);
-            if (!userRoles.Any()) throw new InternalServerException(
-                nameof(AppUser), user.Id, 
-                $"User {user.Id} is not assigned a role");
-                
+            if (!userRoles.Contains(request.Role)) throw new BadRequestException(
+                $"User (id:{user.Id}) don't assigned to role '{request.Role}'");
+            
             await _userManager.RemoveFromRolesAsync(user, userRoles);
-            await _userManager.AddToRoleAsync(user, role.Name!);
         }
     }
 }
