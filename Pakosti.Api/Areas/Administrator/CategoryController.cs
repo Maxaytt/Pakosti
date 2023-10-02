@@ -3,9 +3,7 @@ using Pakosti.Api.BaseControllers;
 using Pakosti.Application.Features.Administrator.Categories.Commands;
 using Pakosti.Application.Features.Administrator.Categories.Queries;
 
-        var vm = await Mediator.Send(query, cancellationToken);
-        return Ok(vm);
-    }
+namespace Pakosti.Api.Areas.Administrator;
 
 public class CategoryController : AdminBaseController
 {

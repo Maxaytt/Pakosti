@@ -2,7 +2,7 @@
 using Pakosti.Api.BaseControllers;
 using Pakosti.Application.Features.Administrator.Roles.Commands;
 
-namespace Pakosti.Api.Controllers;
+namespace Pakosti.Api.Areas.Administrator;
 
 public class RolesController : AdminBaseController
 {

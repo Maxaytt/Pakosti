@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Pakosti.Api.BaseControllers;
 using Pakosti.Application.Features.Consumer.Reviews.Commands;
 
-        var vm = await Mediator.Send(query, cancellationToken);
-        return Ok(vm);
-    }
+namespace Pakosti.Api.Areas.Consumer;
 
 public class ReviewController : ConsumerBaseController
 {

@@ -3,7 +3,7 @@ using Pakosti.Api.BaseControllers;
 using Pakosti.Application.Features.SuperAdministrator.Currencies.Commands;
 using Pakosti.Application.Features.SuperAdministrator.Currencies.Queries;
 
-namespace Pakosti.Api.Controllers;
+namespace Pakosti.Api.Areas.SuperAdministrator;
 
 public class CurrencyController : SuperAdminBaseController
 {

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Pakosti.Api.BaseControllers;
 using Pakosti.Application.Features.Guest.Identities.Commands;
 
-namespace Pakosti.Api.Controllers;
+namespace Pakosti.Api.Areas.Guest;
 
 public class IdentityController : GuestBaseController
 {
