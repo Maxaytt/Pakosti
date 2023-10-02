@@ -1,16 +1,16 @@
 using Mapster;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Pakosti.Application.Features.Carts.Commands;
-using Pakosti.Application.Features.Carts.Queries;
+using Pakosti.Api.BaseControllers;
+using Pakosti.Application.Features.Consumer.CartItems.Commands;
+using Pakosti.Application.Features.Consumer.CartItems.Queries;
 
-namespace Pakosti.Api.Controllers;
+namespace Pakosti.Api.Areas.Consumer;
 
-public class CartController : BaseController
+[Route("api/cart/items")]
+public class CartItemsController : ConsumerBaseController
 {
-    [HttpPost("items")]
-    [Authorize]
-    public async Task<ActionResult> Add([FromBody] AddItem.Dto request,
+    [HttpPost]
+    public async Task<ActionResult> AddItem([FromBody] AddItem.Dto request,
         CancellationToken cancellationToken)
     {
         var command = request.Adapt<AddItem.Command>()
@@ -20,9 +20,8 @@ public class CartController : BaseController
         return Created($"/api/cart/items/{response.Id}", response);
     }
     
-    [HttpPut("items")]
-    [Authorize]
-    public async Task<ActionResult> Update(UpdateItem.Dto request,
+    [HttpPut]
+    public async Task<ActionResult> UpdateItem(UpdateItem.Dto request,
         CancellationToken cancellationToken)
     {
         var command = request.Adapt<UpdateItem.Command>()
@@ -31,11 +30,9 @@ public class CartController : BaseController
         await Mediator.Send(command, cancellationToken);
         return NoContent();
     }
-
     
-    [HttpDelete("items")]
-    [Authorize]
-    public async Task<ActionResult> Delete(DeleteItem.Dto request,
+    [HttpDelete]
+    public async Task<ActionResult> DeleteItem(DeleteItem.Dto request,
         CancellationToken cancellationToken)
     {
         var command = request.Adapt<DeleteItem.Command>()
@@ -45,9 +42,8 @@ public class CartController : BaseController
         return NoContent();
     }
     
-    [HttpGet("items/{itemId:guid}")]
-    [Authorize]
-    public async Task<ActionResult> Get(Guid itemId,
+    [HttpGet("{itemId:guid}")]
+    public async Task<ActionResult> GetItem(Guid itemId,
         CancellationToken cancellationToken)
     {
         var query = new GetItem.Query(itemId, UserId);
@@ -56,9 +52,8 @@ public class CartController : BaseController
         return Ok(response);
     }
     
-    [HttpGet("items")]
-    [Authorize]
-    public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
+    [HttpGet]
+    public async Task<ActionResult> GetAllItems(CancellationToken cancellationToken)
     {
         var query = new GetItemList.Query(UserId);
 
