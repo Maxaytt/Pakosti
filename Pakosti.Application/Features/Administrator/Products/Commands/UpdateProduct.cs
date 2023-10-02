@@ -54,7 +54,7 @@ public static class UpdateProduct
                 product.Description = request.Description;
             }
             product.EditionDate = DateTimeOffset.UtcNow;
-
+            
             await _context.SaveChangesAsync(cancellationToken);
         }
     }
