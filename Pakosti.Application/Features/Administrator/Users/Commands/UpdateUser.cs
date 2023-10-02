@@ -7,6 +7,8 @@ using Pakosti.Application.Exceptions;
 using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable UnusedType.Global
+
 namespace Pakosti.Application.Features.Administrator.Users.Commands;
 
 public static class UpdateUser

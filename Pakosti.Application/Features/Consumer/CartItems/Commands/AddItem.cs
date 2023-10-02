@@ -5,6 +5,10 @@ using Pakosti.Application.Exceptions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable UnusedType.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable NotAccessedPositionalProperty.Global
+
 namespace Pakosti.Application.Features.Consumer.CartItems.Commands;
 
 public static class AddItem

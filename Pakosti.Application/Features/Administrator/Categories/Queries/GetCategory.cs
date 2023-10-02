@@ -5,6 +5,9 @@ using Pakosti.Application.Exceptions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable once UnusedType.Global
+
 namespace Pakosti.Application.Features.Administrator.Categories.Queries;
 
 public static class GetCategory

@@ -1,6 +1,8 @@
 using MediatR;
 using Pakosti.Application.Interfaces;
 
+// ReSharper disable UnusedType.Global
+
 namespace Pakosti.Application.Features.SuperAdministrator.Currencies.Commands;
 
 public static class UpdateCurrency

@@ -3,6 +3,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Interfaces;
 
+// ReSharper disable UnusedType.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable NotAccessedPositionalProperty.Global
+
 namespace Pakosti.Application.Features.Guest.Reviews.Queries;
 
 public static class GetReviewList

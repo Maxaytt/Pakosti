@@ -7,6 +7,10 @@ using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable once UnusedType.Global
+// ReSharper disable NotAccessedPositionalProperty.Global
+// ReSharper disable ClassNeverInstantiated.Global
+
 namespace Pakosti.Application.Features.Consumer.Reviews.Commands;
 
 public static class CreateReview

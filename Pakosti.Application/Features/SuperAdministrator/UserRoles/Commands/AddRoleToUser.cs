@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Pakosti.Application.Exceptions;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable UnusedType.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable NotAccessedPositionalProperty.Global
+
 namespace Pakosti.Application.Features.SuperAdministrator.UserRoles.Commands;
 
 public static class AddRoleToUser

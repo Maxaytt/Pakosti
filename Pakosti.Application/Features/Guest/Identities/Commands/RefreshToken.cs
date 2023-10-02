@@ -6,6 +6,8 @@ using Pakosti.Application.Exceptions;
 using Pakosti.Application.Extensions;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable UnusedType.Global
+
 namespace Pakosti.Application.Features.Guest.Identities.Commands;
 
 public static class RefreshToken

@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Identity;
 using Pakosti.Application.Exceptions;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable NotAccessedPositionalProperty.Global
+// ReSharper disable once UnusedType.Global
+
 namespace Pakosti.Application.Features.Administrator.Users.Queries;
 
 public static class GetUser

@@ -4,6 +4,9 @@ using Pakosti.Application.Exceptions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable UnusedType.Global
+// ReSharper disable NotAccessedPositionalProperty.Global
+
 namespace Pakosti.Application.Features.SuperAdministrator.Currencies.Queries;
 
 public static class GetCurrency

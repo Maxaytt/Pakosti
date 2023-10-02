@@ -7,6 +7,10 @@ using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable NotAccessedPositionalProperty.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable once UnusedType.Global
+
 namespace Pakosti.Application.Features.Administrator.Products.Commands;
 
 public static class UpdateProduct

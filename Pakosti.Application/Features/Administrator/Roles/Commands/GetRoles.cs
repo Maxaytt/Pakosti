@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+// ReSharper disable NotAccessedPositionalProperty.Global
+// ReSharper disable once UnusedType.Global
+
 namespace Pakosti.Application.Features.Administrator.Roles.Commands;
 
 public static class GetRoles

@@ -2,6 +2,8 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable once UnusedType.Global
+
 namespace Pakosti.Application.Features.Administrator.Identities.Commands;
 
 public static class RevokeAll

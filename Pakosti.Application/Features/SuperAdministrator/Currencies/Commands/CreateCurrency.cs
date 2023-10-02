@@ -5,6 +5,8 @@ using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable UnusedType.Global
+
 namespace Pakosti.Application.Features.SuperAdministrator.Currencies.Commands;
 
 public static class CreateCurrency

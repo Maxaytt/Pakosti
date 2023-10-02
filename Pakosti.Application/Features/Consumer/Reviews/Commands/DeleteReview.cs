@@ -4,6 +4,8 @@ using Pakosti.Application.Exceptions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable once UnusedType.Global
+
 namespace Pakosti.Application.Features.Consumer.Reviews.Commands;
 
 public static class DeleteReview

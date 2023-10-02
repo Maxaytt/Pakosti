@@ -8,6 +8,8 @@ using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable UnusedType.Global
+
 namespace Pakosti.Application.Features.Guest.Identities.Commands;
 
 public static class Authenticate

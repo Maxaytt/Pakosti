@@ -2,6 +2,8 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Interfaces;
 
+// ReSharper disable UnusedType.Global
+
 namespace Pakosti.Application.Features.SuperAdministrator.Currencies.Commands;
 
 public static class DeleteCurrency

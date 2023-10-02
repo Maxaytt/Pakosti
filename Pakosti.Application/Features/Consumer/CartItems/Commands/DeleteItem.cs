@@ -4,6 +4,10 @@ using Pakosti.Application.Exceptions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable NotAccessedPositionalProperty.Global
+// ReSharper disable once UnusedType.Global
+
 namespace Pakosti.Application.Features.Consumer.CartItems.Commands;
 
 public static class DeleteItem

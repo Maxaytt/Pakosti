@@ -7,8 +7,9 @@ using Pakosti.Application.Exceptions;
 using Pakosti.Application.Extensions.ValidationExtensions;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable UnusedType.Global
 // ReSharper disable NotAccessedPositionalProperty.Global
-// ReSharper disable once ClassNeverInstantiated.Global
+// ReSharper disable ClassNeverInstantiated.Global
 
 namespace Pakosti.Application.Features.Consumer.User.Commands;
 

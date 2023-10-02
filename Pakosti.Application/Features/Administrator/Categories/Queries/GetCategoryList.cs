@@ -3,6 +3,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pakosti.Application.Interfaces;
 
+// ReSharper disable NotAccessedPositionalProperty.Global
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable once UnusedType.Global
+
 namespace Pakosti.Application.Features.Administrator.Categories.Queries;
 
 public static class GetCategoryList

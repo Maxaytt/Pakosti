@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Pakosti.Application.Exceptions;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable NotAccessedPositionalProperty.Global
+// ReSharper disable once UnusedType.Global
+
 namespace Pakosti.Application.Features.Administrator.UserRoles.Queries;
 
 public static class GetUserRoles
