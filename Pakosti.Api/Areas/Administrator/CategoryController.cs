@@ -34,4 +34,23 @@ public class CategoryController : AdminBaseController
         await Mediator.Send(query, cancellationToken);
         return NoContent();
     }
+    
+    [HttpGet]
+    public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
+    {
+        var query = new GetCategoryList.Query();
+
+        var vm = await Mediator.Send(query, cancellationToken);
+        return Ok(vm);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult> Get(Guid id,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetCategory.Query(id);
+
+        var vm = await Mediator.Send(query, cancellationToken);
+        return Ok(vm);
+    }
 }
