@@ -26,7 +26,6 @@ public static class CreateCurrency
         public Handler(ICoefficientService coefficientService) =>
             _coefficientService = coefficientService;
         
-
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
             var currency = await _coefficientService.Create(request.Name, cancellationToken);

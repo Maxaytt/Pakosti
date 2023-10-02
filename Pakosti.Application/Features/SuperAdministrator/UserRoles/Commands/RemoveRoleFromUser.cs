@@ -5,7 +5,7 @@ using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Features.SuperAdministrator.UserRoles.Commands;
 
-public static class AssignRole
+public static class RemoveRoleFromUser
 {
     public sealed record Dto(string Role);
     public sealed record Command(Guid UserId, string Role) : IRequest;
