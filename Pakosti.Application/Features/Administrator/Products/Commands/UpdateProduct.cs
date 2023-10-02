@@ -38,6 +38,7 @@ public static class UpdateProduct
             if (product == null) 
                 throw new NotFoundException(nameof(Product), request.Id);
             
+            //todo: add navigation property
             if (request.CategoryId != null)
             {
                 var category = await _context.Categories
