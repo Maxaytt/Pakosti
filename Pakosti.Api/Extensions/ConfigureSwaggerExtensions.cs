@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using Pakosti.Api.Services;
 
 namespace Pakosti.Api.Extensions;
 

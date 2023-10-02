@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Pakosti.Api.Middlewares;
+using Pakosti.Api.Services;
 using Pakosti.Application.Interfaces;
 using Pakosti.Application.Services;
 

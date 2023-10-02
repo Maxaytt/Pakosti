@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace Pakosti.Api;
+namespace Pakosti.Api.Services;
 
 public class KebabTransformer : IOutboundParameterTransformer
 {
