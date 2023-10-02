@@ -12,12 +12,12 @@ public class PakostiDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, G
 {
     private readonly IConfiguration _configuration;
     public DbSet<Category> Categories { get; set; } = null!;
-    public DbSet<Cart> Carts { get; set; }
-    public DbSet<CartItem> CartItems { get; set; }
+    public DbSet<Cart> Carts { get; set; } = null!;
+    public DbSet<CartItem> CartItems { get; set; } = null!;
     public DbSet<Product> Products { get; set; } = null!;
-    public DbSet<Price> Prices { get; set; }
+    public DbSet<Price> Prices { get; set; } = null!;
     public DbSet<Review> Reviews { get; set; } = null!;
-    public DbSet<Currency> Currencies { get; set; }
+    public DbSet<Currency> Currencies { get; set; } = null!;
 
     public PakostiDbContext(DbContextOptions<PakostiDbContext> options,
         IConfiguration configuration) : base(options)
