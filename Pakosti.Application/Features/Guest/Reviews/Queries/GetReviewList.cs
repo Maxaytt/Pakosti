@@ -11,7 +11,7 @@ namespace Pakosti.Application.Features.Guest.Reviews.Queries;
 
 public static class GetReviewList
 {
-    public sealed record Query() : IRequest<Response>;
+    public sealed record Query : IRequest<Response>;
 
     public sealed class Handler : IRequestHandler<Query, Response>
     {

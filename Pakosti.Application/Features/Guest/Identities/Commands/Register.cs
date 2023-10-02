@@ -32,7 +32,6 @@ public static class Register
         }
     }
     
-    
     public sealed class Handler : IRequestHandler<Command, Authenticate.Response>
     {
         private readonly IIdentityRepository _repository;

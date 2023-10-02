@@ -11,7 +11,7 @@ namespace Pakosti.Application.Features.Guest.Products.Queries;
 
 public static class GetProductList
 {
-    public sealed record Query() : IRequest<Response>;
+    public sealed record Query : IRequest<Response>;
 
     public sealed class Handler : IRequestHandler<Query, Response>
     {

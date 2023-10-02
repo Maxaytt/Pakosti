@@ -4,6 +4,8 @@ using Pakosti.Application.Exceptions;
 using Pakosti.Application.Interfaces;
 using Pakosti.Domain.Entities;
 
+// ReSharper disable UnusedType.Global
+
 namespace Pakosti.Application.Features.Administrator.Categories.Commands;
 
 public static class DeleteCategory

@@ -7,7 +7,7 @@ namespace Pakosti.Application.Features.SuperAdministrator.Currencies.Commands;
 
 public static class UpdateCurrency
 {
-    public sealed record Command() : IRequest;
+    public sealed record Command : IRequest;
     
     public sealed class Handler : IRequestHandler<Command>
     {

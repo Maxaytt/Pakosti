@@ -27,14 +27,14 @@ public static class CreateProduct
             RuleFor(c => c.Name).ProductName(configuration)
                 .NotNull().WithMessage("Name is required");
             RuleFor(c => c.Description).ProductDescription(configuration)
-                .NotNull().WithMessage("Description is required");;
+                .NotNull().WithMessage("Description is required");
         }
     }
     
     public sealed class Handler : IRequestHandler<Command, Response>
     {
         private readonly IPakostiDbContext _context;
-
+        
         public Handler(IPakostiDbContext context) =>
             _context = context;
 

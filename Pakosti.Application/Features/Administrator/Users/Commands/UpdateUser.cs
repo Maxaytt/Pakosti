@@ -53,7 +53,7 @@ public static class UpdateUser
                 var changePasswordResult = await _userManager.ResetPasswordAsync(user, token, request.Password);
     
                 if (!changePasswordResult.Succeeded)
-                    throw new InvalidOperationException($"Failed to change password");
+                    throw new InvalidOperationException("Failed to change password");
             }
             
             await _userManager.UpdateAsync(user);
