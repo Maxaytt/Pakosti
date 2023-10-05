@@ -28,7 +28,8 @@ public static class ConfigureServices
 
         services
             .AddHostedService<DatabaseInitializer>()
-            .AddHostedService<RoleInitializer>();
+            .AddHostedService<RoleInitializer>()
+            .AddHostedService<SuperAdministratorCreator>();
             
 
         return services.AddScoped<IIdentityRepository, IdentityRepository>();
