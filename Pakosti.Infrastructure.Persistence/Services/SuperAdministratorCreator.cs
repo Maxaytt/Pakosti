@@ -2,6 +2,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pakosti.Application.Exceptions;
 using Pakosti.Application.Validators;
@@ -12,17 +13,21 @@ namespace Pakosti.Infrastructure.Persistence.Services;
 
 public class SuperAdministratorCreator : IHostedService
 {
-    private readonly UserManager<AppUser> _userManager;
+    private readonly IServiceScopeFactory _scopeFactory;
     private readonly IConfiguration _configuration;
 
-    public SuperAdministratorCreator(UserManager<AppUser> userManager, IConfiguration configuration)
+    public SuperAdministratorCreator(IServiceScopeFactory scopeFactory, IConfiguration configuration)
     {
-        _userManager = userManager;
+        _scopeFactory = scopeFactory;
         _configuration = configuration;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
+        using var scope = _scopeFactory.CreateScope();
+        var userManager = scope.ServiceProvider
+            .GetRequiredService<UserManager<AppUser>>();
+        
         var email = _configuration[SecretKeys.SuperAdmin.Email];
 
         if (await IsSuperAdministratorExists())
@@ -38,19 +43,25 @@ public class SuperAdministratorCreator : IHostedService
         var user = new AppUser
         {
             Email = email,
-            UserName = username
+            UserName = username,
+            Firstname = username!,
+            Lastname = username!
         };
         
-        var result = await _userManager.CreateAsync(user, password!);
+        var result = await userManager.CreateAsync(user, password!);
         if (!result.Succeeded)
-            throw new InternalServerException($"Failed to create SuperAdministrator");
+            throw new InternalServerException("Failed to create SuperAdministrator");
     }
     
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 
     private async Task<bool> IsSuperAdministratorExists()
     {
-        var superAdministrators = await _userManager
+        using var scope = _scopeFactory.CreateScope();
+        var userManager = scope.ServiceProvider
+            .GetRequiredService<UserManager<AppUser>>();
+        
+        var superAdministrators = await userManager
             .GetUsersInRoleAsync(RoleConstants.SuperAdministrator);
 
         return superAdministrators.Any();
@@ -58,7 +69,11 @@ public class SuperAdministratorCreator : IHostedService
 
     private async Task<bool> IsEmailUsed(string email, CancellationToken cancellationToken)
     {
-        var users = _userManager.Users;
+        using var scope = _scopeFactory.CreateScope();
+        var userManager = scope.ServiceProvider
+            .GetRequiredService<UserManager<AppUser>>();
+        
+        var users = userManager.Users;
         return await users.AnyAsync(user => user
             .Email == email, cancellationToken);
     }
@@ -69,6 +84,6 @@ public class SuperAdministratorCreator : IHostedService
         var validationResult = passwordValidator.Validate(password);
         if (validationResult.IsValid) return;
         
-        throw new ValidationException($"Password validation failed");
+        throw new ValidationException("Password validation failed");
     }
 }
