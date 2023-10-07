@@ -25,6 +25,8 @@ public static class ConfigureServices
 
         services.AddScoped<IPakostiDbContext>(provider => 
             provider.GetService<PakostiDbContext>()!);
+            
+        services.AddScoped<SuperAdministratorService>();
 
         services
             .AddHostedService<DatabaseInitializer>()
