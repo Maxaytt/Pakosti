@@ -35,7 +35,7 @@ public static class ConfigureSwaggerExtensions
             return new List<string> { $"{areaName}/{controllerName}" };
         });
         
-        options.OrderActionsBy((apiDesc) =>
+        options.OrderActionsBy(apiDesc =>
             $"{apiDesc.ActionDescriptor.RouteValues["area"]}/{apiDesc.ActionDescriptor.RouteValues["controller"]}");
         
         options.CustomSchemaIds(type =>
