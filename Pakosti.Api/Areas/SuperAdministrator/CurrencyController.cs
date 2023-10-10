@@ -5,7 +5,7 @@ using Pakosti.Application.Features.SuperAdministrator.Currencies.Queries;
 
 namespace Pakosti.Api.Areas.SuperAdministrator;
 
-public class CurrencyController : SuperAdminBaseController
+public class CurrenciesController : SuperAdminBaseController
 {
     [HttpPost]
     public async Task<ActionResult> Create([FromBody] CreateCurrency.Command request,
@@ -32,8 +32,8 @@ public class CurrencyController : SuperAdminBaseController
     }
 
     [HttpGet("{name}")]
-    public async Task<ActionResult> Get(string name
-        , CancellationToken cancellationToken)
+    public async Task<ActionResult> Get(string name,
+        CancellationToken cancellationToken)
     {
         var request = new GetCurrency.Query(name);
         var response = await Mediator.Send(request, cancellationToken);
@@ -47,5 +47,4 @@ public class CurrencyController : SuperAdminBaseController
         var vm = await Mediator.Send(request, cancellationToken);
         return Ok(vm);
     }
-    
 }
