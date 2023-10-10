@@ -13,9 +13,9 @@ public static class ConfigureServices
     {
         services
             .ConfigureSwagger(configuration)
+            .ConfigureIdentity()
             .ConfigureAuthentication(configuration)
-            .ConfigureAuthorization()
-            .ConfigureIdentity();
+            .ConfigureAuthorization();
         
         services.AddControllers(options => 
         {
