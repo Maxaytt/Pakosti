@@ -5,7 +5,7 @@ using Pakosti.Application.Features.SuperAdministrator.UserRoles.Commands;
 
 namespace Pakosti.Api.Areas.SuperAdministrator;
 
-[Route("api/users/{userId:guid}/roles")]
+[Route("api/super/users/{userId:guid}/roles")]
 public class UserRolesController : SuperAdminBaseController
 {
     [HttpPost]
