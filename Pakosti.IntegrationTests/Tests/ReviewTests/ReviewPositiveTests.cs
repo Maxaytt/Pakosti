@@ -20,19 +20,16 @@ public class ReviewPositiveTests
     [Theory(Timeout = 5000), TestSetup]
     public async Task CreateReview_ShouldCreate_Review(HttpClient client)
     {
-        // Arrange
         await TestRequestService.RegisterUser(client);
         var categoryId = await TestRequestService.CreateCategory(client, (null, Name));
         var productId = await TestRequestService.CreateProduct(client, 
             (categoryId, Name, Description));
         var request = new CreateReview.Dto(productId, Header, Body);
         
-        // Act
         var response = await client.PostAsJsonAsync("/api/review", request);
         var responseData = await response.Content.ReadFromJsonAsync<CreateReview.Response>();
         var review = await TestRequestService.GetReview(client, responseData!.Id);
         
-        // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
         review!.Header.ShouldBe(Header);
         review.Body.ShouldBe(Body);
@@ -41,18 +38,15 @@ public class ReviewPositiveTests
     [Theory(Timeout = 5000), TestSetup]
     public async Task UpdateReview_ShouldUpdate_Review(HttpClient client)
     {
-        // Arrange
         await TestRequestService.RegisterUser(client);
         var categoryId = await TestRequestService.CreateCategory(client, (null, Name));
         var productId = await TestRequestService.CreateProduct(client, (categoryId, Name, Description));
         var reviewId = await TestRequestService.CreateReview(client, (productId, Header, Body));
         var request = new UpdateReview.Dto(reviewId, UpdatedHeader, null);
         
-        // Act
         var response = await client.PutAsJsonAsync("/api/review", request);
         var product = await TestRequestService.GetReview(client, reviewId);
         
-        // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
         product!.Header.ShouldBe(UpdatedHeader);
         product.Body.ShouldBe(Body);
@@ -61,17 +55,15 @@ public class ReviewPositiveTests
     [Theory(Timeout = 5000), TestSetup]
     public async Task DeleteReview_ShouldDelete_Review(HttpClient client)
     {
-        // Arrange 
+         
         await TestRequestService.RegisterUser(client);
         var categoryId = await TestRequestService.CreateCategory(client, (null, Name));
         var productId = await TestRequestService.CreateProduct(client, (categoryId, Name, Description));
         var reviewId = await TestRequestService.CreateReview(client, (productId, Header, Body));
         
-        // Act
         var response = await client.DeleteAsync($"/api/review/{reviewId}");
         var review = await TestRequestService.GetReview(client, reviewId);
         
-        // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
         review.ShouldBeNull();
     }
@@ -79,17 +71,14 @@ public class ReviewPositiveTests
     [Theory(Timeout = 5000), TestSetup]
     public async Task GetReview_ShouldGet_Review(HttpClient client)
     {
-        // Arrange
         await TestRequestService.RegisterUser(client);
         var categoryId = await TestRequestService.CreateCategory(client, (null, Name));
         var productId = await TestRequestService.CreateProduct(client, (categoryId, Name, Description));
         var reviewId = await TestRequestService.CreateReview(client, (productId, Header, Body));
         
-        // Act
         var response = await client.GetAsync($"/api/review/{reviewId}");
         var responseData = await response.Content.ReadFromJsonAsync<GetReview.Response>();
         
-        // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
         responseData!.Id.ShouldBe(reviewId);
     }
@@ -97,7 +86,6 @@ public class ReviewPositiveTests
     [Theory(Timeout = 5000), TestSetup]
     public async Task GetReviewList_ShouldGetAll_Reviews(HttpClient client)
     {
-        // Arrange
         await TestRequestService.RegisterUser(client);
         var categoryId = await TestRequestService.CreateCategory(client, (null, Name));
         var productId = await TestRequestService.CreateProduct(client, (categoryId, Name, Description));
@@ -107,11 +95,9 @@ public class ReviewPositiveTests
             await TestRequestService.CreateReview(client, (productId, Header + "2", Body))
         };
         
-        // Act
         var response = await client.GetAsync("/api/review");
         var responseData = await response.Content.ReadFromJsonAsync<GetReviewList.Response>();
         
-        // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
         responseData!.Reviews.ToList()
             .ForEach(r => reviewIds.ShouldContain(r.Id));

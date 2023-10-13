@@ -13,7 +13,6 @@ public class HealthChecksTests
     {
         var response = await client.GetAsync("/health");
         
-        // Assert
         var content = await response.Content.ReadAsStringAsync();
         response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.OK);
         content.ShouldBeEquivalentTo("Healthy");
@@ -22,13 +21,10 @@ public class HealthChecksTests
     [Theory(Timeout = 5000), TestSetup]
     public async Task HealthCheck_DatabaseUnavailable_ShouldBeHealthy(HttpClient client, PostgreSqlContainer container)
     {
-        // Arrange 
         await container.StopAsync();
-
-        // Act
+        
         var response = await client.GetAsync("/health");
         
-        // Assert
         response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.ServiceUnavailable);
         var content = await response.Content.ReadAsStringAsync();
         content.ShouldBeEquivalentTo("Unhealthy");

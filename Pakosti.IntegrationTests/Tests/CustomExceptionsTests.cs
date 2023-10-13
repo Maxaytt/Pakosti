@@ -11,14 +11,11 @@ public class CustomExceptionsTests
     [Theory(Timeout = 5000), TestSetup]
     public async Task FailureResponse_ShouldContain_CustomException(HttpClient client)
     {
-        // Arrange
-        var command = new Register.Command(string.Empty, DateTime.UtcNow, string.Empty,
+        var command = new Register.Command(string.Empty, DateTime.UtcNow, string.Empty, 
             string.Empty, string.Empty, string.Empty, string.Empty);
         
-        // Act
         var response = await client.PostAsJsonAsync("/api/identity/register", command);
 
-        // Assert
         var str = await response.Content.ReadAsStringAsync();
         str.ShouldContain("Title");
         str.ShouldContain("Status");

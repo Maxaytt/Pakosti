@@ -13,55 +13,43 @@ public class ProductNegativeTests
     [Theory(Timeout = 5000), TestSetup]
     public async Task CreateProduct_InvalidCategoryId_ReturnsNotFound(HttpClient client)
     {
-        // Arrange
         await TestRequestService.RegisterUser(client);
         var invalidId = Guid.NewGuid();
         var request = new CreateProduct.Dto(invalidId, "test test", "test test test test!", 5, "USD");
 
-        // Act
         var response = await client.PostAsJsonAsync("/api/product", request);
         
-        // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
 
     [Theory(Timeout = 5000), TestSetup]
     public async Task UpdateProduct_InvalidId_ReturnsNotFound(HttpClient client)
     {
-        // Arrange
         await TestRequestService.RegisterUser(client);
         var request = new UpdateProduct.Dto(Guid.NewGuid(), Guid.NewGuid(), null, null);
         
-        // Act
         var response = await client.PutAsJsonAsync("/api/product", request);
         
-        // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
 
     [Theory(Timeout = 5000), TestSetup]
     public async Task DeleteProduct_InvalidId_ReturnsNotFound(HttpClient client)
     {
-        // Arrange
         await TestRequestService.RegisterUser(client);
         var id = Guid.NewGuid();
-        // Act
         var response = await client.DeleteAsync($"/api/product/{id}");
         
-        // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
 
     [Theory(Timeout = 5000), TestSetup]
     public async Task GetProduct_InvalidId_ReturnsNotFound(HttpClient client)
     {
-        // Arrange
         var id = Guid.NewGuid();
         
-        // Act
         var response = await client.GetAsync($"/api/product/{id}");
         
-        // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
 }
