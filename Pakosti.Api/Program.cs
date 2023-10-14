@@ -3,6 +3,7 @@ using Pakosti.Api.Middlewares;
 using Pakosti.Application.Extensions;
 using Pakosti.Infrastructure.Communication.Extensions;
 using Pakosti.Infrastructure.Persistence.Extensions;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Pakosti.Api;
 
@@ -37,6 +38,7 @@ public class Startup
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Pakosti v1");
+                options.DocExpansion(DocExpansion.None);
                 options.RoutePrefix = string.Empty;
             });
         }

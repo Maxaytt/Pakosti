@@ -33,6 +33,5 @@ public class RoleInitializer : IHostedService
         }
     }
 
-    public Task StopAsync(CancellationToken cancellationToken)
-        => Task.CompletedTask;
+    public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
 }

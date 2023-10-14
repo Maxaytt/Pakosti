@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
+using Pakosti.Api.Services;
 
 namespace Pakosti.Api.Extensions;
 
@@ -8,7 +10,10 @@ public static class ConfigureSwaggerExtensions
     public static IServiceCollection ConfigureSwagger(
         this IServiceCollection services, IConfiguration configuration) => services.AddSwaggerGen(options =>
     {
+        options.OperationFilter<AreaTagOperationFilter>();
+        
         options.SwaggerDoc("v1", new OpenApiInfo { Title = "Pakosti", Version = "v1" });
+        
         options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
             Name = "Authorization",
@@ -18,6 +23,21 @@ public static class ConfigureSwaggerExtensions
             Description = "Please enter a valid Token.",
             BearerFormat = "JWT"
         });
+        
+        options.TagActionsBy(api => 
+        {
+            if (api.ActionDescriptor is not ControllerActionDescriptor { RouteValues: var routeValues })
+                throw new InvalidOperationException("ActionDescriptor is not a ControllerActionDescriptor.");
+
+            var areaName = routeValues!.GetRequiredRouteValue("area");
+            var controllerName = routeValues!.GetRequiredRouteValue("controller");
+
+            return new List<string> { $"{areaName}/{controllerName}" };
+        });
+        
+        options.OrderActionsBy(apiDesc =>
+            $"{apiDesc.ActionDescriptor.RouteValues["area"]}/{apiDesc.ActionDescriptor.RouteValues["controller"]}");
+        
         options.CustomSchemaIds(type =>
         {
             // Ignored parts of namespaces, generally CQRS-conventional names,
@@ -34,8 +54,8 @@ public static class ConfigureSwaggerExtensions
                 .TakeLast(3);
 
             return string.Join(string.Empty, lastNames);
-
         });
+        
         options.AddSecurityRequirement(new OpenApiSecurityRequirement
         {
             {
@@ -51,4 +71,11 @@ public static class ConfigureSwaggerExtensions
             }
         });
     });
+    
+    private static string GetRequiredRouteValue(this IDictionary<string, string> routeValues, string key)
+    {
+        if (!routeValues.TryGetValue(key, out var value))
+            throw new InvalidOperationException($"Missing '{key}' route value.");
+        return value;
+    }
 }

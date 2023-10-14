@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Pakosti.Domain.Constants;
 
 namespace Pakosti.Api.Extensions;
 
@@ -25,7 +26,7 @@ public static class ConfigureAuthenticationExtensions
                     ValidIssuer = configuration["Jwt:Issuer"]!,
                     ValidAudience = configuration["Jwt:Audience"]!,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                        .GetBytes(configuration["JWT_SECRET"]!))
+                        .GetBytes(configuration[SecretKeys.JwtSecret]!))
                 };
             });
 

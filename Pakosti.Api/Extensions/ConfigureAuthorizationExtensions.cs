@@ -16,9 +16,6 @@ public static class ConfigureAuthorizationExtensions
             new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
                 .RequireAuthenticatedUser()
                 .Build();
-        
-        cfg.AddPolicy(AdminOnlyPolicy, policy =>
-            policy.RequireRole(RoleConstants.Administrator));
     });
     
 }

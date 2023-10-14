@@ -3,11 +3,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Pakosti.Application.Behaviours;
-using Pakosti.Application.Features.Categories.Commands;
-using Pakosti.Application.Features.Currencies.Commands;
-using Pakosti.Application.Features.Identities.Commands;
-using Pakosti.Application.Features.Products.Commands;
-using Pakosti.Application.Features.Reviews.Commands;
+using Pakosti.Application.Features.Administrator.Categories.Commands;
+using Pakosti.Application.Features.Administrator.Products.Commands;
+using Pakosti.Application.Features.Consumer.Reviews.Commands;
+using Pakosti.Application.Features.Guest.Identities.Commands;
+using Pakosti.Application.Features.SuperAdministrator.Currencies.Commands;
 using Pakosti.Application.Mappings;
 
 namespace Pakosti.Application.Extensions;

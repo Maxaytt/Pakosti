@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Pakosti.Domain.Constants;
 using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Extensions;
@@ -30,7 +31,7 @@ public static class JwtBearerExtensions
     {
         return new SigningCredentials(
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(configuration["JWT_SECRET"]!)
+                Encoding.UTF8.GetBytes(configuration[SecretKeys.JwtSecret]!)
             ),
             SecurityAlgorithms.HmacSha256
         );
@@ -51,7 +52,7 @@ public static class JwtBearerExtensions
     public static JwtSecurityToken CreateToken(this IConfiguration configuration, IEnumerable<Claim> authClaims)
     {
         var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-            .GetBytes(configuration["JWT_SECRET"]!));
+            .GetBytes(configuration[SecretKeys.JwtSecret]!));
         var tokenValidityInMinutes = configuration.GetSection("Jwt:TokenValidityInMinutes").Get<int>();
 
         var token = new JwtSecurityToken(
@@ -81,7 +82,7 @@ public static class JwtBearerExtensions
             ValidateIssuer = false,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(configuration["JWT_SECRET"]!)),
+                .GetBytes(configuration[SecretKeys.JwtSecret]!)),
             ValidateLifetime = false
         };
 

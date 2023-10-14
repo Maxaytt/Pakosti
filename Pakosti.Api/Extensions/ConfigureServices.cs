@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Pakosti.Api.Middlewares;
+using Pakosti.Api.Services;
 using Pakosti.Application.Interfaces;
 using Pakosti.Application.Services;
 
@@ -12,9 +13,9 @@ public static class ConfigureServices
     {
         services
             .ConfigureSwagger(configuration)
+            .ConfigureIdentity()
             .ConfigureAuthentication(configuration)
-            .ConfigureAuthorization()
-            .ConfigureIdentity();
+            .ConfigureAuthorization();
         
         services.AddControllers(options => 
         {

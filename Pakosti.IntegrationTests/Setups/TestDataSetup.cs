@@ -1,5 +1,5 @@
 using AutoFixture;
-using Pakosti.Application.Features.Identities.Commands;
+using Pakosti.Application.Features.Guest.Identities.Commands;
 
 namespace Pakosti.IntegrationTests.Setups;
 
