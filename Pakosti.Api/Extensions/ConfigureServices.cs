@@ -1,8 +1,8 @@
-using System.Reflection;
-using Pakosti.Application.Common.Mappings;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Pakosti.Api.Middlewares;
+using Pakosti.Api.Services;
 using Pakosti.Application.Interfaces;
 using Pakosti.Application.Services;
-using Pakosti.Infrastructure.Persistence;
 
 namespace Pakosti.Api.Extensions;
 
@@ -12,21 +12,19 @@ public static class ConfigureServices
         this IServiceCollection services, IConfiguration configuration)
     {
         services
-            .ConfigureSwagger()
+            .ConfigureSwagger(configuration)
+            .ConfigureIdentity()
             .ConfigureAuthentication(configuration)
-            .ConfigureAuthorization()
-            .ConfigureIdentity();
+            .ConfigureAuthorization();
         
-        services.AddControllers();
-        services.AddEndpointsApiExplorer();
-        
-        services.AddAutoMapper(config =>
+        services.AddControllers(options => 
         {
-            config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
-            config.AddProfile(new AssemblyMappingProfile(typeof(PakostiDbContext).Assembly));
-        });
+            options.Conventions.Add(new RouteTokenTransformerConvention(new KebabTransformer()));
+        }); 
+        services.AddEndpointsApiExplorer();
 
-        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<ITokenService, TokenService>()
+            .AddTransient<ExceptionHandlingMiddleware>();
         
         return services;
     }

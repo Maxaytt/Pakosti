@@ -8,6 +8,6 @@ public class Review
     
     public string Header { get; set; } = null!;
     public string Body { get; set; } = null!;
-    public DateTime CreationDate { get; set; }
-    public DateTime? EditionDate { get; set; }
+    public DateTimeOffset CreationDate { get; set; }
+    public DateTimeOffset? EditionDate { get; set; }
 }

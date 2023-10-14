@@ -4,5 +4,5 @@ namespace Pakosti.Application.Interfaces;
 
 public interface ICategoryNullSetter
 {
-    public Task SetNullCategoryChildes(Category entity);
+    public Task SetNullCategoryChildes(Category category);
 }

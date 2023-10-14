@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Pakosti.Domain.Constants;
 using Pakosti.Domain.Entities;
 
 namespace Pakosti.Application.Extensions;
@@ -30,7 +31,7 @@ public static class JwtBearerExtensions
     {
         return new SigningCredentials(
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]!)
+                Encoding.UTF8.GetBytes(configuration[SecretKeys.JwtSecret]!)
             ),
             SecurityAlgorithms.HmacSha256
         );
@@ -41,23 +42,23 @@ public static class JwtBearerExtensions
         var expire = configuration.GetSection("Jwt:Expire").Get<int>();
 
         return new JwtSecurityToken(
-            configuration["Jwt:Issuer"],
-            configuration["Jwt:Audience"],
-            claims,
-            expires: DateTime.Now.AddMinutes(expire),
-            signingCredentials: configuration.CreateSigningCredentials()
-        );
+                configuration["Jwt:Issuer"], 
+                configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.UtcNow.AddMinutes(expire),
+                signingCredentials: configuration.CreateSigningCredentials());
     }
 
-    public static JwtSecurityToken CreateToken(this IConfiguration configuration, List<Claim> authClaims)
+    public static JwtSecurityToken CreateToken(this IConfiguration configuration, IEnumerable<Claim> authClaims)
     {
-        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]!));
+        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+            .GetBytes(configuration[SecretKeys.JwtSecret]!));
         var tokenValidityInMinutes = configuration.GetSection("Jwt:TokenValidityInMinutes").Get<int>();
-        
+
         var token = new JwtSecurityToken(
-            issuer: configuration["Jwt:Issuer"],
-            audience: configuration["Jwt:Audience"],
-            expires: DateTime.Now.AddMinutes(tokenValidityInMinutes),
+            configuration["Jwt:Issuer"], 
+            configuration["Jwt:Audience"],
+            expires: DateTime.UtcNow.AddMinutes(tokenValidityInMinutes),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
         );
@@ -80,13 +81,15 @@ public static class JwtBearerExtensions
             ValidateAudience = false,
             ValidateIssuer = false,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]!)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(configuration[SecretKeys.JwtSecret]!)),
             ValidateLifetime = false
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
-        if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+        if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg
+                .Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
             throw new SecurityTokenException("Invalid token");
 
         return principal;

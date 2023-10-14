@@ -1,6 +1,9 @@
 using Pakosti.Api.Extensions;
+using Pakosti.Api.Middlewares;
 using Pakosti.Application.Extensions;
+using Pakosti.Infrastructure.Communication.Extensions;
 using Pakosti.Infrastructure.Persistence.Extensions;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Pakosti.Api;
 
@@ -9,6 +12,7 @@ public static class Program
     public static void Main(string[] args) => CreateHostBuilder(args).Build().Run();
 
     private static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
+        .ConfigureAppConfiguration(config => config.AddUserSecrets<Startup>())
         .ConfigureWebHostDefaults(builder => builder.UseStartup<Startup>());
 }
 
@@ -31,13 +35,19 @@ public class Startup
         if (environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Pakosti v1");
+                options.DocExpansion(DocExpansion.None);
+                options.RoutePrefix = string.Empty;
+            });
         }
 
-        app.UseAuthentication();
-
+        app.UseHealthChecks("/health");
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
         app.UseRouting();
-
+        
+        app.UseAuthentication();
         app.UseAuthorization();
         app.UseEndpoints(builder => builder.MapControllers());
     }
@@ -47,6 +57,7 @@ public class Startup
         services
             .ConfigurePersistenceServices(_configuration)
             .ConfigureApplicationServices()
-            .ConfigureApiServices(_configuration);
+            .ConfigureApiServices(_configuration)
+            .ConfigureCommunicationServices();
     }
 }
