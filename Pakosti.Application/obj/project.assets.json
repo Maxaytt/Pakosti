@@ -1269,11 +1269,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
+      "projectUniqueName": "C:\\Users\\maxay\\Documents\\Projects\\Home\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
       "projectName": "Pakosti.Application",
-      "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
+      "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
       "packagesPath": "C:\\Users\\maxay\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Application\\obj\\",
+      "outputPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\Pakosti\\Pakosti.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\maxay\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1288,8 +1288,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj": {
-              "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj"
+            "C:\\Users\\maxay\\Documents\\Projects\\Home\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj": {
+              "projectPath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\Pakosti\\Pakosti.Domain\\Pakosti.Domain.csproj"
             }
           }
         }
@@ -1345,7 +1345,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-preview.4.23260.5\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\maxay\\.dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
   }

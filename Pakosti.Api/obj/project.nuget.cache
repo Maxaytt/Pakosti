@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lhq6CVxnNXkJ3oV/NiPrRCtrIM3YW/bvBEhh3wrl3UIGQ3Ng5Gyzn1EqJyAj6tzq/UqRTZcvzwojbb7gBmseWw==",
+  "dgSpecHash": "XEEct+1cnqDjfY+T7dF6dzBygLXWmEdMQHc51jCwYjVyfGeHM17A10hdcTTSejLNNo8w0z/MYr46j9v3FlVB4w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Api\\Pakosti.Api.csproj",
+  "projectFilePath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\Pakosti\\Pakosti.Api\\Pakosti.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maxay\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kZk9fo0W3E9O+R24cmB6Afy5Vh8NX3+h6ZBqs/4z5qkQUGuhCJyY8MWtRCZyrF1CKWXai4vukwAqTlIQTCP7Lw==",
+  "dgSpecHash": "W49GPeicJxRmelyyC5m9O/oV4ZKjchqKOKn0f3IAxzugHXxaUNT7/jApWBhSTOj9FBcYfcfhYgs/K9j88LT0RA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\C#\\PakostiProj\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
+  "projectFilePath": "C:\\Users\\maxay\\Documents\\Projects\\Home\\Pakosti\\Pakosti.Application\\Pakosti.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maxay\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\maxay\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",
